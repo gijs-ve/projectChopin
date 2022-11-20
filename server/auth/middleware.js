@@ -1,4 +1,4 @@
-const Users = require('../models').user;
+const Users = require('../models').users;
 const { toData } = require('./jwt');
 
 async function auth(req, res, next) {
