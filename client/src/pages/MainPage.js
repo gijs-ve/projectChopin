@@ -9,7 +9,7 @@ import {
 } from '../components';
 import { userNavigation, classNames } from '../config/navigation';
 import { useNavigate } from 'react-router-dom';
-import { HomePage, SoloPage, SignUpPage } from '.';
+
 import { selectToken } from '../store/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 
