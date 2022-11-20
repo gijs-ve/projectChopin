@@ -1,63 +1,22 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
     Bars3BottomLeftIcon,
     BellIcon,
-    CalendarIcon,
-    ChartBarIcon,
-    FolderIcon,
-    HomeIcon,
-    InboxIcon,
-    UsersIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
-const navigation = [
-    { name: 'Home', href: '#', icon: HomeIcon, current: true },
-    { name: 'Solo', href: '#', icon: UsersIcon, current: false },
-    { name: 'Multiplayer', href: '#', icon: FolderIcon, current: false },
-    { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-    { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-    { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-];
-const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' },
-];
+import { SearchBar } from '../components';
+import { navigation, userNavigation } from '../config/navigation';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
-export default function Example() {
+export default function MainPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-
     return (
         <>
-            {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
             <div>
                 <Transition.Root show={sidebarOpen} as={Fragment}>
                     <Dialog
@@ -221,43 +180,10 @@ export default function Example() {
                                     action="#"
                                     method="GET"
                                 >
-                                    <label
-                                        htmlFor="search-field"
-                                        className="sr-only"
-                                    >
-                                        Search
-                                    </label>
-                                    <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
-                                            <MagnifyingGlassIcon
-                                                className="h-5 w-5"
-                                                aria-hidden="true"
-                                            />
-                                        </div>
-                                        <input
-                                            id="search-field"
-                                            className="block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:border-transparent focus:placeholder-gray-400 focus:outline-none focus:ring-0 sm:text-sm"
-                                            placeholder="Search"
-                                            type="search"
-                                            name="search"
-                                        />
-                                    </div>
+                                    <SearchBar />
                                 </form>
                             </div>
                             <div className="ml-4 flex items-center md:ml-6">
-                                <button
-                                    type="button"
-                                    className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                >
-                                    <span className="sr-only">
-                                        View notifications
-                                    </span>
-                                    <BellIcon
-                                        className="h-6 w-6"
-                                        aria-hidden="true"
-                                    />
-                                </button>
-
                                 {/* Profile dropdown */}
                                 <Menu as="div" className="relative ml-3">
                                     <div>
