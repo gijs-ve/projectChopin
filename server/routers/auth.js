@@ -37,16 +37,13 @@ router.post('/login', async (req, res, next) => {
 
 //signup
 router.post('/signup', async (req, res) => {
-    const { email, password, name } = req.body;
-    if (!email || !password || !name) {
-        return res
-            .status(400)
-            .send('Please provide an email, password and a name');
+    const { password, name } = req.body;
+    if (!password || !name) {
+        return res.status(400).send('Please provide a  password and a name');
     }
 
     try {
         const newUser = await Users.create({
-            email,
             password: bcrypt.hashSync(password, SALT_ROUNDS),
             name,
         });
