@@ -1,35 +1,17 @@
-import { Howl, Howler } from 'howler';
-import { hat, hat2 } from '../../sounds/steban';
-import { useState } from 'react';
+import { playSound } from './soundFunctions';
+import { hat4, kick } from './sounds';
 
 function SoundPlayer() {
-    const [allowMusic, setAllowMusic] = useState(false);
     const RenderPlaySoundButton = () => {
-        if (!allowMusic) return;
-        const playSound = () => {
-            const sound = new Howl({
-                src: 'hat.wav',
-                autoplay: true,
-                loop: true,
-                volume: 0.5,
-                html5: true,
-                onend: function () {
-                    console.log('Finished!');
-                },
-            });
-            sound.play();
-        };
         return (
             <>
-                <button onClick={() => playSound()}>Test4242</button>
+                <button onClick={() => playSound(kick)}>Test4242</button>
+                <button onClick={() => playSound(hat4)}>Test4242</button>
             </>
         );
     };
     return (
         <div>
-            <button onClick={() => setAllowMusic(!allowMusic)}>
-                {allowMusic ? 'ON' : 'OFF'}
-            </button>
             <RenderPlaySoundButton />
         </div>
     );
