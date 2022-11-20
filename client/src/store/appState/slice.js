@@ -1,18 +1,30 @@
-// src/store/balance/slice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    amount: 0,
+    loading: false,
+    message: null,
 };
 
-export const appSlice = createSlice({
+export const appStateSlice = createSlice({
     name: 'appState',
     initialState,
-    reducers: {},
+    reducers: {
+        appLoading: (state) => {
+            state.loading = true;
+        },
+        appDoneLoading: (state) => {
+            state.loading = false;
+        },
+        setMessage: (state, action) => {
+            state.message = action.payload;
+        },
+        clearMessage: (state, action) => {
+            state.message = null;
+        },
+    },
 });
 
-// Action creators are generated for each case reducer function
-// as we add cases to our reducer we will also export the corresponding actions
-export const {} = appSlice.actions;
+export const { appLoading, appDoneLoading, setMessage, clearMessage } =
+    appStateSlice.actions;
 
-export default appSlice.reducer;
+export default appStateSlice.reducer;
