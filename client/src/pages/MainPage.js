@@ -3,6 +3,8 @@ import { Dialog, Menu, Transition } from '@headlessui/react';
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { SearchBar } from '../components';
 import { navigation, userNavigation, classNames } from '../config/navigation';
+import { Routes, Route } from 'react-router-dom';
+import { HomePage, SoloPage } from '.';
 
 export default function MainPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -225,15 +227,22 @@ export default function MainPage() {
 
                     <main className="flex-1">
                         <div className="py-6">
-                            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+                            {/* <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
                                 <h1 className="text-2xl font-semibold text-gray-900">
                                     Dashboard
                                 </h1>
                             </div>
                             <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                                {/* Replace with your content */}
-                                TEST
-                                {/* /End replace */}
+                                
+                            </div> */}
+                            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+                                <Routes>
+                                    <Route path="/" element={<HomePage />} />
+                                    <Route
+                                        path="/solo"
+                                        element={<SoloPage />}
+                                    />
+                                </Routes>
                             </div>
                         </div>
                     </main>

@@ -1,6 +1,10 @@
-import { Howl, Howler } from 'howler';
+import { SoundPlayer } from '../components/sound/SoundPlayer';
 
 function SoloPage() {
-    return <div>SoloPage</div>;
+    return (
+        <div>
+            <SoundPlayer />
+        </div>
+    );
 }
 export { SoloPage };
