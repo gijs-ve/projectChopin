@@ -1,13 +1,28 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { SearchBar, NavigationSmall, NavigationBig } from '../components';
+import {
+    SearchBar,
+    NavigationSmall,
+    NavigationBig,
+    Router,
+} from '../components';
 import { userNavigation, classNames } from '../config/navigation';
-import { Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { HomePage, SoloPage, SignUpPage } from '.';
+import { selectToken } from '../store/user/selectors';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function MainPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const token = useSelector(selectToken);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (token === null) {
+            navigate('/login');
+        }
+    }, [token, navigate]);
+
     return (
         <>
             <div>
@@ -188,17 +203,7 @@ export default function MainPage() {
                                 
                             </div> */}
                             <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                                <Routes>
-                                    <Route path="/" element={<HomePage />} />
-                                    <Route
-                                        path="/solo"
-                                        element={<SoloPage />}
-                                    />
-                                    <Route
-                                        path="/signup"
-                                        element={<SignUpPage />}
-                                    />
-                                </Routes>
+                                <Router />
                             </div>
                         </div>
                     </main>
