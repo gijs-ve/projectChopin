@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { signUp } from '../store/user/thunks';
 import { selectToken } from '../store/user/selectors';
 
-export const SignUp = () => {
+export const SignUpPage = () => {
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
@@ -22,7 +21,7 @@ export const SignUp = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        dispatch(signUp(name, email, password));
+        dispatch(signUp(name, password));
     };
 
     return (
@@ -33,11 +32,6 @@ export const SignUp = () => {
                         placeholder="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                    />
-                    <input
-                        placeholder="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
                         type="password"

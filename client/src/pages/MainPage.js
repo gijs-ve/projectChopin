@@ -4,7 +4,7 @@ import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { SearchBar, NavigationSmall, NavigationBig } from '../components';
 import { userNavigation, classNames } from '../config/navigation';
 import { Routes, Route } from 'react-router-dom';
-import { HomePage, SoloPage } from '.';
+import { HomePage, SoloPage, SignUpPage } from '.';
 
 export default function MainPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -193,6 +193,10 @@ export default function MainPage() {
                                     <Route
                                         path="/solo"
                                         element={<SoloPage />}
+                                    />
+                                    <Route
+                                        path="/signup"
+                                        element={<SignUpPage />}
                                     />
                                 </Routes>
                             </div>

@@ -5,13 +5,12 @@ import { appLoading, appDoneLoading, setMessage } from '../appState/slice';
 import { showMessageWithTimeout } from '../appState/thunks';
 import { loginSuccess, logOut, tokenStillValid } from './slice';
 
-export const signUp = (name, email, password) => {
+export const signUp = (name, password) => {
     return async (dispatch, getState) => {
         dispatch(appLoading());
         try {
             const response = await axios.post(`${apiUrl}/auth/signup`, {
                 name,
-                email,
                 password,
             });
 
@@ -106,7 +105,7 @@ export const getUserWithStoredToken = () => {
         try {
             // if we do have a token,
             // check wether it is still valid or if it is expired
-            const response = await axios.get(`${apiUrl}/auth/me`, {
+            const response = await axios.get(`${apiUrl}/auth/self`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -126,4 +125,3 @@ export const getUserWithStoredToken = () => {
         }
     };
 };
-Footer;
