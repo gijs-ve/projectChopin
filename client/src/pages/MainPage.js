@@ -1,17 +1,8 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
-import {
-    Bars3BottomLeftIcon,
-    BellIcon,
-    XMarkIcon,
-} from '@heroicons/react/24/outline';
-
+import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { SearchBar } from '../components';
-import { navigation, userNavigation } from '../config/navigation';
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ');
-}
+import { navigation, userNavigation, classNames } from '../config/navigation';
 
 export default function MainPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);

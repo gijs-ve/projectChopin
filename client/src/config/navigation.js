@@ -13,4 +13,8 @@ const navigation = [
 ];
 const userNavigation = [{ name: 'Sign out', href: '#' }];
 
-export { navigation, userNavigation };
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ');
+}
+
+export { navigation, userNavigation, classNames };
