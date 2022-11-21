@@ -1,1 +1,1 @@
-export const selectHotkeys = (state) => state.hotkeys;
+export const selectHotkeys = () => (state) => state.hotkeys;

@@ -1,17 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { hat, kick } from '../../components/sound/sounds';
+
+const drumState = [
+    { key: 'Q', output: hat },
+    { key: 'W', output: kick },
+];
 
 const initialState = {
-    drum: null,
+    preset: 'default',
+    drum: drumState,
     piano: null,
     strings: null,
 };
 
-export const userSlice = createSlice({
-    name: 'user',
+export const hotkeysSlice = createSlice({
+    name: 'hotkeys',
     initialState,
-    reducers: {},
+    reducers: {
+        changeHotkey: (state, action) => {},
+    },
 });
 
-export const { loginSuccess, logOut, tokenStillValid } = userSlice.actions;
+export const { changeHotkey } = hotkeysSlice.actions;
 
-export default userSlice.reducer;
+export default hotkeysSlice.reducer;
