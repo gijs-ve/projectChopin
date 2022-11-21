@@ -17,6 +17,7 @@
     "pg": "^8.8.0",
     "sequelize": "^6.25.7",
     "sequelize-cli": "^6.5.2",
-    "socket.io": "^4.5.3"
+    "socket.io": "^4.5.3",
+    "uuid": "^9.0.0"
   }
 }
