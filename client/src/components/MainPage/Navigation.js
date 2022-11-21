@@ -1,14 +1,18 @@
 import React from 'react';
 import { navigation, classNames } from '../../config/navigation';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNavigation, selectNavigation } from '../../store/appState';
 
 function NavigationSmall() {
+    const dispatch = useDispatch();
     return (
         <nav className="flex-1 space-y-1 px-2 py-4">
             {navigation.map((i) => (
                 <Link
                     key={i.name}
                     to={i.href}
+                    onClick={() => dispatch(setNavigation())}
                     className={classNames(
                         i.current
                             ? 'bg-gray-900 text-white'
@@ -33,12 +37,23 @@ function NavigationSmall() {
 }
 
 function NavigationBig() {
+    const dispatch = useDispatch();
+    const navigationCurrent = useSelector(selectNavigation());
+    const currentPage = navigationCurrent.find((i) => {
+        if (!i.current) return false;
+        return true;
+    });
+    const navigationRendered = navigation.map((i) => {
+        if (i.name === currentPage.name) return { ...i, current: true };
+        return { ...i, current: false };
+    });
     return (
         <nav className="space-y-1 px-2">
-            {navigation.map((i) => (
+            {navigationRendered.map((i) => (
                 <Link
                     key={i.name}
                     to={i.href}
+                    onClick={() => dispatch(setNavigation(i.name))}
                     className={classNames(
                         i.current
                             ? 'bg-gray-900 text-white'
@@ -63,5 +78,3 @@ function NavigationBig() {
 }
 
 export { NavigationSmall, NavigationBig };
-
-<></>;
