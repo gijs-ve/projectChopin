@@ -17,7 +17,6 @@ function SoundPlayer() {
         const drumKeys = hotkeys.drum.map((i) => {
             return i.key;
         });
-        console.log(key);
         if (drumKeys.includes(key.toUpperCase())) {
             const soundToPlay = hotkeys.drum.find((i) => {
                 if (i.key.toUpperCase() === key.toUpperCase()) return true;
