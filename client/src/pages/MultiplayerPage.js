@@ -67,7 +67,7 @@ function MultiplayerPage() {
             const Users = room.users.map((i) => {
                 return (
                     <div key={i.id}>
-                        <h1>{i.name}</h1>;
+                        <h1>{i.name}</h1>
                     </div>
                 );
             });
