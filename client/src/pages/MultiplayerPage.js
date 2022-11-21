@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import { socketUrl } from '../config/constants';
-import { setRoom } from '../store/multiplayer';
+import { setRoom, selectRoom } from '../store/multiplayer';
 import { selectHotkeys } from '../store/hotkeys';
 import { selectUser, selectToken } from '../store/user';
 
@@ -10,6 +10,7 @@ function MultiplayerPage() {
     const [socket, setSocket] = useState(null);
     const user = useSelector(selectUser);
     const token = useSelector(selectToken);
+    const room = useSelector(selectRoom());
     const [id, setId] = useState('');
     const dispatch = useDispatch();
 
