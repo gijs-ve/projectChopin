@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { signUp } from '../store/user/thunks';
-import { selectToken } from '../store/user/selectors';
+import { signUp, selectToken } from '../store/user/';
 
 export const SignUpPage = () => {
     const [name, setName] = useState('');

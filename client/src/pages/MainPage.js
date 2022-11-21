@@ -9,11 +9,15 @@ import {
 } from '../components';
 import { userNavigation, classNames } from '../config/navigation';
 import { useNavigate } from 'react-router-dom';
-
 import { selectToken } from '../store/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUserWithStoredToken } from '../store/user';
 
 export default function MainPage() {
+    const dispatch = useDispatch();
+    const refreshSelf = () => {
+        dispatch(getUserWithStoredToken());
+    };
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const token = useSelector(selectToken);
     const navigate = useNavigate();
@@ -25,7 +29,7 @@ export default function MainPage() {
 
     return (
         <>
-            <div>
+            <div onClick={() => refreshSelf()}>
                 <Transition.Root show={sidebarOpen} as={Fragment}>
                     <Dialog
                         as="div"

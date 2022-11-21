@@ -65,6 +65,7 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/self', authMiddleware, async (req, res) => {
+    console.log('test');
     delete req.user.dataValues['password'];
     res.status(200).send({ ...req.user.dataValues });
 });
