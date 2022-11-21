@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signUp, selectToken } from '../../store/user/';
 
-export const SignUpPage = () => {
+export const SignUpPage = (p) => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
@@ -11,6 +11,8 @@ export const SignUpPage = () => {
     const navigate = useNavigate();
 
     const token = useSelector(selectToken);
+
+    const { signUpActive, setSignUpActive } = p.signUp;
 
     useEffect(() => {
         if (token !== null) {
@@ -40,6 +42,12 @@ export const SignUpPage = () => {
                     />
                     <br />
                     <button type="submit">Sign Up</button>
+
+                    <div onClick={() => setSignUpActive(!signUpActive)}>
+                        <h2>
+                            Already have an account yet? Click here to login
+                        </h2>
+                    </div>
                 </form>
             </div>
         </div>

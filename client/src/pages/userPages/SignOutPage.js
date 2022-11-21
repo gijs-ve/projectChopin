@@ -7,11 +7,11 @@ function SignOutPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
-        dispatch(logOut);
-        navigate('/login');
+        dispatch(logOut());
+        navigate('/');
     }, []);
 
-    return <div>SignOutPage</div>;
+    return <div>You succesfully signed out!</div>;
 }
 
 export { SignOutPage };

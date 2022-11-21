@@ -15,6 +15,7 @@ export const userSlice = createSlice({
             state.profile = action.payload.user;
         },
         logOut: (state, action) => {
+            console.log('test');
             localStorage.removeItem('token');
             state.token = null;
             state.profile = null;

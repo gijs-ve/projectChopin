@@ -13,7 +13,7 @@ import { selectToken } from '../store/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserWithStoredToken } from '../store/user';
 
-export default function MainPage() {
+function MainPage() {
     const dispatch = useDispatch();
     const refreshSelf = () => {
         dispatch(getUserWithStoredToken());
@@ -216,3 +216,5 @@ export default function MainPage() {
         </>
     );
 }
+
+export { MainPage };
