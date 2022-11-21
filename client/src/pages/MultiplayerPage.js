@@ -17,8 +17,12 @@ function MultiplayerPage() {
     useEffect(() => {
         const socket = io(socketUrl);
         setSocket(socket);
-        socket.on('CreatedRoom', (roomId) => {
-            dispatch(setRoom(roomId));
+        socket.on('CreatedRoom', (newRoom) => {
+            dispatch(setRoom(newRoom));
+        });
+        socket.on('RoomUpdate', (newRoom) => {
+            console.log(newRoom);
+            dispatch(setRoom(newRoom));
         });
     }, []);
     if (!user || !token) return;
@@ -26,26 +30,62 @@ function MultiplayerPage() {
         if (!socket || !socket.connected) return;
         socket.emit('createRoom', token);
     };
+    const joinRoom = () => {
+        if (!socket || !socket.connected) return;
+        socket.emit('joinRoom', token, id);
+    };
 
-    return (
-        <div className="App">
-            <header className="app-header">Rooms</header>
-            {socket ? (
-                <>
-                    <button onClick={() => createRoom()}>Create room</button>{' '}
-                    <br />
-                    <input
-                        type="id"
-                        placeholder="Room ID"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                    />
-                    <button>Join room</button>
-                </>
-            ) : (
-                <div>Attempting to connect...</div>
-            )}
-        </div>
-    );
+    const RenderRoom = () => {
+        if (!room) {
+            return (
+                <div className="App">
+                    <header className="app-header">Rooms</header>
+                    {socket ? (
+                        <>
+                            <button onClick={() => createRoom()}>
+                                Create room
+                            </button>{' '}
+                            <br />
+                            <input
+                                type="id"
+                                placeholder="Room ID"
+                                value={id}
+                                onChange={(e) => setId(e.target.value)}
+                            />
+                            <button onClick={() => joinRoom()}>
+                                Join room
+                            </button>
+                        </>
+                    ) : (
+                        <div>Attempting to connect...</div>
+                    )}
+                </div>
+            );
+        }
+        console.log(room);
+        const RenderUsers = () => {
+            const Users = room.users.map((i) => {
+                return (
+                    <div key={i.id}>
+                        <h1>{i.name}</h1>;
+                    </div>
+                );
+            });
+            return Users;
+        };
+        return (
+            <>
+                ID {room.roomId} | Room created by {room.hostName} <br />
+                <button
+                    onClick={() => navigator.clipboard.writeText(room.roomId)}
+                >
+                    Copy ID
+                </button>
+                <RenderUsers />
+            </>
+        );
+    };
+
+    return <RenderRoom />;
 }
 export { MultiplayerPage };

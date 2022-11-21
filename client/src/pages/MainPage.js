@@ -15,13 +15,15 @@ import { getUserWithStoredToken } from '../store/user';
 
 function MainPage() {
     const dispatch = useDispatch();
-    const refreshSelf = () => {
-        dispatch(getUserWithStoredToken());
-    };
+
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const token = useSelector(selectToken);
     const navigate = useNavigate();
     useEffect(() => {
+        const refreshSelf = () => {
+            dispatch(getUserWithStoredToken());
+        };
+        refreshSelf();
         if (token === null) {
             navigate('/');
         }
@@ -29,7 +31,7 @@ function MainPage() {
 
     return (
         <>
-            <div onClick={() => refreshSelf()}>
+            <div>
                 <Transition.Root show={sidebarOpen} as={Fragment}>
                     <Dialog
                         as="div"

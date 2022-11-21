@@ -55,13 +55,41 @@ io.on('connection', (socket) => {
                 });
             }
             const newRoom = {
-                host: user.name,
+                hostName: user.name,
                 hostId: socket.id,
                 roomId,
-                users: [],
+                users: [{ name: user.name, id: socket.id }],
             };
             rooms.push(newRoom);
+            socket.join(roomId);
             socket.emit('CreatedRoom', newRoom);
+        } catch (error) {
+            console.log(error);
+        }
+    });
+    socket.on('joinRoom', async (token, roomId) => {
+        try {
+            const JWTData = toData(token);
+            const findUser = async () => {
+                const user = await Users.findByPk(JWTData.userId);
+                if (!user) {
+                    return res
+                        .status(404)
+                        .send({ message: 'User does not exist' });
+                }
+                return user;
+            };
+            const user = await findUser();
+            if (!user) return;
+            const foundRoom = rooms.find((i) => {
+                if (i.roomId === roomId) return true;
+            });
+            if (!foundRoom) return;
+            const newPlayer = { name: user.name, id: socket.id };
+            foundRoom.users.push(newPlayer);
+            socket.join(roomId);
+            console.log(foundRoom);
+            socket.to(roomId).emit('RoomUpdate', foundRoom);
         } catch (error) {
             console.log(error);
         }

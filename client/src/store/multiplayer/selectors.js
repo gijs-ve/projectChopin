@@ -1,1 +1,1 @@
-export const selectRoom = () => (state) => state.room;
+export const selectRoom = () => (state) => state.multiplayer.room;
