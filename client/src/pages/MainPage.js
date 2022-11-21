@@ -23,7 +23,7 @@ export default function MainPage() {
     const navigate = useNavigate();
     useEffect(() => {
         if (token === null) {
-            navigate('/login');
+            navigate('/');
         }
     }, [token, navigate]);
 

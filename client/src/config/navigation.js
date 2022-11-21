@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 const navigation = [
-    { name: 'Home', href: '.', icon: HomeIcon, current: true },
+    { name: 'Home', href: 'home', icon: HomeIcon, current: true },
     { name: 'Solo', href: 'solo', icon: UserIcon, current: false },
     {
         name: 'Multiplayer',

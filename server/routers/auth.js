@@ -10,15 +10,15 @@ const router = new Router();
 //login
 router.post('/login', async (req, res, next) => {
     try {
-        const { email, password } = req.body;
+        const { name, password } = req.body;
 
-        if (!email || !password) {
+        if (!name || !password) {
             return res
                 .status(400)
                 .send({ message: 'Please provide both email and password' });
         }
 
-        const user = await Users.findOne({ where: { email } });
+        const user = await Users.findOne({ where: { name } });
 
         if (!user || !bcrypt.compareSync(password, user.password)) {
             return res.status(400).send({
