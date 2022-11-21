@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import {
     HomePage,
     SoloPage,
-    Loginpage,
+    LoginPage,
     SignUpPage,
     SignOutPage,
     MultiplayerPage,
@@ -12,7 +12,7 @@ function Router() {
     return (
         <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Loginpage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/signout" element={<SignOutPage />} />
             <Route path="/solo" element={<SoloPage />} />
