@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         {
             name: { type: DataTypes.STRING, unique: true, allowNull: false },
             password: { type: DataTypes.STRING, allowNull: false },
+            imageURL: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                defaultValue:
+                    'https://www.streamscheme.com/wp-content/uploads/2020/04/poggers.png.webp',
+            },
         },
         {
             sequelize,

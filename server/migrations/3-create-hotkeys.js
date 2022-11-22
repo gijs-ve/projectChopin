@@ -8,6 +8,16 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
+            type: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true,
+            },
+            keysString: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true,
+            },
             presetId: {
                 allowNull: false,
                 type: Sequelize.INTEGER,

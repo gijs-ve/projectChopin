@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     hotkeys.init(
         {
             name: { type: DataTypes.STRING, unique: true, allowNull: false },
-            password: { type: DataTypes.STRING, allowNull: false },
+            type: { type: DataTypes.STRING, allowNull: false },
+            keysString: { type: DataTypes.STRING, allowNull: false },
         },
         {
             sequelize,
