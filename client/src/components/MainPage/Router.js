@@ -4,7 +4,7 @@ import {
     HomePage,
     SoloPage,
     LoginPage,
-    SignUpPage,
+    SettingsPage,
     SignOutPage,
     MultiplayerPage,
 } from '../../pages';
@@ -15,6 +15,7 @@ function Router() {
             <Route path="/signout" element={<SignOutPage />} />
             <Route path="/solo" element={<SoloPage />} />
             <Route path="/multiplayer" element={<MultiplayerPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
         </Routes>
     );
 }

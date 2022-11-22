@@ -9,7 +9,7 @@ import {
 } from '../components';
 import { userNavigation, classNames } from '../config/navigation';
 import { useNavigate } from 'react-router-dom';
-import { selectToken } from '../store/user/selectors';
+import { selectToken, selectUser } from '../store/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserWithStoredToken } from '../store/user';
 
@@ -18,16 +18,19 @@ function MainPage() {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const token = useSelector(selectToken);
+    const user = useSelector(selectUser);
     const navigate = useNavigate();
     useEffect(() => {
         const refreshSelf = () => {
             dispatch(getUserWithStoredToken());
         };
         refreshSelf();
-        if (token === null) {
+        if ((token === null) | (user === null)) {
             navigate('/');
         }
     }, [token, navigate]);
+    console.log(user);
+    if (!user) return;
 
     return (
         <>
@@ -91,7 +94,7 @@ function MainPage() {
                                     <div className="flex flex-shrink-0 items-center px-4">
                                         <img
                                             className="h-8 w-auto"
-                                            src="https://www.streamscheme.com/wp-content/uploads/2020/04/Monkas.png.webp"
+                                            src={`${user.imageURL}`}
                                             alt="Your Company"
                                         />
                                     </div>
@@ -159,7 +162,7 @@ function MainPage() {
                                             </span>
                                             <img
                                                 className="h-8 w-8 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                src={`${user.imageURL}`}
                                                 alt=""
                                             />
                                         </Menu.Button>
