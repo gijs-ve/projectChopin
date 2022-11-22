@@ -1,25 +1,25 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class hotkeys extends Model {
+    class recordings extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            hotkeys.belongsTo(models.presets);
+            // define association here
         }
     }
-    hotkeys.init(
+    presets.init(
         {
             name: { type: DataTypes.STRING, unique: true, allowNull: false },
             password: { type: DataTypes.STRING, allowNull: false },
         },
         {
             sequelize,
-            modelName: 'hotkeys',
+            modelName: 'recordings',
         },
     );
-    return hotkeys;
+    return recordings;
 };

@@ -8,10 +8,15 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            name: {
-                type: Sequelize.STRING,
+            presetId: {
                 allowNull: false,
-                unique: true,
+                type: Sequelize.INTEGER,
+                references: {
+                    key: 'id',
+                    model: 'presets',
+                },
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
             },
             createdAt: {
                 allowNull: false,
