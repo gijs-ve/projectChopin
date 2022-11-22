@@ -6,13 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function SoundPlayer(p) {
     const hotkeys = useSelector(selectHotkeys());
-    let sendSound = null;
-    if (p.sendSound) {
-        sendSound = p.sendSound;
-    }
+
     const handleSound = (soundToPlay) => {
-        if (!sendSound) playSound(soundToPlay.output);
-        sendSound(soundToPlay.output);
+        const { sendSound, roomId } = p;
+        if (!sendSound || !roomId) return playSound(soundToPlay.output);
+        sendSound(soundToPlay.output, roomId);
     };
     useEffect(() => {
         window.addEventListener('keydown', handleInput, false);

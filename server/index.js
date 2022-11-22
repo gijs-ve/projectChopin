@@ -10,7 +10,7 @@ const Users = require('./models/').users;
 //Socket setup
 const io = require('socket.io')(4001, {
     cors: {
-        origin: ['http://localhost:3000'],
+        origin: ['http://localhost:3000', 'http://192.168.0.118:3000'],
     },
 });
 const { v4 } = require('uuid');
@@ -61,7 +61,7 @@ io.on('connection', (socket) => {
             };
             rooms.push(newRoom);
             socket.join(roomId);
-            socket.emit('CreatedRoom', newRoom);
+            socket.emit('createdRoom', newRoom);
         } catch (error) {
             console.log(error);
         }
@@ -85,15 +85,18 @@ io.on('connection', (socket) => {
             const newPlayer = { name: user.name, id: socket.id };
             foundRoom.users.push(newPlayer);
             socket.join(roomId);
-            socket.emit('RoomUpdate', foundRoom);
-            socket.to(roomId).emit('RoomUpdate', foundRoom);
+            socket.emit('roomUpdate', foundRoom);
+            socket.to(roomId).emit('roomUpdate', foundRoom);
         } catch (error) {
             console.log(error);
         }
     });
-    socket.on('sendSound', (sound) => {
+    socket.on('sendSound', (sound, roomId) => {
         try {
-            console.log('sound', sound);
+            console.log(roomId);
+            console.log(sound);
+            socket.emit('receiveSound', sound);
+            socket.to(roomId).emit('receiveSound', sound);
         } catch (error) {}
     });
     socket.on('disconnecting', () => {

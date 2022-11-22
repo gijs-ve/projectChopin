@@ -6,6 +6,7 @@ import { setRoom, selectRoom } from '../store/multiplayer';
 import { selectHotkeys } from '../store/hotkeys';
 import { SoundPlayer } from '../components/sound/SoundPlayer';
 import { selectUser, selectToken } from '../store/user';
+import { playSound } from '../components/sound/soundFunctions';
 
 function MultiplayerPage() {
     const [socket, setSocket] = useState(null);
@@ -18,12 +19,16 @@ function MultiplayerPage() {
     useEffect(() => {
         const socket = io(socketUrl);
         setSocket(socket);
-        socket.on('CreatedRoom', (newRoom) => {
+        socket.on('createdRoom', (newRoom) => {
             dispatch(setRoom(newRoom));
         });
-        socket.on('RoomUpdate', (newRoom) => {
+        socket.on('roomUpdate', (newRoom) => {
             console.log(newRoom);
             dispatch(setRoom(newRoom));
+        });
+        socket.on('receiveSound', (sound) => {
+            console.log(sound);
+            playSound(sound);
         });
     }, []);
     if (!user || !token) return;
@@ -35,11 +40,10 @@ function MultiplayerPage() {
         if (!socket || !socket.connected) return;
         socket.emit('joinRoom', token, id);
     };
-    const sendSound = (sound) => {
+    const sendSound = (sound, roomdId) => {
         if (!socket || !socket.connected) return;
-        socket.emit('sendSound', sound);
+        socket.emit('sendSound', sound, roomdId);
     };
-
     const RenderRoom = () => {
         if (!room) {
             return (
@@ -99,7 +103,7 @@ function MultiplayerPage() {
                 >
                     Copy ID
                 </button>
-                <SoundPlayer sendSound={sendSound} />
+                <SoundPlayer sendSound={sendSound} roomId={room.roomId} />
                 <RenderUsers />
             </>
         );
