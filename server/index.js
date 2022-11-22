@@ -73,9 +73,7 @@ io.on('connection', (socket) => {
             const findUser = async () => {
                 const user = await Users.findByPk(JWTData.userId);
                 if (!user) {
-                    return res
-                        .status(404)
-                        .send({ message: 'User does not exist' });
+                    return null;
                 }
                 return user;
             };
@@ -88,7 +86,7 @@ io.on('connection', (socket) => {
             const newPlayer = { name: user.name, id: socket.id };
             foundRoom.users.push(newPlayer);
             socket.join(roomId);
-            socket.emit('JoinedRoom', foundRoom);
+            socket.emit('RoomUpdate', foundRoom);
             socket.to(roomId).emit('RoomUpdate', foundRoom);
         } catch (error) {
             console.log(error);
@@ -97,6 +95,32 @@ io.on('connection', (socket) => {
     socket.on('disconnecting', () => {
         try {
             console.log(socket.rooms); // the Set contains at least the socket ID
+            const disconnectedIds = socket.rooms;
+            const newRoomList = rooms.map((i) => {
+                const newUsers = i.users.filter((j) => {
+                    if (disconnectedIds.has(j.id)) {
+                        return false;
+                    }
+                    return true;
+                });
+                if (disconnectedIds.has(i.hostId)) {
+                    const newHost = i.users.find((j) => {
+                        if (i.hostId !== j.id) return true;
+                    });
+                    console.log('newHost', newHost);
+                    return {
+                        ...i,
+                        hostName: newHost.name,
+                        hostId: newHost.id,
+                        users: newUsers,
+                    };
+                }
+                return { ...i, users: newUsers };
+            });
+            rooms = newRoomList;
+            rooms.map((i) => {
+                socket.to(i.roomId).emit('RoomUpdate', i);
+            });
         } catch (error) {
             console.log(error);
         }

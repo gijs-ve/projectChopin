@@ -63,11 +63,25 @@ function MultiplayerPage() {
             );
         }
         console.log(room);
+        const HostOrNot = (i) => {
+            if (i.name === room.hostName) {
+                return (
+                    <>
+                        <h1>(HOST) {i.name}</h1>
+                    </>
+                );
+            }
+            return (
+                <>
+                    <h1>{i.name}</h1>
+                </>
+            );
+        };
         const RenderUsers = () => {
             const Users = room.users.map((i) => {
                 return (
                     <div key={i.id}>
-                        <h1>{i.name}</h1>
+                        <HostOrNot name={i.name} />
                     </div>
                 );
             });
@@ -75,7 +89,7 @@ function MultiplayerPage() {
         };
         return (
             <>
-                ID {room.roomId} | Room created by {room.hostName} <br />
+                ID {room.roomId} | Room hosted by {room.hostName} <br />
                 <button
                     onClick={() => navigator.clipboard.writeText(room.roomId)}
                 >
