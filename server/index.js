@@ -88,8 +88,15 @@ io.on('connection', (socket) => {
             const newPlayer = { name: user.name, id: socket.id };
             foundRoom.users.push(newPlayer);
             socket.join(roomId);
-            console.log(foundRoom);
+            socket.emit('JoinedRoom', foundRoom);
             socket.to(roomId).emit('RoomUpdate', foundRoom);
+        } catch (error) {
+            console.log(error);
+        }
+    });
+    socket.on('disconnecting', () => {
+        try {
+            console.log(socket.rooms); // the Set contains at least the socket ID
         } catch (error) {
             console.log(error);
         }
