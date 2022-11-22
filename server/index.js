@@ -24,8 +24,6 @@ app.use(express.json());
 app.use('/auth', authRouter);
 
 io.on('connection', (socket) => {
-    console.log('CONNECT', socket.id);
-    console.log('Rooms', rooms);
     socket.on('createRoom', async (token) => {
         try {
             const JWTData = toData(token);
@@ -95,8 +93,6 @@ io.on('connection', (socket) => {
     });
     socket.on('sendSound', (sound, roomId) => {
         try {
-            console.log(roomId);
-            console.log(sound);
             socket.emit('receiveSound', sound);
             socket.to(roomId).emit('receiveSound', sound);
         } catch (error) {}
@@ -125,11 +121,8 @@ io.on('connection', (socket) => {
                 }
                 return { ...i, users: newUsers };
             });
-            console.log('DISCONNECTED', socket.id);
             rooms = newRoomList;
-            console.log('NEW ROOM', newRoomList);
             rooms.map((i) => {
-                console.log('I', i);
                 socket.to(i.roomId).emit('roomUpdate', i);
             });
         } catch (error) {

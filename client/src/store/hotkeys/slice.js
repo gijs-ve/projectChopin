@@ -1,17 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { hat, kick, hat4 } from '../../components/sound/sounds';
+import { hat, kick, hat4, snare } from '../../components/sound/sounds';
 
 const drumState = [
+    { key: 'Q', output: kick },
+    { key: 'W', output: hat4 },
+    { key: 'E', output: hat },
+    { key: 'R', output: snare },
+];
+
+const pianoState = [
+    { key: 'Q', output: kick },
+    { key: 'W', output: hat4 },
+    { key: 'E', output: hat },
+];
+
+const stringState = [
     { key: 'Q', output: kick },
     { key: 'W', output: hat4 },
     { key: 'E', output: hat },
 ];
 
 const initialState = {
-    preset: 'default',
+    presets: [
+        {
+            name: 'default',
+            drum: drumState,
+            piano: pianoState,
+            strings: stringState,
+        },
+    ],
+    name: 'default',
     drum: drumState,
-    piano: null,
-    strings: null,
+    piano: pianoState,
+    strings: stringState,
 };
 
 export const hotkeysSlice = createSlice({
