@@ -42,19 +42,23 @@ function SoundPlayer(p) {
                 }
                 const instrumentKeys = ['!', '@', '#'];
                 if (instrumentKeys.includes(key)) {
-                    if (key === '!') {
-                        handleInstrument('drum');
-                    }
-                    if (key === '@') {
-                        handleInstrument('piano');
+                    switch (key) {
+                        case '!':
+                            handleInstrument('drum');
+                            break;
+                        case '@':
+                            handleInstrument('piano');
+                            break;
                     }
                 }
             };
-            if (instrument === 'drum') {
-                checkKeys(hotkeys.drum);
-            }
-            if (instrument === 'piano') {
-                checkKeys(hotkeys.piano);
+            switch (instrument) {
+                case 'drum':
+                    checkKeys(hotkeys.drum);
+                    break;
+                case 'piano':
+                    checkKeys(hotkeys.piano);
+                    break;
             }
         };
 
