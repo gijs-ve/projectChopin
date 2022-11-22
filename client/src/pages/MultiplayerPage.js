@@ -13,7 +13,7 @@ function MultiplayerPage() {
     const user = useSelector(selectUser);
     const token = useSelector(selectToken);
     const room = useSelector(selectRoom());
-    const [id, setId] = useState('');
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,15 +36,17 @@ function MultiplayerPage() {
         if (!socket || !socket.connected) return;
         socket.emit('createRoom', token);
     };
-    const joinRoom = () => {
-        if (!socket || !socket.connected) return;
-        socket.emit('joinRoom', token, id);
-    };
+
     const sendSound = (sound, roomdId) => {
         if (!socket || !socket.connected) return;
         socket.emit('sendSound', sound, roomdId);
     };
     const RenderRoom = () => {
+        const [id, setId] = useState('');
+        const joinRoom = () => {
+            if (!socket || !socket.connected) return;
+            socket.emit('joinRoom', token, id);
+        };
         if (!room) {
             return (
                 <div className="App">
@@ -53,14 +55,15 @@ function MultiplayerPage() {
                         <>
                             <button onClick={() => createRoom()}>
                                 Create room
-                            </button>{' '}
+                            </button>
                             <br />
-                            <input
-                                type="id"
-                                placeholder="Room ID"
-                                value={id}
-                                onChange={(e) => setId(e.target.value)}
-                            />
+                            <form>
+                                <input
+                                    placeholder="Room ID"
+                                    value={id}
+                                    onChange={(e) => setId(e.target.value)}
+                                />
+                            </form>
                             <button onClick={() => joinRoom()}>
                                 Join room
                             </button>
