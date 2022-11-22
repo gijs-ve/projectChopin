@@ -141,7 +141,7 @@ function MainPage() {
                                 aria-hidden="true"
                             />
                         </button>
-                        <div className="flex flex-1 justify-between px-4">
+                        <div className="flex flex-1 justify-between px-4 bg-gray-700">
                             <div className="flex flex-1">
                                 <form
                                     className="flex w-full md:ml-0"
@@ -201,8 +201,8 @@ function MainPage() {
                     </div>
 
                     <main className="flex-1">
-                        <div className="py-6">
-                            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+                        <div className="py-6 bg-gray-600">
+                            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 bg-gray-600">
                                 <Router />
                             </div>
                         </div>
