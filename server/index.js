@@ -18,10 +18,12 @@ let rooms = [];
 
 //Routers
 const authRouter = require('./routers/auth');
+const hotkeysRouter = require('./routers/auth');
 
 app.use(corsMiddleWare());
 app.use(express.json());
 app.use('/auth', authRouter);
+app.use('/hotkeys', hotkeysRouter);
 
 io.on('connection', (socket) => {
     socket.on('createRoom', async (token) => {
