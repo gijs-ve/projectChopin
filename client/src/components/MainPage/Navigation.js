@@ -12,7 +12,7 @@ function NavigationSmall() {
                 <Link
                     key={i.name}
                     to={i.href}
-                    onClick={() => dispatch(setNavigation())}
+                    onClick={() => dispatch(setNavigation(i.name))}
                     className={classNames(
                         i.current
                             ? 'bg-gray-900 text-white'
