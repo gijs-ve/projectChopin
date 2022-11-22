@@ -91,7 +91,7 @@ function MainPage() {
                                     <div className="flex flex-shrink-0 items-center px-4">
                                         <img
                                             className="h-8 w-auto"
-                                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                            src="https://www.streamscheme.com/wp-content/uploads/2020/04/Monkas.png.webp"
                                             alt="Your Company"
                                         />
                                     </div>
@@ -117,7 +117,7 @@ function MainPage() {
                         <div className="flex h-16 flex-shrink-0 items-center bg-gray-900 px-4">
                             <img
                                 className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                src="https://www.streamscheme.com/wp-content/uploads/2020/04/Monkas.png.webp"
                                 alt="Your Company"
                             />
                         </div>
