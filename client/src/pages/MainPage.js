@@ -29,7 +29,6 @@ function MainPage() {
             navigate('/');
         }
     }, [token, navigate]);
-    console.log(user);
     if (!user) return;
 
     return (

@@ -5,7 +5,6 @@ import { selectUser } from '../../store/user';
 
 function SearchBar() {
     const user = useSelector(selectUser);
-    console.log(user);
     if (!user) return;
     return (
         <>
