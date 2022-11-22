@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
 import { selectHotkeys } from '../store/hotkeys';
 import { playSound } from '../components/sound/soundFunctions';
+import { PresetsSelection } from '../components';
 
 function SettingsPage() {
+    // const RenderPresets = (array, currentPreset) => {};
     const RenderHotkeySection = (array, sectionName) => {
-        console.log(playSound);
         const output = array.map((i) => {
             return (
                 <div key={i.ouput} className="border-2">
@@ -43,8 +44,10 @@ function SettingsPage() {
     const RenderHotkeys = () => {
         const hotkeys = useSelector(selectHotkeys());
         if (!hotkeys) return;
+        console.log(hotkeys);
         return (
             <>
+                <PresetsSelection hotkeys={hotkeys} />
                 {RenderHotkeySection(hotkeys.drum, 'Drums')}
                 {RenderHotkeySection(hotkeys.piano, 'Piano')}
             </>
