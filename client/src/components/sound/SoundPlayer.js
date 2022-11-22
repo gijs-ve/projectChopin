@@ -1,16 +1,25 @@
 import { useEffect } from 'react';
 import { playSound } from './soundFunctions';
 import { hat4, kick } from './sounds';
-import { selectHotkeys } from '../../store/hotkeys';
+import {
+    selectHotkeys,
+    selectInstrument,
+    setInstrument,
+} from '../../store/hotkeys';
 import { useDispatch, useSelector } from 'react-redux';
 
 function SoundPlayer(p) {
+    const dispatch = useDispatch();
     const hotkeys = useSelector(selectHotkeys());
+    const instrument = useSelector(selectInstrument());
 
     const handleSound = (soundToPlay) => {
         const { sendSound, roomId } = p;
         if (!sendSound || !roomId) return playSound(soundToPlay.output);
         sendSound(soundToPlay.output, roomId);
+    };
+    const handleInstrument = (instrument) => {
+        dispatch(setInstrument(instrument));
     };
     useEffect(() => {
         window.addEventListener('keydown', handleInput, false);
@@ -18,16 +27,31 @@ function SoundPlayer(p) {
     }, []);
 
     const handleInput = (e) => {
+        if (!instrument || !hotkeys) return;
         const { key } = e;
-        if (!hotkeys.drum) return;
-        const drumKeys = hotkeys.drum.map((i) => {
-            return i.key;
-        });
-        if (drumKeys.includes(key.toUpperCase())) {
-            const soundToPlay = hotkeys.drum.find((i) => {
-                if (i.key.toUpperCase() === key.toUpperCase()) return true;
+        console.log(key);
+        const checkKeys = (array) => {
+            if (!array) return;
+            const knownKeys = array.map((i) => {
+                return i.key;
             });
-            handleSound(soundToPlay);
+            if (knownKeys.includes(key.toUpperCase())) {
+                const soundToPlay = array.find((i) => {
+                    if (i.key.toUpperCase() === key.toUpperCase()) return true;
+                });
+                handleSound(soundToPlay);
+            }
+            const instrumentKeys = ['!', '@', '#'];
+            if (instrumentKeys.includes(key)) {
+                if (key === '!') handleInstrument('drum');
+                if (key === '@') handleInstrument('piano');
+            }
+        };
+        if (instrument === 'drum') {
+            checkKeys(hotkeys.drum);
+        }
+        if (instrument === 'piano') {
+            checkKeys(hotkeys.piano);
         }
     };
 

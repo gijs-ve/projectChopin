@@ -85,6 +85,7 @@ const initialState = {
     drum: drumState,
     piano: pianoState,
     strings: stringState,
+    instrument: 'drum',
 };
 
 export const hotkeysSlice = createSlice({
@@ -92,9 +93,13 @@ export const hotkeysSlice = createSlice({
     initialState,
     reducers: {
         changeHotkey: (state, action) => {},
+        setInstrument: (state, action) => {
+            console.log(action.payload);
+            state.instrument = action.payload;
+        },
     },
 });
 
-export const { changeHotkey } = hotkeysSlice.actions;
+export const { changeHotkey, setInstrument } = hotkeysSlice.actions;
 
 export default hotkeysSlice.reducer;
