@@ -13,54 +13,59 @@ function SoundPlayer(p) {
     const hotkeys = useSelector(selectHotkeys());
     const instrument = useSelector(selectInstrument());
 
-    const handleSound = (soundToPlay) => {
-        const { sendSound, roomId } = p;
-        if (!sendSound || !roomId) return playSound(soundToPlay.output);
-        sendSound(soundToPlay.output, roomId);
-    };
-    const handleInstrument = (instrument) => {
-        dispatch(setInstrument(instrument));
-    };
     useEffect(() => {
-        window.addEventListener('keydown', handleInput, false);
-        return () => window.removeEventListener('keydown', handleInput, false);
-    }, []);
-
-    const handleInput = (e) => {
-        if (!instrument || !hotkeys) return;
-        const { key } = e;
-        console.log(key);
-        const checkKeys = (array) => {
-            if (!array) return;
-            const knownKeys = array.map((i) => {
-                return i.key;
-            });
-            if (knownKeys.includes(key.toUpperCase())) {
-                const soundToPlay = array.find((i) => {
-                    if (i.key.toUpperCase() === key.toUpperCase()) return true;
+        const handleInstrument = (instrument) => {
+            dispatch(setInstrument(instrument));
+        };
+        const handleSound = (soundToPlay) => {
+            const { sendSound, roomId } = p;
+            console.log(soundToPlay);
+            if (!sendSound || !roomId) return playSound(soundToPlay.output);
+            sendSound(soundToPlay.output, roomId);
+        };
+        const handleInput = (e) => {
+            if (!instrument || !hotkeys) return;
+            const { key } = e;
+            console.log(instrument);
+            const checkKeys = (array) => {
+                if (!array) return;
+                const knownKeys = array.map((i) => {
+                    return i.key;
                 });
-                handleSound(soundToPlay);
+                if (knownKeys.includes(key.toUpperCase())) {
+                    const soundToPlay = array.find((i) => {
+                        if (i.key.toUpperCase() === key.toUpperCase())
+                            return true;
+                    });
+                    handleSound(soundToPlay);
+                }
+                const instrumentKeys = ['!', '@', '#'];
+                if (instrumentKeys.includes(key)) {
+                    if (key === '!') {
+                        handleInstrument('drum');
+                    }
+                    if (key === '@') {
+                        handleInstrument('piano');
+                    }
+                }
+            };
+            if (instrument === 'drum') {
+                checkKeys(hotkeys.drum);
             }
-            const instrumentKeys = ['!', '@', '#'];
-            if (instrumentKeys.includes(key)) {
-                if (key === '!') handleInstrument('drum');
-                if (key === '@') handleInstrument('piano');
+            if (instrument === 'piano') {
+                checkKeys(hotkeys.piano);
             }
         };
-        if (instrument === 'drum') {
-            checkKeys(hotkeys.drum);
-        }
-        if (instrument === 'piano') {
-            checkKeys(hotkeys.piano);
-        }
-    };
+        window.addEventListener('keydown', handleInput, false);
+        return () => window.removeEventListener('keydown', handleInput, false);
+    }, [hotkeys, instrument]);
 
-    const RenderDrums = () => {
+    const RenderInstrument = () => {
         return <></>;
     };
     return (
         <div>
-            <RenderDrums />
+            <RenderInstrument />
         </div>
     );
 }
