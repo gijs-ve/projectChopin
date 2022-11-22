@@ -6,9 +6,7 @@ const playSound = (source) => {
         autoplay: true,
         volume: 0.5,
         html5: true,
-        onend: function () {
-            console.log('Finished!');
-        },
+        onend: function () {},
     });
 };
 

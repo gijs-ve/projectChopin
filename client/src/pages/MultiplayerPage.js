@@ -106,6 +106,13 @@ function MultiplayerPage() {
                 >
                     Copy ID
                 </button>
+                <button
+                    onClick={() =>
+                        sendSound('sound/steban/hat4.mp3', room.roomId)
+                    }
+                >
+                    TEST
+                </button>
                 <SoundPlayer sendSound={sendSound} roomId={room.roomId} />
                 <RenderUsers />
             </>

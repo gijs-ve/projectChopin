@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { hat, kick } from '../../components/sound/sounds';
+import { hat, kick, hat4 } from '../../components/sound/sounds';
 
 const drumState = [
-    { key: 'Q', output: hat },
-    { key: 'W', output: kick },
+    { key: 'Q', output: kick },
+    { key: 'W', output: hat4 },
+    { key: 'E', output: hat },
 ];
 
 const initialState = {
