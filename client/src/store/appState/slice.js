@@ -28,7 +28,6 @@ export const appStateSlice = createSlice({
             state.message = null;
         },
         setNavigation: (state, action) => {
-            console.log(action.payload);
             const changedPage = state.navigation.find((i) => {
                 if (i.name === action.payload) return true;
             });

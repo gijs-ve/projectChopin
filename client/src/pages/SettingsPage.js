@@ -44,7 +44,6 @@ function SettingsPage() {
     const RenderHotkeys = () => {
         const hotkeys = useSelector(selectHotkeys());
         if (!hotkeys) return;
-        console.log(hotkeys);
         return (
             <>
                 <PresetsSelection hotkeys={hotkeys} />

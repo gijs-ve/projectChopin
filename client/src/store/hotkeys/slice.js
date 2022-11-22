@@ -62,8 +62,9 @@ const pianoState = [
     { key: 'D', output: e4, name: 'E4' },
     { key: 'F', output: f4, name: 'F4' },
     { key: 'G', output: g4, name: 'G4' },
-    { key: 'H', output: a5, name: 'A5' },
-    { key: 'J', output: b5, name: 'B5' },
+    { key: 'H', output: a4, name: 'A4' },
+    { key: 'J', output: b4, name: 'B4' },
+    { key: 'K', output: c5, name: 'C5' },
 ];
 
 const stringState = [
@@ -94,7 +95,6 @@ export const hotkeysSlice = createSlice({
     reducers: {
         changeHotkey: (state, action) => {},
         setInstrument: (state, action) => {
-            console.log(action.payload);
             state.instrument = action.payload;
         },
     },

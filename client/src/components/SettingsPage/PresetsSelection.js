@@ -21,7 +21,6 @@ function classNames(...classes) {
 
 function PresetsSelection(p) {
     const { presets } = p.hotkeys;
-    console.log(presets);
     const [selected, setSelected] = useState(presets[0]);
 
     return (

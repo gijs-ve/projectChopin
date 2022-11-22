@@ -23,11 +23,9 @@ function MultiplayerPage() {
             dispatch(setRoom(newRoom));
         });
         socket.on('roomUpdate', (newRoom) => {
-            console.log(newRoom);
             dispatch(setRoom(newRoom));
         });
         socket.on('receiveSound', (sound) => {
-            console.log(sound);
             playSound(sound);
         });
     }, []);
