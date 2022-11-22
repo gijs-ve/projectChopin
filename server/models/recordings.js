@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
         }
     }
-    presets.init(
+    recordings.init(
         {
             name: { type: DataTypes.STRING, unique: true, allowNull: false },
             password: { type: DataTypes.STRING, allowNull: false },

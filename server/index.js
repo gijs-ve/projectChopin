@@ -24,6 +24,8 @@ app.use(express.json());
 app.use('/auth', authRouter);
 
 io.on('connection', (socket) => {
+    console.log('CONNECT', socket.id);
+    console.log('Rooms', rooms);
     socket.on('createRoom', async (token) => {
         try {
             const JWTData = toData(token);
@@ -112,6 +114,7 @@ io.on('connection', (socket) => {
                 if (disconnectedIds.has(i.hostId)) {
                     const newHost = i.users.find((j) => {
                         if (i.hostId !== j.id) return true;
+                        return false;
                     });
                     return {
                         ...i,
@@ -122,9 +125,12 @@ io.on('connection', (socket) => {
                 }
                 return { ...i, users: newUsers };
             });
+            console.log('DISCONNECTED', socket.id);
             rooms = newRoomList;
+            console.log('NEW ROOM', newRoomList);
             rooms.map((i) => {
-                socket.to(i.roomId).emit('RoomUpdate', i);
+                console.log('I', i);
+                socket.to(i.roomId).emit('roomUpdate', i);
             });
         } catch (error) {
             console.log(error);
