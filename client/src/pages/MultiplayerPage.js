@@ -4,6 +4,7 @@ import { io } from 'socket.io-client';
 import { socketUrl } from '../config/constants';
 import { setRoom, selectRoom } from '../store/multiplayer';
 import { selectHotkeys } from '../store/hotkeys';
+import { SoundPlayer } from '../components/sound/SoundPlayer';
 import { selectUser, selectToken } from '../store/user';
 
 function MultiplayerPage() {
@@ -34,6 +35,10 @@ function MultiplayerPage() {
         if (!socket || !socket.connected) return;
         socket.emit('joinRoom', token, id);
     };
+    const sendSound = (sound) => {
+        if (!socket || !socket.connected) return;
+        socket.emit('sendSound', sound);
+    };
 
     const RenderRoom = () => {
         if (!room) {
@@ -62,7 +67,6 @@ function MultiplayerPage() {
                 </div>
             );
         }
-        console.log(room);
         const HostOrNot = (i) => {
             if (i.name === room.hostName) {
                 return (
@@ -95,6 +99,7 @@ function MultiplayerPage() {
                 >
                     Copy ID
                 </button>
+                <SoundPlayer sendSound={sendSound} />
                 <RenderUsers />
             </>
         );

@@ -4,8 +4,16 @@ import { hat4, kick } from './sounds';
 import { selectHotkeys } from '../../store/hotkeys';
 import { useDispatch, useSelector } from 'react-redux';
 
-function SoundPlayer() {
+function SoundPlayer(p) {
     const hotkeys = useSelector(selectHotkeys());
+    let sendSound = null;
+    if (p.sendSound) {
+        sendSound = p.sendSound;
+    }
+    const handleSound = (soundToPlay) => {
+        if (!sendSound) playSound(soundToPlay.output);
+        sendSound(soundToPlay.output);
+    };
     useEffect(() => {
         window.addEventListener('keydown', handleInput, false);
         return () => window.removeEventListener('keydown', handleInput, false);
@@ -21,7 +29,7 @@ function SoundPlayer() {
             const soundToPlay = hotkeys.drum.find((i) => {
                 if (i.key.toUpperCase() === key.toUpperCase()) return true;
             });
-            playSound(soundToPlay.output);
+            handleSound(soundToPlay);
         }
     };
 

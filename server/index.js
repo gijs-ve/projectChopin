@@ -24,7 +24,6 @@ app.use(express.json());
 app.use('/auth', authRouter);
 
 io.on('connection', (socket) => {
-    console.log('Rooms:', rooms);
     socket.on('createRoom', async (token) => {
         try {
             const JWTData = toData(token);
@@ -92,9 +91,13 @@ io.on('connection', (socket) => {
             console.log(error);
         }
     });
+    socket.on('sendSound', (sound) => {
+        try {
+            console.log('sound', sound);
+        } catch (error) {}
+    });
     socket.on('disconnecting', () => {
         try {
-            console.log(socket.rooms); // the Set contains at least the socket ID
             const disconnectedIds = socket.rooms;
             const newRoomList = rooms.map((i) => {
                 const newUsers = i.users.filter((j) => {
@@ -107,7 +110,6 @@ io.on('connection', (socket) => {
                     const newHost = i.users.find((j) => {
                         if (i.hostId !== j.id) return true;
                     });
-                    console.log('newHost', newHost);
                     return {
                         ...i,
                         hostName: newHost.name,
