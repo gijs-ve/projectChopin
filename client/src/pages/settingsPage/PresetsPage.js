@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectHotkeys, addPreset } from '../../store/hotkeys';
+import {
+    selectHotkeys,
+    addPreset,
+    editHotkey,
+    editPreset,
+} from '../../store/hotkeys';
 import { playSound } from '../../components/sound/soundFunctions';
 import { PresetsSelection } from '../../components';
 import { cnButton, cnButtonUnbound } from '../../components/classNames';
 
 function PresetsPage() {
     const dispatch = useDispatch();
-
+    const [changeActive, setChangeActive] = useState(false);
     const AddPresetSection = () => {
         const [presetName, setPresetName] = useState('');
         return (
@@ -18,7 +23,7 @@ function PresetsPage() {
                     onChange={(e) => setPresetName(e.target.value)}
                 />
                 <button
-                    className="inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className={cnButton}
                     onClick={() => dispatch(addPreset(presetName))}
                 >
                     Create new preset
@@ -26,8 +31,41 @@ function PresetsPage() {
             </>
         );
     };
-    const RenderKeys = (p) => {
-        const { inputKey } = p;
+    const RenderSoundSection = (p) => {
+        const [inChange, setInChange] = useState(false);
+        const [inputPossible, setInputPossible] = useState(false);
+        const { inputKey, changeActive, sectionName, output, currentPresetId } =
+            p;
+        const handleHotkeyChange = () => {
+            setInChange(true);
+        };
+        const handleClick = () => {
+            if (!inChange || !inputPossible) return;
+            window.removeEventListener('keydown', handleInput, false);
+            window.removeEventListener('click', handleClick, false);
+            setInChange(false);
+            setInputPossible(false);
+        };
+        const handleInput = (e) => {
+            if (!inChange) return;
+            const { key } = e;
+            setInChange(false);
+            window.removeEventListener('keydown', handleInput, false);
+            window.removeEventListener('click', handleClick, false);
+            console.log(p);
+            const hotkeyObject = { key, sectionName, output, currentPresetId };
+            dispatch(editHotkey(hotkeyObject));
+        };
+        useEffect(() => {
+            if (!inChange) return;
+            window.addEventListener('keydown', handleInput, false);
+            setInputPossible(true);
+        }, [inChange]);
+
+        useEffect(() => {
+            if (!inChange || !inputPossible) return;
+            window.addEventListener('click', handleClick, false);
+        }, [inputPossible]);
         const checkKey = () => {
             if (!inputKey || inputKey === '-') {
                 return (
@@ -49,16 +87,26 @@ function PresetsPage() {
         return (
             <>
                 {checkKey()}
-                <button
-                    type="button"
-                    className="inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Change
-                </button>
+                {changeActive ? (
+                    <button
+                        type="button"
+                        className={cnButton}
+                        onClick={() => handleHotkeyChange()}
+                    >
+                        {inChange ? 'Enter new bind...' : 'Change'}
+                    </button>
+                ) : (
+                    ''
+                )}
             </>
         );
     };
-    const RenderHotkeySection = (array, sectionName) => {
+    const RenderHotkeySection = (
+        array,
+        sectionName,
+        currentPreset,
+        currentPresetId,
+    ) => {
         const output = array.map((i) => {
             return (
                 <div
@@ -68,7 +116,14 @@ function PresetsPage() {
                     <h1 className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
                         {i.name}
                     </h1>
-                    <RenderKeys key={i.key} inputKey={i.key} />
+                    <RenderSoundSection
+                        key={i.key}
+                        inputKey={i.key}
+                        changeActive={changeActive}
+                        sectionName={sectionName}
+                        output={i.output}
+                        currentPresetId={currentPresetId}
+                    />
 
                     <button
                         onClick={() => playSound(i.output)}
@@ -89,8 +144,34 @@ function PresetsPage() {
             </>
         );
     };
+    const ChangePreset = (p) => {
+        const { currentPresetId, currentPreset } = p;
+        const savePreset = () => {
+            dispatch(editPreset(currentPresetId, currentPreset));
+        };
+        if (!changeActive) {
+            return (
+                <>
+                    <button
+                        className={cnButton}
+                        onClick={() => setChangeActive(true)}
+                    >
+                        Change preset
+                    </button>
+                </>
+            );
+        }
+        return (
+            <>
+                <button className={cnButton} onClick={() => savePreset()}>
+                    Save
+                </button>
+            </>
+        );
+    };
     const RenderHotkeys = () => {
         const hotkeys = useSelector(selectHotkeys());
+
         if (!hotkeys) return;
         const { presets } = hotkeys;
         const currentPresetId = hotkeys.currentPreset;
@@ -99,10 +180,26 @@ function PresetsPage() {
         });
         return (
             <>
-                <AddPresetSection />
                 <PresetsSelection hotkeys={hotkeys} />
-                {RenderHotkeySection(currentPreset.drum, 'Drums')}
-                {RenderHotkeySection(currentPreset.piano, 'Piano')}
+                <div className="mt-4">
+                    <AddPresetSection />{' '}
+                    <ChangePreset
+                        currentPresetId={currentPresetId}
+                        currentPreset={currentPreset}
+                    />
+                </div>
+                {RenderHotkeySection(
+                    currentPreset.drum,
+                    'Drums',
+                    currentPreset,
+                    currentPresetId,
+                )}
+                {RenderHotkeySection(
+                    currentPreset.piano,
+                    'Piano',
+                    currentPreset,
+                    currentPresetId,
+                )}
             </>
         );
     };

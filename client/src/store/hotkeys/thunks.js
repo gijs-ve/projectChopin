@@ -43,3 +43,43 @@ export const addPreset = (name) => {
         }
     };
 };
+
+export const editPreset = (id, preset) => {
+    return async (dispatch, getState) => {
+        dispatch(appLoading());
+        const token = selectToken(getState());
+        if (token === null) return;
+        try {
+            await axios.update(
+                `${apiUrl}/hotkeys/editPreset`,
+                {
+                    id,
+                },
+                { headers: { Authorization: `Bearer ${token}` } },
+            );
+            dispatch(refreshSelf());
+            dispatch(appDoneLoading());
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.message);
+                dispatch(
+                    setMessage({
+                        variant: 'danger',
+                        dismissable: true,
+                        text: error.response.data.message,
+                    }),
+                );
+            } else {
+                console.log(error.message);
+                dispatch(
+                    setMessage({
+                        variant: 'danger',
+                        dismissable: true,
+                        text: error.message,
+                    }),
+                );
+            }
+            dispatch(appDoneLoading());
+        }
+    };
+};
