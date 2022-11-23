@@ -1,3 +1,6 @@
+export const drumLength = 4;
+export const pianoLength = 37;
+
 export const allowedKeybindings = [
     'Q',
     'W',
@@ -24,6 +27,7 @@ export const allowedKeybindings = [
     'B',
     'N',
     'M',
+    'C',
     '<',
     '>',
     ',',
@@ -32,3 +36,5 @@ export const allowedKeybindings = [
     ']',
     ';',
 ];
+
+export * from './settingsFunctions';

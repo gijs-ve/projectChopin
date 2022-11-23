@@ -119,7 +119,7 @@ function PresetsPage() {
         currentPreset,
         currentPresetId,
     ) => {
-        const [hotkeysVisible, setHotkeysVisisble] = useState(false);
+        const [hotkeysVisible, setHotkeysVisisble] = useState(true);
         const output = array.map((i) => {
             return (
                 <div
@@ -170,6 +170,7 @@ function PresetsPage() {
     const ChangePreset = (p) => {
         const { currentPresetId, currentPreset } = p;
         const [test, setTest] = useState(false);
+        if (currentPresetId === 0) return;
         const savePreset = () => {
             dispatch(editPreset(currentPresetId, currentPreset));
         };
@@ -203,12 +204,16 @@ function PresetsPage() {
         if (!hotkeys) return;
         const { presets } = hotkeys;
         const currentPresetId = hotkeys.currentPreset;
+        console.log(currentPresetId);
         const currentPreset = presets.find((i) => {
             if (i.id === currentPresetId) return true;
         });
         return (
             <>
-                <PresetsSelection hotkeys={hotkeys} />
+                <PresetsSelection
+                    currentPresetId={currentPresetId}
+                    hotkeys={hotkeys}
+                />
                 <div className="mt-4">
                     <AddPresetSection />{' '}
                     <ChangePreset

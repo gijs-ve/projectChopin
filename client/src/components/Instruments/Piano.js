@@ -1,10 +1,10 @@
-import React from 'react';
+import './piano.css';
 
 function Piano() {
     return (
         <>
-            <div className="scale">
-                <ul className="set">
+            <div className="scale" id="piano">
+                <ul className="pianoSet">
                     <li className="white e">H</li>
                     <li className="black ds">I</li>
                     <li className="white d">J</li>

@@ -1,4 +1,4 @@
-const convertHotkeysToString = (array, type) => {
+const convertHotkeysToString = (array) => {
     const stringedArray = array.map((i) => {
         if (!i.key) return '-';
         return i.key.toUpperCase();

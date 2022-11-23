@@ -9,7 +9,11 @@ function classNames(...classes) {
 
 function PresetsSelection(p) {
     const { presets } = p.hotkeys;
-    const [selected, setSelected] = useState(presets[0]);
+    const { currentPresetId } = p;
+    const currentPreset = presets.find((i) => {
+        return i.id === currentPresetId;
+    });
+    const [selected, setSelected] = useState(currentPreset);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -23,7 +27,7 @@ function PresetsSelection(p) {
                         Select preset
                     </Listbox.Label>
                     <div className="relative mt-1">
-                        <Listbox.Button className="text-white relative w-full cursor-default rounded-md border border-blue-300 bg-blue-600 py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                        <Listbox.Button className="text-white relative w-1/2 cursor-default rounded-md border border-blue-300 bg-blue-600 py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
                             <span className="block truncate">
                                 {selected.name}
                             </span>
@@ -42,7 +46,7 @@ function PresetsSelection(p) {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-1/2 overflow-auto rounded-md bg-gray-700 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                 {presets.map((i) => (
                                     <Listbox.Option
                                         key={i.name}
