@@ -15,6 +15,7 @@ function SoundPlayer(p) {
     const instrument = useSelector(selectInstrument());
     const { presets, activePresets } = hotkeys;
     const currentPresetId = hotkeys.currentPreset;
+    const { status } = p;
 
     useEffect(() => {
         const currentPreset = presets.find((i) => {
@@ -95,6 +96,7 @@ function SoundPlayer(p) {
         );
     };
     const RenderInstrument = () => {
+        if (status === 'settingsTest') return;
         if (instrument === 'drum') return <>DRUM</>;
         if (instrument === 'piano') return <Piano />;
     };

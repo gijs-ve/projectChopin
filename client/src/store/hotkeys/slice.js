@@ -89,11 +89,13 @@ export const hotkeysSlice = createSlice({
             const { sectionName, currentPresetId, output, key } =
                 action.payload;
             const upperKey = key.toUpperCase();
+            const allowedKey = allowedKeybindings.includes(upperKey);
             const mapInstruments = (array) => {
                 return array.map((i) => {
                     console.log(i.key);
                     if (i.key === upperKey) return { ...i, key: '-' };
                     if (i.output !== output) return i;
+                    if (!allowedKey) return { ...i, key: '-' };
                     return { ...i, key: upperKey };
                 });
             };

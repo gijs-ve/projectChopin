@@ -7,7 +7,7 @@ import {
     editPreset,
 } from '../../store/hotkeys';
 import { playSound } from '../../components/sound/soundFunctions';
-import { PresetsSelection } from '../../components';
+import { PresetsSelection, SoundPlayer } from '../../components';
 import { cnButton, cnButtonUnbound } from '../../components/classNames';
 
 function PresetsPage() {
@@ -36,6 +36,7 @@ function PresetsPage() {
         const [inputPossible, setInputPossible] = useState(false);
         const { inputKey, changeActive, sectionName, output, currentPresetId } =
             p;
+        const hotkeyObject = { sectionName, output, currentPresetId };
         const handleHotkeyChange = () => {
             setInChange(true);
         };
@@ -46,15 +47,17 @@ function PresetsPage() {
             setInChange(false);
             setInputPossible(false);
         };
+        const handleReset = () => {
+            dispatch(editHotkey({ ...hotkeyObject, key: '-' }));
+        };
         const handleInput = (e) => {
             if (!inChange) return;
             const { key } = e;
             setInChange(false);
             window.removeEventListener('keydown', handleInput, false);
             window.removeEventListener('click', handleClick, false);
-            console.log(p);
-            const hotkeyObject = { key, sectionName, output, currentPresetId };
-            dispatch(editHotkey(hotkeyObject));
+
+            dispatch(editHotkey({ ...hotkeyObject, key }));
         };
         useEffect(() => {
             if (!inChange) return;
@@ -88,13 +91,22 @@ function PresetsPage() {
             <>
                 {checkKey()}
                 {changeActive ? (
-                    <button
-                        type="button"
-                        className={cnButton}
-                        onClick={() => handleHotkeyChange()}
-                    >
-                        {inChange ? 'Enter new bind...' : 'Change'}
-                    </button>
+                    <>
+                        <button
+                            type="button"
+                            className={cnButton}
+                            onClick={() => handleHotkeyChange()}
+                        >
+                            {inChange ? 'Enter new bind...' : 'Change'}
+                        </button>
+                        <button
+                            type="button"
+                            className={cnButton}
+                            onClick={() => handleReset()}
+                        >
+                            Unbind key
+                        </button>
+                    </>
                 ) : (
                     ''
                 )}
@@ -107,17 +119,22 @@ function PresetsPage() {
         currentPreset,
         currentPresetId,
     ) => {
+        const [hotkeysVisible, setHotkeysVisisble] = useState(false);
         const output = array.map((i) => {
             return (
                 <div
                     key={i.ouput}
                     className="hover:bg-gray-700 rounded-xl px-2 py-2"
                 >
-                    <h1 className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
+                    <h1
+                        key={`${i.output}h1`}
+                        className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md"
+                    >
                         {i.name}
                     </h1>
+
                     <RenderSoundSection
-                        key={i.key}
+                        key={`${i.output}RenderSoundSection`}
                         inputKey={i.key}
                         changeActive={changeActive}
                         sectionName={sectionName}
@@ -137,15 +154,22 @@ function PresetsPage() {
         });
         return (
             <>
-                <h1 className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
-                    {sectionName}
-                </h1>
-                {output}
+                <button
+                    className={`${cnButton} mt-8`}
+                    onClick={() => setHotkeysVisisble(!hotkeysVisible)}
+                >
+                    {hotkeysVisible
+                        ? `Hide ${sectionName}`
+                        : `Show ${sectionName}`}
+                </button>
+                {hotkeysVisible ? output : ''}
+                <br />
             </>
         );
     };
     const ChangePreset = (p) => {
         const { currentPresetId, currentPreset } = p;
+        const [test, setTest] = useState(false);
         const savePreset = () => {
             dispatch(editPreset(currentPresetId, currentPreset));
         };
@@ -166,6 +190,10 @@ function PresetsPage() {
                 <button className={cnButton} onClick={() => savePreset()}>
                     Save
                 </button>
+                <button className={cnButton} onClick={() => setTest(!test)}>
+                    {test ? 'Stop test' : 'Test hotkeys'}
+                </button>
+                {test ? <SoundPlayer status={'settingsTest'} /> : ''}
             </>
         );
     };
