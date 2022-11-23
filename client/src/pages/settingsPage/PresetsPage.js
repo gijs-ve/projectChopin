@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectHotkeys, addPreset } from '../../store/hotkeys';
 import { playSound } from '../../components/sound/soundFunctions';
 import { PresetsSelection } from '../../components';
-import { cnButton } from '../../components/classNames';
+import { cnButton, cnButtonUnbound } from '../../components/classNames';
 
 function PresetsPage() {
     const dispatch = useDispatch();
@@ -26,6 +26,38 @@ function PresetsPage() {
             </>
         );
     };
+    const RenderKeys = (p) => {
+        const { inputKey } = p;
+        const checkKey = () => {
+            if (!inputKey || inputKey === '-') {
+                return (
+                    <>
+                        <button type="button" className={cnButtonUnbound}>
+                            Unbound
+                        </button>
+                    </>
+                );
+            }
+            return (
+                <>
+                    <button type="button" className={cnButton}>
+                        {inputKey}
+                    </button>
+                </>
+            );
+        };
+        return (
+            <>
+                {checkKey()}
+                <button
+                    type="button"
+                    className="inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    Change
+                </button>
+            </>
+        );
+    };
     const RenderHotkeySection = (array, sectionName) => {
         const output = array.map((i) => {
             return (
@@ -36,18 +68,8 @@ function PresetsPage() {
                     <h1 className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
                         {i.name}
                     </h1>
-                    <button
-                        type="button"
-                        className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        {i.key}
-                    </button>
-                    <button
-                        type="button"
-                        className="inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Change
-                    </button>
+                    <RenderKeys key={i.key} inputKey={i.key} />
+
                     <button
                         onClick={() => playSound(i.output)}
                         type="button"
