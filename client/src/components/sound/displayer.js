@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectSounds } from '../../store';
+import { Sound } from './Sound';
 
 function Displayer() {
     const { playedSounds } = useSelector(selectSounds());
@@ -8,9 +9,8 @@ function Displayer() {
     const RenderSounds = () => {
         if (!playedSounds || playedSounds.length === 0) return;
         const sounds = playedSounds.map((i) => {
-            return (
-                <div className="w-2 h-2 rounded-full border-solid border-2 border-sky-500 bg-sky-500"></div>
-            );
+            console.log(i);
+            return <Sound xPos={i.xPosition} />;
         });
         return sounds;
     };
