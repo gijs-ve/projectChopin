@@ -1,91 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-    hat,
-    kick,
-    hat4,
-    snare,
-    aK3,
-    aK4,
-    aK5,
-    a3,
-    a4,
-    a5,
-    bK3,
-    bK4,
-    bK5,
-    b3,
-    b4,
-    b5,
-    cK3,
-    cK4,
-    cK5,
-    c3,
-    c4,
-    c5,
-    c6,
-    dK3,
-    dK4,
-    dK5,
-    d3,
-    d4,
-    d5,
-    eK3,
-    eK4,
-    eK5,
-    e3,
-    e4,
-    e5,
-    fK3,
-    fK4,
-    fK5,
-    f3,
-    f4,
-    f5,
-    gK3,
-    gK4,
-    gK5,
-    g3,
-    g4,
-    g5,
-} from '../../components/sound/sounds';
-
-const drumState = [
-    { key: 'Q', output: kick, name: 'Default kick' },
-    { key: 'W', output: hat4, name: 'Default hat' },
-    { key: 'E', output: hat, name: 'Gentle hat' },
-    { key: 'R', output: snare, name: 'Default snare' },
-];
-
-const pianoState = [
-    { key: 'A', output: c4, name: 'C4' },
-    { key: 'S', output: d4, name: 'D4' },
-    { key: 'D', output: e4, name: 'E4' },
-    { key: 'F', output: f4, name: 'F4' },
-    { key: 'G', output: g4, name: 'G4' },
-    { key: 'H', output: a4, name: 'A4' },
-    { key: 'J', output: b4, name: 'B4' },
-    { key: 'K', output: c5, name: 'C5' },
-];
-
-const stringState = [
-    { key: 'Q', output: kick, name: 'Default kick' },
-    { key: 'W', output: hat4, name: 'Default kick' },
-    { key: 'E', output: hat, name: 'Default kick' },
-];
-
+import { defaultPreset } from '../../config/constants';
+const { id, name, drum, piano, strings } = defaultPreset;
 const initialState = {
     presets: [
         {
-            name: 'default',
-            drum: drumState,
-            piano: pianoState,
-            strings: stringState,
+            id,
+            name,
+            drum,
+            piano,
+            strings,
         },
     ],
-    name: 'default',
-    drum: drumState,
-    piano: pianoState,
-    strings: stringState,
+    currentPreset: 0,
     instrument: 'drum',
 };
 
@@ -95,11 +21,15 @@ export const hotkeysSlice = createSlice({
     reducers: {
         changeHotkey: (state, action) => {},
         setInstrument: (state, action) => {
+            console.log(action.payload);
             state.instrument = action.payload;
+        },
+        setPreset: (state, action) => {
+            state.currentPreset = action.payload;
         },
     },
 });
 
-export const { changeHotkey, setInstrument } = hotkeysSlice.actions;
+export const { changeHotkey, setInstrument, setPreset } = hotkeysSlice.actions;
 
 export default hotkeysSlice.reducer;
