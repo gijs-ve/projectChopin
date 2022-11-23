@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { defaultPreset } from '../../config/constants';
+import { defaultPreset } from '../../components/sound/sounds';
 const { id, name, drum, piano, strings } = defaultPreset;
+const activePresets = [{ key: '0', presetId: 0 }];
 const initialState = {
     presets: [
         {
@@ -12,7 +13,7 @@ const initialState = {
         },
     ],
     currentPreset: 0,
-    activePresets: null,
+    activePresets,
     instrument: 'drum',
 };
 
@@ -26,7 +27,10 @@ export const hotkeysSlice = createSlice({
             state.instrument = action.payload;
         },
         setPreset: (state, action) => {
-            state.currentPreset = action.payload;
+            const newPreset = state.activePresets.find((i) => {
+                if (i.key === action.payload) return true;
+            });
+            state.currentPreset = newPreset.presetId;
         },
     },
 });

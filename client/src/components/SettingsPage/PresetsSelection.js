@@ -2,18 +2,18 @@ import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-const people = [
-    { id: 1, name: 'Wade Cooper' },
-    { id: 2, name: 'Arlene Mccoy' },
-    { id: 3, name: 'Devon Webb' },
-    { id: 4, name: 'Tom Cook' },
-    { id: 5, name: 'Tanya Fox' },
-    { id: 6, name: 'Hellen Schmidt' },
-    { id: 7, name: 'Caroline Schultz' },
-    { id: 8, name: 'Mason Heaney' },
-    { id: 9, name: 'Claudie Smitham' },
-    { id: 10, name: 'Emil Schaefer' },
-];
+// const people = [
+//     { id: 1, name: 'Wade Cooper' },
+//     { id: 2, name: 'Arlene Mccoy' },
+//     { id: 3, name: 'Devon Webb' },
+//     { id: 4, name: 'Tom Cook' },
+//     { id: 5, name: 'Tanya Fox' },
+//     { id: 6, name: 'Hellen Schmidt' },
+//     { id: 7, name: 'Caroline Schultz' },
+//     { id: 8, name: 'Mason Heaney' },
+//     { id: 9, name: 'Claudie Smitham' },
+//     { id: 10, name: 'Emil Schaefer' },
+// ];
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -27,7 +27,7 @@ function PresetsSelection(p) {
         <Listbox value={selected} onChange={setSelected}>
             {({ open }) => (
                 <>
-                    <Listbox.Label className="block text-sm font-medium text-gray-700">
+                    <Listbox.Label className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
                         Select preset
                     </Listbox.Label>
                     <div className="relative mt-1">

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { playSound } from './soundFunctions';
-import { hat4, kick } from './sounds';
 import {
     selectHotkeys,
     selectInstrument,
     setInstrument,
+    setPreset,
 } from '../../store/hotkeys';
 import { useDispatch, useSelector } from 'react-redux';
 import { Piano } from '../../components';
@@ -13,34 +13,33 @@ function SoundPlayer(p) {
     const dispatch = useDispatch();
     const hotkeys = useSelector(selectHotkeys());
     const instrument = useSelector(selectInstrument());
-    const { presets } = hotkeys;
+    const { presets, activePresets } = hotkeys;
     const currentPresetId = hotkeys.currentPreset;
 
     useEffect(() => {
         const currentPreset = presets.find((i) => {
             if (i.id === currentPresetId) return true;
         });
-        console.log(currentPreset);
         const handleInstrument = (instrument) => {
             dispatch(setInstrument(instrument));
         };
+        const handlePresetSwitch = (key) => {
+            dispatch(setPreset(key));
+        };
         const handleSound = (soundToPlay) => {
             const { sendSound, roomId } = p;
-            console.log(soundToPlay);
             if (!sendSound || !roomId) return playSound(soundToPlay.output);
             sendSound(soundToPlay.output, roomId);
         };
         const handleInput = (e) => {
             if (!instrument || !hotkeys) return;
             const { key } = e;
-            console.log(key);
-            console.log(instrument);
             const checkKeys = (array) => {
                 if (!array) return;
-                const knownKeys = array.map((i) => {
+                const soundKeys = array.map((i) => {
                     return i.key;
                 });
-                if (knownKeys.includes(key.toUpperCase())) {
+                if (soundKeys.includes(key.toUpperCase())) {
                     const soundToPlay = array.find((i) => {
                         if (i.key.toUpperCase() === key.toUpperCase())
                             return true;
@@ -57,6 +56,12 @@ function SoundPlayer(p) {
                             handleInstrument('piano');
                             break;
                     }
+                }
+                const presetKeys = activePresets.map((i) => {
+                    return i.key;
+                });
+                if (presetKeys.includes(key)) {
+                    handlePresetSwitch(key);
                 }
             };
             switch (instrument) {
