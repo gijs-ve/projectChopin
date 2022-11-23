@@ -50,7 +50,6 @@ export const hotkeysSlice = createSlice({
                 state.presets = newPresetArray;
                 return;
             }
-            console.log(presetArray);
             const createNewHotkeys = (array, stringArray) => {
                 return array.map((i, index) => {
                     return { ...i, key: stringArray[index] };
@@ -58,24 +57,22 @@ export const hotkeysSlice = createSlice({
             };
             const getStringFromType = (array, type) => {
                 const typeEntry = array.find((i) => {
-                    console.log(i.type);
                     if (i.type === type) return true;
                 });
-                console.log(typeEntry);
                 return typeEntry.keysString.split('');
             };
-
             presetArray.map((i) => {
-                const drumStringArray = getStringFromType(i.hotkeys, 'drum');
-                const pianoStringArray = getStringFromType(i.hotkeys, 'piano');
-                const presetDrums = createNewHotkeys(drum, drumStringArray);
-                const presetPiano = createNewHotkeys(piano, pianoStringArray);
-                console.log(drumStringArray);
                 const pushedPreset = {
                     id: i.id,
                     name: i.name,
-                    drum: presetDrums,
-                    piano: presetPiano,
+                    drum: createNewHotkeys(
+                        drum,
+                        getStringFromType(i.hotkeys, 'drum'),
+                    ),
+                    piano: createNewHotkeys(
+                        piano,
+                        getStringFromType(i.hotkeys, 'piano'),
+                    ),
                 };
                 newPresetArray.push(pushedPreset);
             });
@@ -83,7 +80,8 @@ export const hotkeysSlice = createSlice({
             console.log(newPresetArray);
             state.presets = newPresetArray;
         },
-        addNewPreset: (state, action) => {},
+        createNew: (state, action) => {},
+        changePreset: (state, action) => {},
     },
 });
 
@@ -92,7 +90,7 @@ export const {
     setInstrument,
     setPreset,
     setPresets,
-    addNewPreset,
+    changePreset,
 } = hotkeysSlice.actions;
 
 export default hotkeysSlice.reducer;

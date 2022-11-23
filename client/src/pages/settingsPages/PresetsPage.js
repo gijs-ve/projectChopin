@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectHotkeys, addPreset } from '../store/hotkeys';
-import { playSound } from '../components/sound/soundFunctions';
-import { PresetsSelection } from '../components';
+import { selectHotkeys, addPreset } from '../../store/hotkeys';
+import { playSound } from '../../components/sound/soundFunctions';
+import { PresetsSelection } from '../../components';
+import { cnButton } from '../../components/classNames';
 
-function SettingsPage() {
+function PresetsPage() {
     const dispatch = useDispatch();
 
     const AddPresetSection = () => {
@@ -50,7 +51,7 @@ function SettingsPage() {
                     <button
                         onClick={() => playSound(i.output)}
                         type="button"
-                        className="inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className={cnButton}
                     >
                         Listen
                     </button>
@@ -90,4 +91,4 @@ function SettingsPage() {
         </div>
     );
 }
-export { SettingsPage };
+export { PresetsPage };

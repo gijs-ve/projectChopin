@@ -1,7 +1,8 @@
 import { apiUrl } from '../../config/constants';
 import axios from 'axios';
-import { selectToken } from '../user/selectors';
-import { appLoading, appDoneLoading, setMessage } from '../appState/slice';
+import { selectToken } from '../user/';
+import { appLoading, appDoneLoading, setMessage } from '../appState/';
+import { refreshSelf } from '../user/';
 
 export const addPreset = (name) => {
     return async (dispatch, getState) => {
@@ -9,14 +10,14 @@ export const addPreset = (name) => {
         const token = selectToken(getState());
         if (token === null) return;
         try {
-            const response = await axios.post(
+            await axios.post(
                 `${apiUrl}/hotkeys/newPreset`,
                 {
                     name,
                 },
                 { headers: { Authorization: `Bearer ${token}` } },
             );
-
+            dispatch(refreshSelf());
             dispatch(appDoneLoading());
         } catch (error) {
             if (error.response) {

@@ -94,7 +94,7 @@ export const login = (name, password) => {
     };
 };
 
-export const getUserWithStoredToken = () => {
+export const refreshSelf = () => {
     return async (dispatch, getState) => {
         const token = selectToken(getState());
         if (token === null) return;
