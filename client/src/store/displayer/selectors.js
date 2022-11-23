@@ -1,1 +1,1 @@
-export const selectSounds = () => (state) => state.playedSounds;
+export const selectSounds = () => (state) => state.displayer;

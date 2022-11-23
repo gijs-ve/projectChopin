@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const testSound = { output: 'G#5', origin: 'self', xPosition: 1000 };
+
 const initialState = {
-    playedSounds: null,
+    playedSounds: [testSound, testSound],
 };
 
 export const displayerSlice = createSlice({
-    name: 'hotkeys',
+    name: 'displayer',
     initialState,
     reducers: {
         addSound: (state, action) => {},
