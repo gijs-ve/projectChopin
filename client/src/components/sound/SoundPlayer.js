@@ -5,7 +5,8 @@ import {
     selectInstrument,
     setInstrument,
     setPreset,
-} from '../../store/hotkeys';
+    addSound,
+} from '../../store/';
 import { useDispatch, useSelector } from 'react-redux';
 import { Piano } from '../../components';
 
@@ -29,7 +30,13 @@ function SoundPlayer(p) {
         };
         const handleSound = (soundToPlay) => {
             const { sendSound, roomId } = p;
-            if (!sendSound || !roomId) return playSound(soundToPlay.output);
+            if (!sendSound || !roomId) {
+                playSound(soundToPlay.output);
+                dispatch(
+                    addSound({ output: soundToPlay.output, origin: 'self' }),
+                );
+                return;
+            }
             sendSound(soundToPlay.output, roomId);
         };
         const handleInput = (e) => {

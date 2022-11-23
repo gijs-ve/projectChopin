@@ -1,15 +1,23 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectSounds } from '../../store';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectSounds, xPosHandler } from '../../store';
 import { Sound } from './Sound';
 
 function Displayer() {
     const { playedSounds } = useSelector(selectSounds());
-    console.log(playedSounds);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (playedSounds.length > 0 && playedSounds) {
+                dispatch(xPosHandler());
+            }
+        }, 10);
+        return () => clearInterval(interval);
+    }, [playedSounds]);
     const RenderSounds = () => {
         if (!playedSounds || playedSounds.length === 0) return;
         const sounds = playedSounds.map((i) => {
-            console.log(i);
             return <Sound xPos={i.xPosition} />;
         });
         return sounds;
