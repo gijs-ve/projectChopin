@@ -1,14 +1,28 @@
-import { useSelector } from 'react-redux';
-import { selectHotkeys } from '../store/hotkeys';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectHotkeys, addPreset } from '../store/hotkeys';
 import { playSound } from '../components/sound/soundFunctions';
 import { PresetsSelection } from '../components';
 
 function SettingsPage() {
-    const AddPresetButton = () => {
+    const dispatch = useDispatch();
+
+    const AddPresetSection = () => {
+        const [presetName, setPresetName] = useState('');
         return (
-            <button className="inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Create new preset
-            </button>
+            <>
+                <input
+                    type="text"
+                    value={presetName}
+                    onChange={(e) => setPresetName(e.target.value)}
+                />
+                <button
+                    className="inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onClick={() => dispatch(addPreset(presetName))}
+                >
+                    Create new preset
+                </button>
+            </>
         );
     };
     const RenderHotkeySection = (array, sectionName) => {
@@ -45,7 +59,9 @@ function SettingsPage() {
         });
         return (
             <>
-                <h1>{sectionName}</h1>
+                <h1 className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
+                    {sectionName}
+                </h1>
                 {output}
             </>
         );
@@ -60,7 +76,7 @@ function SettingsPage() {
         });
         return (
             <>
-                <AddPresetButton />
+                <AddPresetSection />
                 <PresetsSelection hotkeys={hotkeys} />
                 {RenderHotkeySection(currentPreset.drum, 'Drums')}
                 {RenderHotkeySection(currentPreset.piano, 'Piano')}

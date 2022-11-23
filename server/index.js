@@ -18,7 +18,7 @@ let rooms = [];
 
 //Routers
 const authRouter = require('./routers/auth');
-const hotkeysRouter = require('./routers/auth');
+const hotkeysRouter = require('./routers/hotkeys');
 
 app.use(corsMiddleWare());
 app.use(express.json());

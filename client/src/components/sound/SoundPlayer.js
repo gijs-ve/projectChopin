@@ -39,8 +39,13 @@ function SoundPlayer(p) {
                 const soundKeys = array.map((i) => {
                     return i.key;
                 });
-                if (soundKeys.includes(key.toUpperCase())) {
+                const noNullSoundKeys = soundKeys.filter((i) => {
+                    if (!i) return false;
+                    return true;
+                });
+                if (noNullSoundKeys.includes(key.toUpperCase())) {
                     const soundToPlay = array.find((i) => {
+                        if (i.key === null) return false;
                         if (i.key.toUpperCase() === key.toUpperCase())
                             return true;
                     });

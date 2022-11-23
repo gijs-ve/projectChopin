@@ -32,9 +32,11 @@ export const hotkeysSlice = createSlice({
             });
             state.currentPreset = newPreset.presetId;
         },
+        addNewPreset: (state, action) => {},
     },
 });
 
-export const { changeHotkey, setInstrument, setPreset } = hotkeysSlice.actions;
+export const { changeHotkey, setInstrument, setPreset, addNewPreset } =
+    hotkeysSlice.actions;
 
 export default hotkeysSlice.reducer;
