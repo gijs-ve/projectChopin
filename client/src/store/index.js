@@ -4,6 +4,7 @@ import appStateReducer from './appState/slice';
 import userReducer from './user/slice';
 import hotkeysReducer from './hotkeys/slice';
 import multiplayerReducer from './multiplayer/slice';
+import displayerReducer from './displayer/slice';
 
 const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
         user: userReducer,
         hotkeys: hotkeysReducer,
         multiplayer: multiplayerReducer,
+        displayer: displayerReducer,
     },
 });
 
@@ -19,3 +21,4 @@ export * from './user';
 export * from './appState';
 export * from './multiplayer';
 export * from './hotkeys';
+export * from './displayer';
