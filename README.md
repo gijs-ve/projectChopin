@@ -1,4 +1,4 @@
-# projectChopin
+# projectChopin - This project is a Work In Progress
 
 In order to launch this project read the following very carefully.
 
