@@ -34,6 +34,9 @@ export const hotkeysSlice = createSlice({
             });
             state.currentPreset = newPreset.presetId;
         },
+        setPresetById: (state, action) => {
+            state.currentPreset = action.payload;
+        },
         //changes the list of presets
         setPresets: (state, action) => {
             const presetArray = action.payload;
@@ -90,6 +93,7 @@ export const {
     setInstrument,
     setPreset,
     setPresets,
+    setPresetById,
     changePreset,
 } = hotkeysSlice.actions;
 

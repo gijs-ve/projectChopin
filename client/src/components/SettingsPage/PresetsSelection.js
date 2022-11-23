@@ -1,20 +1,8 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-
-// const people = [
-//     { id: 1, name: 'Wade Cooper' },
-//     { id: 2, name: 'Arlene Mccoy' },
-//     { id: 3, name: 'Devon Webb' },
-//     { id: 4, name: 'Tom Cook' },
-//     { id: 5, name: 'Tanya Fox' },
-//     { id: 6, name: 'Hellen Schmidt' },
-//     { id: 7, name: 'Caroline Schultz' },
-//     { id: 8, name: 'Mason Heaney' },
-//     { id: 9, name: 'Claudie Smitham' },
-//     { id: 10, name: 'Emil Schaefer' },
-// ];
-
+import { useDispatch } from 'react-redux';
+import { setPresetById } from '../../store/hotkeys';
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
@@ -22,7 +10,11 @@ function classNames(...classes) {
 function PresetsSelection(p) {
     const { presets } = p.hotkeys;
     const [selected, setSelected] = useState(presets[0]);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(setPresetById(selected.id));
+    }, [selected]);
     return (
         <Listbox value={selected} onChange={setSelected}>
             {({ open }) => (
@@ -31,7 +23,7 @@ function PresetsSelection(p) {
                         Select preset
                     </Listbox.Label>
                     <div className="relative mt-1">
-                        <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                        <Listbox.Button className="text-white relative w-full cursor-default rounded-md border border-blue-300 bg-blue-600 py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
                             <span className="block truncate">
                                 {selected.name}
                             </span>
@@ -57,8 +49,8 @@ function PresetsSelection(p) {
                                         className={({ active }) =>
                                             classNames(
                                                 active
-                                                    ? 'text-white bg-indigo-600'
-                                                    : 'text-gray-900',
+                                                    ? 'text-white bg-blue-600'
+                                                    : 'text-white',
                                                 'relative cursor-default select-none py-2 pl-3 pr-9',
                                             )
                                         }
@@ -82,7 +74,7 @@ function PresetsSelection(p) {
                                                         className={classNames(
                                                             active
                                                                 ? 'text-white'
-                                                                : 'text-indigo-600',
+                                                                : 'text-blue-600',
                                                             'absolute inset-y-0 right-0 flex items-center pr-4',
                                                         )}
                                                     >

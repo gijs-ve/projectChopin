@@ -4,4 +4,4 @@ export * from './MainPage';
 export * from './SoloPage';
 export * from './HomePage';
 export * from './MultiplayerPage';
-export * from './settingsPages/SettingsPage';
+export * from './settingsPage/SettingsPage';
