@@ -13,8 +13,14 @@ function SoundPlayer(p) {
     const dispatch = useDispatch();
     const hotkeys = useSelector(selectHotkeys());
     const instrument = useSelector(selectInstrument());
+    const { presets } = hotkeys;
+    const currentPresetId = hotkeys.currentPreset;
 
     useEffect(() => {
+        const currentPreset = presets.find((i) => {
+            if (i.id === currentPresetId) return true;
+        });
+        console.log(currentPreset);
         const handleInstrument = (instrument) => {
             dispatch(setInstrument(instrument));
         };
@@ -27,6 +33,7 @@ function SoundPlayer(p) {
         const handleInput = (e) => {
             if (!instrument || !hotkeys) return;
             const { key } = e;
+            console.log(key);
             console.log(instrument);
             const checkKeys = (array) => {
                 if (!array) return;
@@ -54,10 +61,10 @@ function SoundPlayer(p) {
             };
             switch (instrument) {
                 case 'drum':
-                    checkKeys(hotkeys.drum);
+                    checkKeys(currentPreset.drum);
                     break;
                 case 'piano':
-                    checkKeys(hotkeys.piano);
+                    checkKeys(currentPreset.piano);
                     break;
             }
         };

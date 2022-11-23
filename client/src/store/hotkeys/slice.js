@@ -12,6 +12,7 @@ const initialState = {
         },
     ],
     currentPreset: 0,
+    activePresets: null,
     instrument: 'drum',
 };
 
