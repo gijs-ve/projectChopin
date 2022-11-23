@@ -33,7 +33,11 @@ function SoundPlayer(p) {
             if (!sendSound || !roomId) {
                 playSound(soundToPlay.output);
                 dispatch(
-                    addSound({ output: soundToPlay.output, origin: 'self' }),
+                    addSound({
+                        output: soundToPlay.output,
+                        origin: 'self',
+                        height: soundToPlay.height,
+                    }),
                 );
                 return;
             }

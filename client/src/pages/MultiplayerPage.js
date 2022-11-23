@@ -3,10 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import { socketUrl } from '../config/constants';
 import { setRoom, selectRoom } from '../store/multiplayer';
-import { selectHotkeys } from '../store/hotkeys';
-import { SoundPlayer } from '../components/sound/SoundPlayer';
-import { selectUser, selectToken } from '../store/user';
-import { playSound } from '../components/sound/soundFunctions';
+
+import { SoundPlayer, Displayer } from '../components';
+import { selectUser, selectToken, addSound } from '../store/';
+import {
+    playSound,
+    convertSoundToHeight,
+} from '../components/sound/soundFunctions';
 
 function MultiplayerPage() {
     const [socket, setSocket] = useState(null);
@@ -27,6 +30,15 @@ function MultiplayerPage() {
         });
         socket.on('receiveSound', (sound) => {
             playSound(sound);
+            const height = convertSoundToHeight(sound);
+            console.log(height);
+            dispatch(
+                addSound({
+                    output: sound,
+                    origin: undefined,
+                    height,
+                }),
+            );
         });
     }, []);
     if (!user || !token) return;
@@ -104,13 +116,7 @@ function MultiplayerPage() {
                 >
                     Copy ID
                 </button>
-                <button
-                    onClick={() =>
-                        sendSound('sound/steban/hat4.mp3', room.roomId)
-                    }
-                >
-                    TEST
-                </button>
+                <Displayer />
                 <SoundPlayer sendSound={sendSound} roomId={room.roomId} />
                 <RenderUsers />
             </>

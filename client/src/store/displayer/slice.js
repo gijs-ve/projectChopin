@@ -12,8 +12,8 @@ export const displayerSlice = createSlice({
     initialState,
     reducers: {
         addSound: (state, action) => {
-            const { output, origin } = action.payload;
-            const newSound = { output, origin, xPosition: 800 };
+            const { output, origin, height } = action.payload;
+            const newSound = { output, origin, xPosition: 800, height };
             state.playedSounds.push(newSound);
         },
         xPosHandler: (state) => {
