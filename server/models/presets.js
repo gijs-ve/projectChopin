@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     presets.init(
         {
-            name: { type: DataTypes.STRING, unique: true, allowNull: false },
+            name: { type: DataTypes.STRING, allowNull: false },
         },
         {
             sequelize,

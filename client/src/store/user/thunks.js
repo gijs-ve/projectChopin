@@ -4,6 +4,7 @@ import { selectToken } from './selectors';
 import { appLoading, appDoneLoading, setMessage } from '../appState/slice';
 import { showMessageWithTimeout } from '../appState/thunks';
 import { loginSuccess, logOut, tokenStillValid } from './slice';
+import { setPresets } from '../hotkeys';
 
 export const signUp = (name, password) => {
     return async (dispatch, getState) => {
@@ -103,9 +104,10 @@ export const getUserWithStoredToken = () => {
             const response = await axios.get(`${apiUrl}/auth/self`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-
+            console.log(response.data.presets);
             // token is still valid
             dispatch(tokenStillValid({ user: response.data }));
+            dispatch(setPresets(response.data.presets));
             dispatch(appDoneLoading());
         } catch (error) {
             if (error.response) {

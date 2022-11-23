@@ -11,12 +11,10 @@ module.exports = {
             type: {
                 type: Sequelize.STRING,
                 allowNull: false,
-                unique: true,
             },
             keysString: {
                 type: Sequelize.STRING,
                 allowNull: false,
-                unique: true,
             },
             presetId: {
                 allowNull: false,

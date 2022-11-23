@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     hotkeys.init(
         {
-            type: { type: DataTypes.STRING, allowNull: false },
+            type: { type: DataTypes.STRING },
             keysString: { type: DataTypes.STRING, allowNull: false },
         },
         {

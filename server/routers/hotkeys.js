@@ -27,7 +27,7 @@ router.post('/newPreset', authMiddleware, async (req, res) => {
             },
             {
                 type: 'piano',
-                keysString: 'ZXCVBNMASDFGHJKQWERTYU',
+                keysString: 'Z-X-CV-B-N-MA-S-DF-G-H-JK-Q-WE-R-T-YU',
                 presetId: newPreset.id,
             },
         ]);

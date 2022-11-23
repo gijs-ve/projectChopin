@@ -1,4 +1,6 @@
 const Users = require('../models').users;
+const Presets = require('../models').presets;
+const Hotkeys = require('../models').hotkeys;
 const { toData } = require('./jwt');
 
 async function auth(req, res, next) {
@@ -14,7 +16,9 @@ async function auth(req, res, next) {
 
     try {
         const data = toData(auth[1]);
-        const user = await Users.findByPk(data.userId);
+        const user = await Users.findByPk(data.userId, {
+            include: [{ model: Presets, include: [{ model: Hotkeys }] }],
+        });
         if (!user) {
             return res.status(404).send({ message: 'User does not exist' });
         }

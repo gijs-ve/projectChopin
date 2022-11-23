@@ -64,7 +64,6 @@ const pianoState = [
     { key: 'N', output: a3, name: 'A3' },
     { key: null, output: aK3, name: 'A#3' },
     { key: 'M', output: b3, name: 'B3' },
-    { key: null, output: aK3, name: 'B#3' },
     { key: 'A', output: c4, name: 'C4' },
     { key: null, output: cK4, name: 'C#4' },
     { key: 'S', output: d4, name: 'D4' },
@@ -77,7 +76,6 @@ const pianoState = [
     { key: 'H', output: a4, name: 'A4' },
     { key: null, output: aK4, name: 'A#4' },
     { key: 'J', output: b4, name: 'B4' },
-    { key: null, output: aK4, name: 'B#4' },
     { key: 'K', output: c5, name: 'C5' },
     { key: null, output: cK5, name: 'C#5' },
     { key: 'Q', output: d5, name: 'D5' },
@@ -90,7 +88,6 @@ const pianoState = [
     { key: 'T', output: a5, name: 'A5' },
     { key: null, output: aK5, name: 'A#5' },
     { key: 'Y', output: b5, name: 'B5' },
-    { key: null, output: aK5, name: 'B#5' },
     { key: 'U', output: c6, name: 'C6' },
 ];
 
