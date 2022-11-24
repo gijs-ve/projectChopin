@@ -1,11 +1,17 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StartRecordButton, StopRecordButton } from '.';
-import { selectRecordStatus, raiseInterval } from '../../store';
+import {
+    selectRecordStatus,
+    raiseInterval,
+    selectRecordings,
+} from '../../store';
 
 function Recorder() {
     const dispatch = useDispatch();
     const recordStatus = useSelector(selectRecordStatus());
+    const rec = useSelector(selectRecordings());
+    console.log(rec);
     useEffect(() => {
         const interval = setInterval(() => {
             if (recordStatus) {

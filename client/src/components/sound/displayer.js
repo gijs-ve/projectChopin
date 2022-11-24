@@ -18,7 +18,6 @@ function Displayer() {
     const RenderSounds = () => {
         if (!playedSounds || playedSounds.length === 0) return;
         const sounds = playedSounds.map((i) => {
-            console.log(i);
             return (
                 <Sound
                     key={`${i.height + i.xPosition}${i.output}`}

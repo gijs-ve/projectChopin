@@ -18,7 +18,6 @@ export const recorderSlice = createSlice({
         },
         addRecord: (state, action) => {
             const { soundName } = action.payload;
-            console.log(soundName);
             state.outputTable.push(soundName);
             state.outputTable.push(state.intervalTime);
             state.intervalTime = 0;

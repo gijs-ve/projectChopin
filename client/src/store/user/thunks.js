@@ -7,7 +7,7 @@ import { loginSuccess, logOut, tokenStillValid } from './slice';
 import { setPresets } from '../hotkeys';
 
 export const signUp = (name, password) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         dispatch(appLoading());
         try {
             const response = await axios.post(`${apiUrl}/auth/signup`, {
@@ -51,7 +51,7 @@ export const signUp = (name, password) => {
 };
 
 export const login = (name, password) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         dispatch(appLoading());
         try {
             const response = await axios.post(`${apiUrl}/auth/login`, {
@@ -98,14 +98,11 @@ export const refreshSelf = () => {
     return async (dispatch, getState) => {
         const token = selectToken(getState());
         if (token === null) return;
-
         dispatch(appLoading());
         try {
             const response = await axios.get(`${apiUrl}/auth/self`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            console.log(response.data.presets);
-            // token is still valid
             dispatch(tokenStillValid({ user: response.data }));
             dispatch(setPresets(response.data.presets));
             dispatch(appDoneLoading());
@@ -115,8 +112,6 @@ export const refreshSelf = () => {
             } else {
                 console.log(error);
             }
-            // if we get a 4xx or 5xx response,
-            // get rid of the token by logging out
             dispatch(logOut());
             dispatch(appDoneLoading());
         }
