@@ -45,10 +45,34 @@ const g4 = 'sound/piano/g4.mp3';
 const g5 = 'sound/piano/g5.mp3';
 
 const drumState = [
-    { key: 'Q', output: kick, name: 'Default kick', height: 485 },
-    { key: 'W', output: hat4, name: 'Default hat', height: 475 },
-    { key: 'E', output: hat, name: 'Gentle hat', height: 465 },
-    { key: 'R', output: snare, name: 'Default snare', height: 455 },
+    {
+        key: 'Q',
+        output: kick,
+        name: 'dfk',
+        height: 485,
+        displayName: 'Default kick',
+    },
+    {
+        key: 'W',
+        output: hat4,
+        name: 'dfh',
+        height: 475,
+        displayName: 'Default hat',
+    },
+    {
+        key: 'E',
+        output: hat,
+        name: 'gth',
+        height: 465,
+        displayName: 'Gentle hat',
+    },
+    {
+        key: 'R',
+        output: snare,
+        name: 'dfs',
+        height: 455,
+        displayName: 'Default snare',
+    },
 ];
 
 const pianoState = [

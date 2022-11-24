@@ -37,6 +37,7 @@ function PresetsPage() {
         const { inputKey, changeActive, sectionName, output, currentPresetId } =
             p;
         const hotkeyObject = { sectionName, output, currentPresetId };
+        console.log(p);
         const handleHotkeyChange = () => {
             setInChange(true);
         };
@@ -121,6 +122,7 @@ function PresetsPage() {
     ) => {
         const [hotkeysVisible, setHotkeysVisisble] = useState(true);
         const output = array.map((i) => {
+            console.log(i);
             return (
                 <div
                     key={i.ouput}
@@ -130,13 +132,14 @@ function PresetsPage() {
                         key={`${i.output}h1`}
                         className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md"
                     >
-                        {i.name}
+                        {i.displayName ? i.displayName : i.name}
                     </h1>
 
                     <RenderSoundSection
                         key={`${i.output}RenderSoundSection`}
                         inputKey={i.key}
                         changeActive={changeActive}
+                        displayName={i.displayName}
                         sectionName={sectionName}
                         output={i.output}
                         currentPresetId={currentPresetId}
@@ -204,7 +207,7 @@ function PresetsPage() {
         if (!hotkeys) return;
         const { presets } = hotkeys;
         const currentPresetId = hotkeys.currentPreset;
-        console.log(currentPresetId);
+
         const currentPreset = presets.find((i) => {
             if (i.id === currentPresetId) return true;
         });

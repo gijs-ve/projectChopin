@@ -18,12 +18,19 @@ function Displayer() {
     const RenderSounds = () => {
         if (!playedSounds || playedSounds.length === 0) return;
         const sounds = playedSounds.map((i) => {
-            return <Sound xPos={i.xPosition} height={i.height} />;
+            console.log(i);
+            return (
+                <Sound
+                    key={`${i.height + i.xPosition}${i.output}`}
+                    xPos={i.xPosition}
+                    height={i.height}
+                />
+            );
         });
         return sounds;
     };
     return (
-        <div className="w-5/6 h-128 border-solid border-2 border-sky-500 ">
+        <div className="w-5/6 h-128  ">
             <RenderSounds />
         </div>
     );
