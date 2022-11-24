@@ -16,10 +16,15 @@ export const recorderSlice = createSlice({
         stopRecording: (state) => {
             state.recording = false;
         },
+        pauseRecording: (state) => {
+            state.recording = true;
+        },
         addRecord: (state, action) => {
             const { soundName } = action.payload;
-            state.outputTable.push(soundName);
-            state.outputTable.push(state.intervalTime);
+            state.outputTable.push({
+                time: state.intervalTime,
+                output: soundName,
+            });
             state.intervalTime = 0;
         },
         raiseInterval: (state) => {
@@ -28,7 +33,12 @@ export const recorderSlice = createSlice({
     },
 });
 
-export const { addRecord, raiseInterval, startRecording, stopRecording } =
-    recorderSlice.actions;
+export const {
+    addRecord,
+    raiseInterval,
+    startRecording,
+    stopRecording,
+    pauseRecording,
+} = recorderSlice.actions;
 
 export default recorderSlice.reducer;

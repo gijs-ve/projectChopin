@@ -6,12 +6,13 @@ import {
     raiseInterval,
     selectRecordings,
 } from '../../store';
+import { convertOutputTableToStrings } from '../recorder/recorderFunctions';
 
 function Recorder() {
     const dispatch = useDispatch();
     const recordStatus = useSelector(selectRecordStatus());
     const rec = useSelector(selectRecordings());
-    console.log(rec);
+    convertOutputTableToStrings(rec.outputTable);
     useEffect(() => {
         const interval = setInterval(() => {
             if (recordStatus) {
