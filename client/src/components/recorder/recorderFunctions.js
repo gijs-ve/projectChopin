@@ -45,7 +45,7 @@ const convertOutputTableToStrings = (outputTable) => {
 
 const convertStringsToOutputTable = (stringArray) => {
     const workArray = stringArray.map((i) => {
-        const stringArray = i.split('/');
+        const stringArray = i.string.split('/');
         return stringArray;
     });
     const objectArray = workArray.map((i) => {
@@ -59,7 +59,10 @@ const convertStringsToOutputTable = (stringArray) => {
             return soundObject;
         });
         const filteredArray = convertedArray.filter(
-            (i) => i.output !== 'n' && i.output !== undefined,
+            (i) =>
+                i.output !== 'n' &&
+                i.output !== undefined &&
+                i.output !== 'GEN',
         );
         return filteredArray;
     });

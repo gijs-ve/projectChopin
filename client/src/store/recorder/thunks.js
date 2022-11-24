@@ -7,13 +7,43 @@ import {
     refreshSelf,
     selectProfileName,
     confirmRecordName,
+    raiseListenTimer,
+    selectRecord,
+    selectListenTime,
 } from '../';
 import { appLoading, appDoneLoading, setMessage } from '../appState/slice';
+import { convertStringsToOutputTable } from '../../components/recorder';
 
 export const setRecordStartName = () => {
     return async (dispatch, getState) => {
         const name = selectProfileName(getState());
         dispatch(confirmRecordName(name));
+    };
+};
+
+export const checkSoundList = () => {
+    return async (dispatch, getState) => {
+        dispatch(raiseListenTimer());
+        const checkRecord = () => {
+            //CHANGE TO THE FOLLOWING: SELECTOR + [RECORDING] HAS TO BE REFERING TO ACTIVE RECORD
+            const [recording] = selectRecord(getState());
+
+            const outputTable = convertStringsToOutputTable(
+                recording.recordstrings,
+            );
+            console.log(outputTable);
+
+            const listenTime = selectListenTime(getState());
+            console.log(listenTime);
+            const chosenRecord = outputTable.filter((i) => {
+                return +i.time === listenTime;
+            });
+            console.log(chosenRecord);
+            return chosenRecord;
+        };
+
+        const record = checkRecord();
+        console.log(record);
     };
 };
 
