@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 function Sound(p) {
-    console.log(p);
     const { xPos, height } = p;
     const opacity = xPos * 0.00125 + 0.2;
     return (

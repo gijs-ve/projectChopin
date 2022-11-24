@@ -6,6 +6,8 @@ import {
     setInstrument,
     setPreset,
     addSound,
+    selectRecordStatus,
+    addRecord,
 } from '../../store/';
 import { useDispatch, useSelector } from 'react-redux';
 import { Piano } from '../../components';
@@ -14,6 +16,7 @@ function SoundPlayer(p) {
     const dispatch = useDispatch();
     const hotkeys = useSelector(selectHotkeys());
     const instrument = useSelector(selectInstrument());
+    const recordStatus = useSelector(selectRecordStatus());
     const { presets, activePresets } = hotkeys;
     const currentPresetId = hotkeys.currentPreset;
     const { status } = p;
@@ -37,6 +40,12 @@ function SoundPlayer(p) {
                         output: soundToPlay.output,
                         origin: 'self',
                         height: soundToPlay.height,
+                    }),
+                );
+                if (!recordStatus) return;
+                dispatch(
+                    addRecord({
+                        soundName: soundToPlay.name,
                     }),
                 );
                 return;
@@ -93,7 +102,7 @@ function SoundPlayer(p) {
 
         window.addEventListener('keydown', handleInput, false);
         return () => window.removeEventListener('keydown', handleInput, false);
-    }, [hotkeys, instrument]);
+    }, [hotkeys, instrument, recordStatus]);
     const RenderButtons = () => {
         return (
             <>
