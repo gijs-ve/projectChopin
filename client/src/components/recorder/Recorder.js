@@ -23,7 +23,6 @@ const RecordButtons = () => {
             <PauseOrResume />
             <StopRecordButton />
             <SaveRecordButton />
-
             <RecordHandler />
         </>
     );

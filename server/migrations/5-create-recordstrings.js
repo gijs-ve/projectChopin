@@ -11,7 +11,6 @@ module.exports = {
             string: {
                 type: Sequelize.STRING,
                 allowNull: false,
-                unique: true,
             },
             recordingId: {
                 allowNull: false,
