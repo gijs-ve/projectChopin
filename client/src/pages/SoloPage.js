@@ -1,9 +1,9 @@
-import { SoundPlayer } from '../components/sound/SoundPlayer';
-import { Displayer } from '../components';
+import { Displayer, Recorder, SoundPlayer } from '../components';
 
 function SoloPage() {
     return (
         <div>
+            <Recorder />
             <Displayer />
             <SoundPlayer />
         </div>
