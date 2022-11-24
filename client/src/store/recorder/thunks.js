@@ -1,4 +1,5 @@
 import { convertOutputTableToStrings } from '../../components/recorder/recorderFunctions';
+import { playRecorderSound } from '../../components/sound/soundFunctions';
 import { selectOutputTable, selectName } from './selectors';
 import { apiUrl } from '../../config/constants';
 import axios from 'axios';
@@ -31,19 +32,19 @@ export const checkSoundList = () => {
             const outputTable = convertStringsToOutputTable(
                 recording.recordstrings,
             );
-            console.log(outputTable);
-
             const listenTime = selectListenTime(getState());
-            console.log(listenTime);
-            const chosenRecord = outputTable.filter((i) => {
+            const foundSounds = outputTable.filter((i) => {
                 return +i.time === listenTime;
             });
-            console.log(chosenRecord);
-            return chosenRecord;
+
+            return foundSounds;
         };
 
         const record = checkRecord();
-        console.log(record);
+        if (!record || record.length === 0) return;
+        record.map((i) => {
+            playRecorderSound(i.output);
+        });
     };
 };
 
