@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
     StartRecordButton,
@@ -5,7 +6,9 @@ import {
     PauseRecordButton,
     SaveRecordButton,
     ResumeRecordButton,
+    NewRecordButton,
     RecordHandler,
+    RecordNameInput,
 } from '.';
 import { selectRecordStatus, selectRecordings } from '../../store';
 
@@ -20,22 +23,33 @@ const RecordButtons = () => {
             <PauseOrResume />
             <StopRecordButton />
             <SaveRecordButton />
+
             <RecordHandler />
         </>
     );
 };
-const RenderButtons = () => {
+const RenderRecordSection = () => {
     const recordStatus = useSelector(selectRecordStatus());
     const recordings = useSelector(selectRecordings());
     const { outputTable } = recordings;
     if ((!outputTable || outputTable.length === 0) && !recordStatus)
-        return <StartRecordButton />;
+        return (
+            <>
+                <StartRecordButton />
+                <RecordNameInput />
+            </>
+        );
     return <RecordButtons />;
 };
 function Recorder() {
+    const [newRecord, setNewRecord] = useState(false);
     return (
         <>
-            <RenderButtons />
+            {newRecord ? (
+                <RenderRecordSection />
+            ) : (
+                <NewRecordButton setNewRecord={setNewRecord} />
+            )}
         </>
     );
 }

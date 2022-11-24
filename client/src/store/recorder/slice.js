@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     outputTable: [],
+    name: '',
     recording: false,
     listening: false,
     timer: 0,
@@ -11,6 +12,10 @@ export const recorderSlice = createSlice({
     name: 'recorder',
     initialState,
     reducers: {
+        confirmRecordName: (state, action) => {
+            console.log(action.payload);
+            state.name = action.payload;
+        },
         startRecording: (state) => {
             state.recording = true;
         },
@@ -43,6 +48,7 @@ export const recorderSlice = createSlice({
 });
 
 export const {
+    confirmRecordName,
     addRecord,
     raiseInterval,
     startRecording,

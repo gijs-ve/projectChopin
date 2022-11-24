@@ -1,13 +1,26 @@
 import { convertOutputTableToStrings } from '../../components/recorder/recorderFunctions';
-import { selectOutputTable } from './selectors';
+import { selectOutputTable, selectName } from './selectors';
 import { apiUrl } from '../../config/constants';
 import axios from 'axios';
-import { selectToken, refreshSelf } from '../user';
+import {
+    selectToken,
+    refreshSelf,
+    selectProfileName,
+    confirmRecordName,
+} from '../';
 import { appLoading, appDoneLoading, setMessage } from '../appState/slice';
+
+export const setRecordStartName = () => {
+    return async (dispatch, getState) => {
+        const name = selectProfileName(getState());
+        dispatch(confirmRecordName(name));
+    };
+};
 
 export const addRecording = () => {
     return async (dispatch, getState) => {
         const outputTable = selectOutputTable(getState());
+        const name = selectName(getState());
         const strings = convertOutputTableToStrings(outputTable);
         dispatch(appLoading());
         const token = selectToken(getState());
@@ -16,6 +29,7 @@ export const addRecording = () => {
             await axios.post(
                 `${apiUrl}/recordings/saveRecording`,
                 {
+                    name,
                     strings,
                 },
                 { headers: { Authorization: `Bearer ${token}` } },

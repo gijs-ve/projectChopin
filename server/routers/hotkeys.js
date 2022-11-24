@@ -3,7 +3,6 @@ const authMiddleware = require('../auth/middleware');
 const Users = require('../models/').users;
 const Presets = require('../models/').presets;
 const Hotkeys = require('../models/').hotkeys;
-const { SALT_ROUNDS } = require('../config/constants');
 
 const router = new Router();
 router.post('/newPreset', authMiddleware, async (req, res) => {

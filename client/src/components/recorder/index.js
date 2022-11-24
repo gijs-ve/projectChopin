@@ -5,4 +5,6 @@ export * from './PauseRecordButton';
 export * from './SaveRecordButton';
 export * from './PauseRecordButton';
 export * from './ResumeRecordButton';
+export * from './NewRecordButton';
 export * from './RecordHandler';
+export * from './RecordNameInput';
