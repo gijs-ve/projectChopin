@@ -2,7 +2,7 @@ import { cnButton } from '../classNames';
 import { useDispatch } from 'react-redux';
 import { startRecording } from '../../store';
 
-function StartRecordButton() {
+function ResumeRecordButton() {
     const dispatch = useDispatch();
     return (
         <>
@@ -10,10 +10,10 @@ function StartRecordButton() {
                 className={cnButton}
                 onClick={() => dispatch(startRecording())}
             >
-                Start record
+                Resume recording
             </button>
         </>
     );
 }
 
-export { StartRecordButton };
+export { ResumeRecordButton };

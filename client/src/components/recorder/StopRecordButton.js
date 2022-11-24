@@ -1,7 +1,14 @@
+import { stopRecording } from '../../store';
 import { cnButton } from '../classNames';
+import { useDispatch } from 'react-redux';
 
 function StopRecordButton() {
-    return <div>StopRecordButton</div>;
+    const dispatch = useDispatch();
+    return (
+        <button className={cnButton} onClick={() => dispatch(stopRecording())}>
+            Stop recording
+        </button>
+    );
 }
 
 export { StopRecordButton };

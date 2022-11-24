@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     outputTable: [],
     recording: false,
+    listening: false,
     timer: 0,
 };
 
@@ -15,12 +16,21 @@ export const recorderSlice = createSlice({
         },
         stopRecording: (state) => {
             state.recording = false;
+            state.timer = 0;
+            state.outputTable = [];
         },
         pauseRecording: (state) => {
             state.recording = false;
         },
         addRecord: (state, action) => {
             const { soundName } = action.payload;
+            if (state.outputTable.length === 0) {
+                state.outputTable.push({
+                    time: 500,
+                    output: 'GEN',
+                });
+                state.timer = 500;
+            }
             state.outputTable.push({
                 time: state.timer,
                 output: soundName,

@@ -1,36 +1,41 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { StartRecordButton, StopRecordButton, PauseRecordButton } from '.';
+import { useSelector } from 'react-redux';
 import {
-    selectRecordStatus,
-    raiseInterval,
-    selectRecordings,
-} from '../../store';
-import { convertOutputTableToStrings } from '../recorder/recorderFunctions';
+    StartRecordButton,
+    StopRecordButton,
+    PauseRecordButton,
+    SaveRecordButton,
+    ResumeRecordButton,
+    RecordHandler,
+} from '.';
+import { selectRecordStatus, selectRecordings } from '../../store';
 
-function Recorder() {
-    const dispatch = useDispatch();
+const PauseOrResume = () => {
+    const recordStatus = useSelector(selectRecordStatus());
+    if (!recordStatus) return <ResumeRecordButton />;
+    return <PauseRecordButton />;
+};
+const RecordButtons = () => {
+    return (
+        <>
+            <PauseOrResume />
+            <StopRecordButton />
+            <SaveRecordButton />
+            <RecordHandler />
+        </>
+    );
+};
+const RenderButtons = () => {
     const recordStatus = useSelector(selectRecordStatus());
     const recordings = useSelector(selectRecordings());
     const { outputTable } = recordings;
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (recordStatus) {
-                dispatch(raiseInterval());
-            }
-        }, 10);
-        return () => clearInterval(interval);
-    }, [recordStatus]);
+    if ((!outputTable || outputTable.length === 0) && !recordStatus)
+        return <StartRecordButton />;
+    return <RecordButtons />;
+};
+function Recorder() {
     return (
         <>
-            {recordStatus ? (
-                <>
-                    <StopRecordButton />
-                    <PauseRecordButton />
-                </>
-            ) : (
-                <StartRecordButton outputTable={outputTable} />
-            )}
+            <RenderButtons />
         </>
     );
 }
