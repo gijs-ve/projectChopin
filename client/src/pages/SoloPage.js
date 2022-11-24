@@ -1,10 +1,16 @@
-import { Displayer, Recorder, SoundPlayer } from '../components';
+import {
+    Displayer,
+    Recorder,
+    SoundPlayer,
+    RecordListener,
+} from '../components';
 
 function SoloPage() {
     return (
         <div>
             <Recorder />
             <Displayer />
+            <RecordListener />
             <SoundPlayer />
         </div>
     );

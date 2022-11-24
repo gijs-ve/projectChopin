@@ -63,7 +63,7 @@ const convertStringsToOutputTable = (stringArray) => {
         );
         return filteredArray;
     });
-    console.log(objectArray);
+    return objectArray.flat();
 };
 
 export { convertOutputTableToStrings, convertStringsToOutputTable };

@@ -8,6 +8,7 @@ import {
     addSound,
     selectRecordStatus,
     addRecord,
+    selectRecordList,
 } from '../../store/';
 import { useDispatch, useSelector } from 'react-redux';
 import { Piano } from '../../components';
@@ -17,6 +18,7 @@ function SoundPlayer(p) {
     const hotkeys = useSelector(selectHotkeys());
     const instrument = useSelector(selectInstrument());
     const recordStatus = useSelector(selectRecordStatus());
+
     const { presets, activePresets } = hotkeys;
     const currentPresetId = hotkeys.currentPreset;
     const { status } = p;

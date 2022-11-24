@@ -4,6 +4,7 @@ const initialState = {
     outputTable: [],
     name: '',
     recordings: [],
+    activeRecordId: null,
     recording: false,
     listening: false,
     timer: 0,
@@ -52,6 +53,9 @@ export const recorderSlice = createSlice({
         raiseInterval: (state) => {
             state.timer = state.timer + 10;
         },
+        setActiveRecordId: (state, action) => {
+            state.activeRecordId = action.payload;
+        },
     },
 });
 
@@ -63,6 +67,7 @@ export const {
     stopRecording,
     pauseRecording,
     setRecordings,
+    setActiveRecordId,
 } = recorderSlice.actions;
 
 export default recorderSlice.reducer;
