@@ -17,7 +17,8 @@ export const recorderSlice = createSlice({
             state.recording = false;
         },
         pauseRecording: (state) => {
-            state.recording = true;
+            state.recording = false;
+            state.intervalTime = 0;
         },
         addRecord: (state, action) => {
             const { soundName } = action.payload;

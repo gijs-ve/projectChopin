@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StartRecordButton, StopRecordButton } from '.';
+import { StartRecordButton, StopRecordButton, PauseRecordButton } from '.';
 import {
     selectRecordStatus,
     raiseInterval,
@@ -11,8 +11,9 @@ import { convertOutputTableToStrings } from '../recorder/recorderFunctions';
 function Recorder() {
     const dispatch = useDispatch();
     const recordStatus = useSelector(selectRecordStatus());
-    const rec = useSelector(selectRecordings());
-    convertOutputTableToStrings(rec.outputTable);
+    const recordings = useSelector(selectRecordings());
+    const { outputTable } = recordings;
+    console.log(recordings);
     useEffect(() => {
         const interval = setInterval(() => {
             if (recordStatus) {
@@ -21,7 +22,18 @@ function Recorder() {
         }, 10);
         return () => clearInterval(interval);
     }, [recordStatus]);
-    return <>{recordStatus ? <StopRecordButton /> : <StartRecordButton />}</>;
+    return (
+        <>
+            {recordStatus ? (
+                <>
+                    <StopRecordButton />
+                    <PauseRecordButton />
+                </>
+            ) : (
+                <StartRecordButton outputTable={outputTable} />
+            )}
+        </>
+    );
 }
 
 export { Recorder };

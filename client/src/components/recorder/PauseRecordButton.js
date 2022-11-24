@@ -1,14 +1,14 @@
 import { cnButton } from '../classNames';
 import { useDispatch } from 'react-redux';
-import { startRecording } from '../../store';
+import { pauseRecording } from '../../store';
 
-function StartRecordButton() {
+function PauseRecordButton() {
     const dispatch = useDispatch();
     return (
-        <button className={cnButton} onClick={() => dispatch(startRecording())}>
-            Start record
+        <button className={cnButton} onClick={() => dispatch(pauseRecording())}>
+            Pause
         </button>
     );
 }
 
-export { StartRecordButton };
+export { PauseRecordButton };
