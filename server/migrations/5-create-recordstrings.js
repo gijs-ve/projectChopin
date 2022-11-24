@@ -13,7 +13,7 @@ module.exports = {
                 allowNull: false,
                 unique: true,
             },
-            recordId: {
+            recordingId: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
                 references: {
