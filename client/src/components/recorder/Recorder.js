@@ -13,7 +13,6 @@ function Recorder() {
     const recordStatus = useSelector(selectRecordStatus());
     const recordings = useSelector(selectRecordings());
     const { outputTable } = recordings;
-    console.log(recordings);
     useEffect(() => {
         const interval = setInterval(() => {
             if (recordStatus) {

@@ -3,12 +3,16 @@ import { defaultPreset } from '../sound/sounds';
 const convertSet = (array, workArray, setNumber) => {
     const stringArray = [];
     if (setNumber === 0) {
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < setLength; i++) {
             stringArray.push(array[i]);
         }
     }
     if (setNumber !== 0) {
-        for (let i = setNumber * 25; i < setNumber * 25 + 25; i++) {
+        for (
+            let i = setNumber * setLength;
+            i < setNumber * setLength + setLength;
+            i++
+        ) {
             stringArray.push(array[i]);
         }
     }
@@ -16,21 +20,22 @@ const convertSet = (array, workArray, setNumber) => {
 };
 
 const convertRawStringTable = (array) => {
-    const amountOfSets = array.length / 25;
+    const amountOfSets = array.length / setLength;
     const workArray = [];
     for (let i = 0; i < amountOfSets; i++) {
         convertSet(array, workArray, i);
     }
 };
+const setLength = 20;
 const convertOutputTableToStrings = (outputTable) => {
     const tableLength = outputTable.length;
-    const lengthToAdd = 25 - (tableLength % 25);
+    const lengthToAdd = setLength - (tableLength % setLength);
 
     const rawStringTable = outputTable.map((i) => {
         return `#${i.time}^${i.output}/`;
     });
 
-    if (lengthToAdd !== 25) {
+    if (lengthToAdd !== setLength) {
         for (let i = 0; i < lengthToAdd; i++) {
             rawStringTable.push('#n^n/');
         }
