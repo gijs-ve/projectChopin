@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             users.hasMany(models.presets);
+            users.hasMany(models.recordings);
         }
     }
     users.init(

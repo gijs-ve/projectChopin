@@ -25,14 +25,15 @@ const convertRawStringTable = (array) => {
     for (let i = 0; i < amountOfSets; i++) {
         convertSet(array, workArray, i);
     }
+    return workArray;
 };
-const setLength = 20;
+const setLength = 23;
 const convertOutputTableToStrings = (outputTable) => {
     const tableLength = outputTable.length;
     const lengthToAdd = setLength - (tableLength % setLength);
 
     const rawStringTable = outputTable.map((i) => {
-        return `#${i.time}^${i.output}/`;
+        return `!${i.time}^${i.output}/`;
     });
 
     if (lengthToAdd !== setLength) {
@@ -41,6 +42,7 @@ const convertOutputTableToStrings = (outputTable) => {
         }
     }
     const returnTable = convertRawStringTable(rawStringTable);
+
     return returnTable;
 };
 

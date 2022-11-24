@@ -1,23 +1,24 @@
 'use strict';
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('recordings', {
+        await queryInterface.createTable('recordstrings', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            name: {
+            string: {
                 type: Sequelize.STRING,
                 allowNull: false,
+                unique: true,
             },
-            userId: {
+            recordId: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
                 references: {
                     key: 'id',
-                    model: 'users',
+                    model: 'recordings',
                 },
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
@@ -33,6 +34,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('recordings');
+        await queryInterface.dropTable('recordstrings');
     },
 };
