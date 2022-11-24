@@ -8,3 +8,5 @@ export * from './ResumeRecordButton';
 export * from './NewRecordButton';
 export * from './RecordHandler';
 export * from './RecordNameInput';
+export * from './recorderFunctions';
+export * from './RecordListener';

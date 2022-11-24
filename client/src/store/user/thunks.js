@@ -5,6 +5,7 @@ import { appLoading, appDoneLoading, setMessage } from '../appState/slice';
 import { showMessageWithTimeout } from '../appState/thunks';
 import { loginSuccess, logOut, tokenStillValid } from './slice';
 import { setPresets } from '../hotkeys';
+import { setRecordings } from '../recorder/slice';
 
 export const signUp = (name, password) => {
     return async (dispatch) => {
@@ -105,6 +106,7 @@ export const refreshSelf = () => {
             });
             dispatch(tokenStillValid({ user: response.data }));
             dispatch(setPresets(response.data.presets));
+            dispatch(setRecordings(response.data.recordings));
             dispatch(appDoneLoading());
         } catch (error) {
             if (error.response) {

@@ -81,8 +81,6 @@ export const hotkeysSlice = createSlice({
                 };
                 newPresetArray.push(pushedPreset);
             });
-            console.log(convertHotkeysToString(piano));
-            console.log(newPresetArray);
             state.presets = newPresetArray;
         },
         editHotkey: (state, action) => {

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     outputTable: [],
     name: '',
+    recordings: [],
     recording: false,
     listening: false,
     timer: 0,
@@ -26,6 +27,13 @@ export const recorderSlice = createSlice({
         },
         pauseRecording: (state) => {
             state.recording = false;
+        },
+        setRecordings: (state, action) => {
+            if (!action.payload || action.payload.length === 0) {
+                state.recordings = [];
+                return;
+            }
+            state.recordings = action.payload;
         },
         addRecord: (state, action) => {
             const { soundName } = action.payload;
@@ -54,6 +62,7 @@ export const {
     startRecording,
     stopRecording,
     pauseRecording,
+    setRecordings,
 } = recorderSlice.actions;
 
 export default recorderSlice.reducer;

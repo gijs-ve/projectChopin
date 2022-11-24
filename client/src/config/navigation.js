@@ -15,7 +15,7 @@ const navigation = [
         icon: UsersIcon,
         current: false,
     },
-    { name: 'Recordings', href: '#', icon: RadioIcon, current: false },
+    { name: 'Recordings', href: 'recordings', icon: RadioIcon, current: false },
     { name: 'Settings', href: 'settings', icon: WrenchIcon, current: false },
 ];
 const userNavigation = [{ name: 'Sign out', href: 'signout' }];

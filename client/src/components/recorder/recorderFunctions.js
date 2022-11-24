@@ -1,5 +1,3 @@
-import { defaultPreset } from '../sound/sounds';
-
 const setLength = 20;
 const convertSet = (array, workArray, setNumber) => {
     const stringArray = [];
@@ -45,4 +43,27 @@ const convertOutputTableToStrings = (outputTable) => {
     return returnTable;
 };
 
-export { convertOutputTableToStrings };
+const convertStringsToOutputTable = (stringArray) => {
+    const workArray = stringArray.map((i) => {
+        const stringArray = i.split('/');
+        return stringArray;
+    });
+    const objectArray = workArray.map((i) => {
+        const convertedArray = i.map((i) => {
+            const string = i.replace('!', '');
+            const splitString = string.split('^');
+            const soundObject = {
+                time: splitString[0],
+                output: splitString[1],
+            };
+            return soundObject;
+        });
+        const filteredArray = convertedArray.filter(
+            (i) => i.output !== 'n' && i.output !== undefined,
+        );
+        return filteredArray;
+    });
+    console.log(objectArray);
+};
+
+export { convertOutputTableToStrings, convertStringsToOutputTable };

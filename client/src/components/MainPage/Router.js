@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import {
     HomePage,
     SoloPage,
-    LoginPage,
+    RecordingsPage,
     SettingsPage,
     SignOutPage,
     MultiplayerPage,
@@ -15,6 +15,7 @@ function Router() {
             <Route path="/signout" element={<SignOutPage />} />
             <Route path="/solo" element={<SoloPage />} />
             <Route path="/multiplayer" element={<MultiplayerPage />} />
+            <Route path="/recordings" element={<RecordingsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
         </Routes>
     );
