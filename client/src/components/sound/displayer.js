@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSounds, xPosHandler } from '../../store';
 import { Sound } from './Sound';
+import { DisplayOutput, OutputCanvas } from '.';
 
 function Displayer() {
     const { playedSounds } = useSelector(selectSounds());
@@ -19,20 +20,18 @@ function Displayer() {
         if (!playedSounds || playedSounds.length === 0) return;
         const sounds = playedSounds.map((i) => {
             return (
-                <Sound
-                    key={`${i.height + i.xPosition}${i.output}`}
-                    xPos={i.xPosition}
-                    height={i.height}
-                />
+                <>
+                    <DisplayOutput
+                        key={`${i.height + i.xPosition}${i.output}`}
+                        xPos={i.xPosition}
+                        height={i.height}
+                    />
+                </>
             );
         });
         return sounds;
     };
-    return (
-        <div className="w-5/6 h-128  ">
-            <RenderSounds />
-        </div>
-    );
+    return <OutputCanvas className="w-full h-128" sounds={playedSounds} />;
 }
 
 export { Displayer };
