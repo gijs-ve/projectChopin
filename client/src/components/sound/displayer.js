@@ -31,7 +31,7 @@ function Displayer() {
         });
         return sounds;
     };
-    return <OutputCanvas className="w-full h-128" sounds={playedSounds} />;
+    return <OutputCanvas className="w-full h-132" sounds={playedSounds} />;
 }
 
 export { Displayer };

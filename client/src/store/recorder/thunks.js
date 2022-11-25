@@ -1,7 +1,7 @@
 import { convertOutputTableToStrings } from '../../components/recorder/recorderFunctions';
 import {
     playRecorderSound,
-    convertNameToHeight,
+    convertOutputToHeight,
 } from '../../components/sound/soundFunctions';
 import { selectOutputTable, selectName } from './selectors';
 import { addSound } from '../displayer';
@@ -53,7 +53,7 @@ export const checkSoundList = () => {
                 addSound({
                     output: i.output,
                     origin: 'self',
-                    height: convertNameToHeight(i.output),
+                    height: convertOutputToHeight(i.output),
                 }),
             );
         });

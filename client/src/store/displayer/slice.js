@@ -10,7 +10,7 @@ export const displayerSlice = createSlice({
     reducers: {
         addSound: (state, action) => {
             const { output, origin, height } = action.payload;
-            const newSound = { output, origin, xPosition: 800, height };
+            const newSound = { output, origin, xPosition: 250, height };
             state.playedSounds.push(newSound);
         },
         xPosHandler: (state) => {
@@ -19,7 +19,7 @@ export const displayerSlice = createSlice({
                 return true;
             });
             const newPositions = filteredPositions.map((i) => {
-                return { ...i, xPosition: i.xPosition - 3 };
+                return { ...i, xPosition: i.xPosition - 0.5 };
             });
             state.playedSounds = newPositions;
         },

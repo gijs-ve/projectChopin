@@ -1,6 +1,7 @@
 import { Howl, Howler } from 'howler';
 import { defaultPreset } from './sounds';
 const { drum, piano } = defaultPreset;
+const sounds = [drum, piano];
 
 const playSound = (source) => {
     new Howl({
@@ -10,6 +11,20 @@ const playSound = (source) => {
         html5: true,
         onend: function () {},
     });
+};
+
+const getAllSounds = () => {
+    return sounds.flat();
+};
+
+const getTypeFromOutput = (sound) => {
+    console.log(sound);
+    if (arrayHasSource(drum, sound)) {
+        return 'drum';
+    }
+    if (arrayHasSource(piano, sound)) {
+        return 'piano';
+    }
 };
 
 const playRecorderSound = (name) => {
@@ -48,13 +63,6 @@ const getHeightFromSound = (array, sound) => {
     return soundObject.height;
 };
 
-const getHeightFromName = (array, name) => {
-    const soundObject = array.find((i) => {
-        if (i.name === name) return true;
-    });
-    return soundObject.height;
-};
-
 const getOutput = (array, name) => {
     const soundObject = array.find((i) => {
         if (i.name === name) return true;
@@ -72,20 +80,20 @@ const convertSoundToHeight = (sound) => {
     }
 };
 
-const convertNameToHeight = (name) => {
-    let height = undefined;
-    if (arrayHasOutput(drum, name)) {
-        height = getHeightFromName(drum, name);
-    }
-    if (arrayHasOutput(piano, name)) {
-        height = getHeightFromName(piano, name);
-    }
-    return height;
+const convertOutputToHeight = (output) => {
+    const sounds = getAllSounds();
+    const sound = sounds.find((i) => {
+        if (i.output === output) return true;
+        return false;
+    });
+    return sound.height;
 };
 
 export {
     playSound,
     playRecorderSound,
     convertSoundToHeight,
-    convertNameToHeight,
+    convertOutputToHeight,
+    getAllSounds,
+    getTypeFromOutput,
 };
