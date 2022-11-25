@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSounds, xPosHandler } from '../../store';
-import { Sound } from './Sound';
-import { DisplayOutput, OutputCanvas } from '.';
+import { OutputCanvas } from '.';
 
 function Displayer() {
     const { playedSounds } = useSelector(selectSounds());
@@ -16,21 +15,7 @@ function Displayer() {
         }, 10);
         return () => clearInterval(interval);
     }, [playedSounds]);
-    const RenderSounds = () => {
-        if (!playedSounds || playedSounds.length === 0) return;
-        const sounds = playedSounds.map((i) => {
-            return (
-                <>
-                    <DisplayOutput
-                        key={`${i.height + i.xPosition}${i.output}`}
-                        xPos={i.xPosition}
-                        height={i.height}
-                    />
-                </>
-            );
-        });
-        return sounds;
-    };
+
     return <OutputCanvas className="w-full h-132" sounds={playedSounds} />;
 }
 

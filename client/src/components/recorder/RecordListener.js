@@ -8,6 +8,7 @@ import {
 } from '../../store';
 import { cnButton } from '../classNames';
 import { RecordListenHandler } from './RecordListenerHandler';
+import { RecordPicker } from './RecordPicker';
 
 function RecordListener() {
     const dispatch = useDispatch();
@@ -27,7 +28,8 @@ function RecordListener() {
             >
                 {listenStatus ? 'Stop recording' : 'Play recording'}
             </button>
-            <button className={cnButton}>TEST </button>
+
+            <RecordPicker />
             <RecordListenHandler />
         </>
     );

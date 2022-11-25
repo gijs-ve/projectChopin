@@ -12,7 +12,6 @@ const OutputCanvas = (p) => {
 
         sounds.map((i) => {
             let color = '#2563eb';
-
             ctx.fill();
             ctx.beginPath();
             ctx.globalAlpha = 1;
@@ -30,7 +29,7 @@ const OutputCanvas = (p) => {
                 if (i.xPosition > 244 && i.output === 'sound/steban/kick.mp3') {
                     ctx.arc(i.xPosition, i.height, 5, 0, 2 * Math.PI);
                     ctx.fillStyle = color;
-                    ctx.rect(i.xPosition, 1, 1, ctx.canvas.clientHeight);
+                    ctx.globalAlpha = 0.2;
                 }
                 if (i.xPosition > 244) {
                     ctx.arc(i.xPosition, i.height, 3, 0, 2 * Math.PI);
@@ -41,7 +40,6 @@ const OutputCanvas = (p) => {
                 ) {
                     ctx.arc(i.xPosition, i.height, 3, 0, 2 * Math.PI);
                     ctx.fillStyle = color;
-                    ctx.rect(i.xPosition, 1, 1, ctx.canvas.clientHeight);
                 }
                 if (i.xPosition <= 244) {
                     ctx.arc(i.xPosition, i.height, 2, 0, 2 * Math.PI);
@@ -50,10 +48,16 @@ const OutputCanvas = (p) => {
                 return;
             }
             if (soundType === 'piano') {
-                if (i.xPosition > 232) {
+                if (i.xPosition > 242) {
                     const difference = i.xPosition - 232;
-                    ctx.rect(i.xPosition + difference, i.height, difference, 2);
+                    ctx.rect(
+                        i.xPosition + difference,
+                        i.height,
+                        2 + difference,
+                        2,
+                    );
                     ctx.fill();
+
                     return;
                 }
                 if (i.xPosition < 18) {

@@ -10,3 +10,4 @@ export * from './RecordHandler';
 export * from './RecordNameInput';
 export * from './recorderFunctions';
 export * from './RecordListener';
+export * from './RecordPicker';
