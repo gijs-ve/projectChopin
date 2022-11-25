@@ -20,7 +20,6 @@ const getAllSounds = () => {
 const allSounds = getAllSounds();
 
 const getTypeFromOutput = (sound) => {
-    console.log(sound);
     if (arrayHasSource(drum, sound)) {
         return 'drum';
     }

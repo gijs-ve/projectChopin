@@ -37,7 +37,6 @@ function PresetsPage() {
         const { inputKey, changeActive, sectionName, output, currentPresetId } =
             p;
         const hotkeyObject = { sectionName, output, currentPresetId };
-        console.log(p);
         const handleHotkeyChange = () => {
             setInChange(true);
         };
@@ -114,12 +113,7 @@ function PresetsPage() {
             </>
         );
     };
-    const RenderHotkeySection = (
-        array,
-        sectionName,
-        currentPreset,
-        currentPresetId,
-    ) => {
+    const RenderHotkeySection = (array, sectionName, currentPresetId) => {
         const [hotkeysVisible, setHotkeysVisisble] = useState(true);
         const output = array.map((i) => {
             console.log(i);
@@ -195,7 +189,7 @@ function PresetsPage() {
                     Save
                 </button>
                 <button className={cnButton} onClick={() => setTest(!test)}>
-                    {test ? 'Stop test' : 'Test hotkeys'}
+                    {test ? 'Mute sounds' : 'Try sounds'}
                 </button>
                 {test ? <SoundPlayer status={'settingsTest'} /> : ''}
             </>
@@ -227,13 +221,11 @@ function PresetsPage() {
                 {RenderHotkeySection(
                     currentPreset.drum,
                     'Drums',
-                    currentPreset,
                     currentPresetId,
                 )}
                 {RenderHotkeySection(
                     currentPreset.piano,
                     'Piano',
-                    currentPreset,
                     currentPresetId,
                 )}
             </>

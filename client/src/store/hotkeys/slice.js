@@ -25,7 +25,6 @@ export const hotkeysSlice = createSlice({
     reducers: {
         changeHotkey: (state, action) => {},
         setInstrument: (state, action) => {
-            console.log(action.payload);
             state.instrument = action.payload;
         },
         //changes currentPresent
@@ -90,7 +89,6 @@ export const hotkeysSlice = createSlice({
             const allowedKey = allowedKeybindings.includes(upperKey);
             const mapInstruments = (array) => {
                 return array.map((i) => {
-                    console.log(i.key);
                     if (i.key === upperKey) return { ...i, key: '-' };
                     if (i.output !== output) return i;
                     if (!allowedKey) return { ...i, key: '-' };

@@ -7,7 +7,6 @@ function PauseRecordButton() {
     const dispatch = useDispatch();
     const recordStatus = useSelector(selectRecordStatus());
     const handlePauseRecord = () => {
-        console.log('test');
         dispatch(pauseRecording());
     };
     return (

@@ -31,7 +31,7 @@ function MultiplayerPage() {
         socket.on('receiveSound', (sound) => {
             playSound(sound);
             const height = convertSoundToHeight(sound);
-            console.log(height);
+
             dispatch(
                 addSound({
                     output: sound,

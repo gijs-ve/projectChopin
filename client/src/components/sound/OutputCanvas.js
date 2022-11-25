@@ -22,7 +22,7 @@ const OutputCanvas = (p) => {
             }
             ctx.fillStyle = color;
             const soundType = getTypeFromOutput(i.output);
-            console.log(i.output);
+
             if (soundType === 'drum') {
                 if (i.xPosition > 244 && i.output === 'sound/steban/kick.mp3') {
                     ctx.arc(i.xPosition, i.height, 5, 0, 2 * Math.PI);
