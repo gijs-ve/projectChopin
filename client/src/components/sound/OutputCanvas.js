@@ -50,15 +50,14 @@ const OutputCanvas = (p) => {
                 return;
             }
             if (soundType === 'piano') {
-                if (i.xPosition > 242) {
-                    const difference = i.xPosition - 242;
-                    ctx.rect(
-                        i.xPosition + difference,
-                        i.height - 1,
-                        difference,
-                        4,
-                    );
+                if (i.xPosition > 232) {
+                    const difference = i.xPosition - 232;
+                    ctx.rect(i.xPosition + difference, i.height, difference, 2);
                     ctx.fill();
+                    return;
+                }
+                if (i.xPosition < 18) {
+                    ctx.rect(i.xPosition - 18, i.height, 24, 2);
                     return;
                 }
                 ctx.rect(i.xPosition, i.height, 6, 2);
