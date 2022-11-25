@@ -14,8 +14,11 @@ import {
     selectProfileName,
     confirmRecordName,
     raiseListenTimer,
-    selectRecord,
+    selectActiveRecording,
     selectListenTime,
+    selectRecord,
+    selectRecordingStatus,
+    addRecord,
 } from '../';
 import { appLoading, appDoneLoading, setMessage } from '../appState/slice';
 import { convertStringsToOutputTable } from '../../components/recorder';
@@ -32,10 +35,16 @@ export const checkSoundList = () => {
         dispatch(raiseListenTimer());
         const checkRecord = () => {
             //CHANGE TO THE FOLLOWING: SELECTOR + [RECORDING] HAS TO BE REFERING TO ACTIVE RECORD
-            const [test, tes2, recording] = selectRecord(getState());
-
+            const recordId = selectActiveRecording(getState());
+            const recordList = selectRecord(getState());
+            console.log(recordId);
+            const record = recordList.find((i) => {
+                console.log(i);
+                return recordId === i.id;
+            });
+            console.log(record);
             const outputTable = convertStringsToOutputTable(
-                recording.recordstrings,
+                record.recordstrings,
             );
             const listenTime = selectListenTime(getState());
             const foundSounds = outputTable.filter((i) => {
@@ -46,6 +55,7 @@ export const checkSoundList = () => {
         };
 
         const record = checkRecord();
+        const recordStatus = selectRecordingStatus(getState());
         if (!record || record.length === 0) return;
         record.map((i) => {
             playRecorderSound(i.output);
@@ -54,6 +64,12 @@ export const checkSoundList = () => {
                     output: convertNameToOutput(i.output),
                     origin: 'self',
                     height: convertNameToHeight(i.output),
+                }),
+            );
+            if (!recordStatus) return;
+            dispatch(
+                addRecord({
+                    soundName: i.output,
                 }),
             );
         });

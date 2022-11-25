@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getDefaultRecording } from '../../components/recorder/recorderFunctions';
 
 const initialState = {
     outputTable: [],
     name: '',
     recordings: [],
-    activeRecord: 5,
+    activeRecord: 0,
     recording: false,
     listening: false,
     timer: 0,
@@ -31,11 +32,8 @@ export const recorderSlice = createSlice({
             state.recording = false;
         },
         setRecordings: (state, action) => {
-            if (!action.payload || action.payload.length === 0) {
-                state.recordings = [];
-                return;
-            }
-            state.recordings = action.payload;
+            const defaultRecording = getDefaultRecording();
+            state.recordings = [...action.payload, defaultRecording];
         },
         toggleListening: (state) => {
             if (!state.listening) state.listenTimer = 0;
@@ -62,11 +60,7 @@ export const recorderSlice = createSlice({
             state.listenTimer = state.listenTimer + 10;
         },
         setActiveRecord: (state, action) => {
-            if (!state.recordings || state.recordings === 0) return;
-            const activeRecord = state.recordings.find((i) => {
-                return i.id === action.payload;
-            });
-            state.activeRecord = activeRecord;
+            state.activeRecord = action.payload;
         },
     },
 });
@@ -80,7 +74,7 @@ export const {
     stopRecording,
     pauseRecording,
     setRecordings,
-    setActiveRecordId,
+    setActiveRecord,
     toggleListening,
 } = recorderSlice.actions;
 

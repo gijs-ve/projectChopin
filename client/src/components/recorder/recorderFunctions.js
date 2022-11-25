@@ -69,4 +69,25 @@ const convertStringsToOutputTable = (stringArray) => {
     return objectArray.flat();
 };
 
-export { convertOutputTableToStrings, convertStringsToOutputTable };
+const generateDefaultRecording = () => {
+    const recordstrings = [
+        {
+            string: '!500^GEN/!500^dfk/!530^dfh/!590^gth/!670^dfk/!680^dfh/!810^dfk/!810^gth/!820^dfh/!920^dfk/!940^dfh/!950^gth/!1560^gth/!1680^dfk/!1720^dfh/!1820^gth/!2000^dfh/!2060^gth/!2170^dfk/!2190^dfh/',
+        },
+    ];
+    const defaultRecording = {
+        id: 0,
+        name: 'Default',
+        recordstrings,
+    };
+    return defaultRecording;
+};
+const getDefaultRecording = () => {
+    return generateDefaultRecording();
+};
+
+export {
+    convertOutputTableToStrings,
+    convertStringsToOutputTable,
+    getDefaultRecording,
+};

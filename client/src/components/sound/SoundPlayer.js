@@ -11,6 +11,7 @@ import {
 } from '../../store/';
 import { useDispatch, useSelector } from 'react-redux';
 import { Piano } from '../../components';
+import { cnButton } from '../classNames';
 
 function SoundPlayer(p) {
     const dispatch = useDispatch();
@@ -104,12 +105,22 @@ function SoundPlayer(p) {
         return () => window.removeEventListener('keydown', handleInput, false);
     }, [hotkeys, instrument, recordStatus]);
     const RenderButtons = () => {
+        const handleInstrument = (instrument) => {
+            dispatch(setInstrument(instrument));
+        };
         return (
             <>
-                <button className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button
+                    className={cnButton}
+                    onClick={() => handleInstrument('drum')}
+                >
                     Drums
                 </button>
-                <button className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button
+                    className={cnButton}
+                    onClick={() => handleInstrument('piano')}
+                >
+                    {' '}
                     Piano
                 </button>
             </>
@@ -117,8 +128,8 @@ function SoundPlayer(p) {
     };
     const RenderInstrument = () => {
         if (status === 'settingsTest') return;
-        if (instrument === 'drum') return <>DRUM</>;
-        if (instrument === 'piano') return <Piano />;
+        if (instrument === 'drum') return;
+        //  if (instrument === 'piano') return <Piano />;
     };
 
     return (
