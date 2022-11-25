@@ -1,6 +1,10 @@
 import { convertOutputTableToStrings } from '../../components/recorder/recorderFunctions';
-import { playRecorderSound } from '../../components/sound/soundFunctions';
+import {
+    playRecorderSound,
+    convertNameToHeight,
+} from '../../components/sound/soundFunctions';
 import { selectOutputTable, selectName } from './selectors';
+import { addSound } from '../displayer';
 import { apiUrl } from '../../config/constants';
 import axios from 'axios';
 import {
@@ -27,7 +31,7 @@ export const checkSoundList = () => {
         dispatch(raiseListenTimer());
         const checkRecord = () => {
             //CHANGE TO THE FOLLOWING: SELECTOR + [RECORDING] HAS TO BE REFERING TO ACTIVE RECORD
-            const [recording] = selectRecord(getState());
+            const [test, tes2, recording] = selectRecord(getState());
 
             const outputTable = convertStringsToOutputTable(
                 recording.recordstrings,
@@ -44,6 +48,14 @@ export const checkSoundList = () => {
         if (!record || record.length === 0) return;
         record.map((i) => {
             playRecorderSound(i.output);
+
+            dispatch(
+                addSound({
+                    output: i.output,
+                    origin: 'self',
+                    height: convertNameToHeight(i.output),
+                }),
+            );
         });
     };
 };

@@ -8,7 +8,6 @@ import {
     addSound,
     selectRecordStatus,
     addRecord,
-    selectRecordList,
 } from '../../store/';
 import { useDispatch, useSelector } from 'react-redux';
 import { Piano } from '../../components';

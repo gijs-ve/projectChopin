@@ -13,7 +13,6 @@ const playSound = (source) => {
 };
 
 const playRecorderSound = (name) => {
-    console.log(name);
     let output = undefined;
     if (arrayHasOutput(drum, name)) {
         output = getOutput(drum, name);
@@ -42,9 +41,16 @@ const arrayHasOutput = (array, sound) => {
     return true;
 };
 
-const getHeight = (array, sound) => {
+const getHeightFromSound = (array, sound) => {
     const soundObject = array.find((i) => {
         if (i.output === sound) return true;
+    });
+    return soundObject.height;
+};
+
+const getHeightFromName = (array, name) => {
+    const soundObject = array.find((i) => {
+        if (i.name === name) return true;
     });
     return soundObject.height;
 };
@@ -57,12 +63,29 @@ const getOutput = (array, name) => {
 };
 
 const convertSoundToHeight = (sound) => {
+    console.log(sound);
     if (arrayHasSource(drum, sound)) {
-        return getHeight(drum, sound);
+        return getHeightFromSound(drum, sound);
     }
     if (arrayHasSource(piano, sound)) {
-        return getHeight(piano, sound);
+        return getHeightFromSound(piano, sound);
     }
 };
 
-export { playSound, playRecorderSound, convertSoundToHeight };
+const convertNameToHeight = (name) => {
+    let height = undefined;
+    if (arrayHasOutput(drum, name)) {
+        height = getHeightFromName(drum, name);
+    }
+    if (arrayHasOutput(piano, name)) {
+        height = getHeightFromName(piano, name);
+    }
+    return height;
+};
+
+export {
+    playSound,
+    playRecorderSound,
+    convertSoundToHeight,
+    convertNameToHeight,
+};
