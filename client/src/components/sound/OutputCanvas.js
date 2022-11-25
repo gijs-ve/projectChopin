@@ -14,8 +14,11 @@ const OutputCanvas = (p) => {
             let color = '#2563eb';
             ctx.beginPath();
             ctx.globalAlpha = 1;
-            if (i.xPosition < 100) {
-                ctx.globalAlpha = i.xPosition / 100;
+            if (i.xPosition < 110) {
+                ctx.globalAlpha = (i.xPosition - 10) / 100;
+            }
+            if (i.xPosition < 10) {
+                ctx.globalAlpha = 0;
             }
             ctx.fillStyle = color;
             const soundType = getTypeFromOutput(i.output);
