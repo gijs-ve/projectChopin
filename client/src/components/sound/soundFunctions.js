@@ -17,6 +17,8 @@ const getAllSounds = () => {
     return sounds.flat();
 };
 
+const allSounds = getAllSounds();
+
 const getTypeFromOutput = (sound) => {
     console.log(sound);
     if (arrayHasSource(drum, sound)) {
@@ -80,20 +82,28 @@ const convertSoundToHeight = (sound) => {
     }
 };
 
-const convertOutputToHeight = (output) => {
-    const sounds = getAllSounds();
-    const sound = sounds.find((i) => {
-        if (i.output === output) return true;
+const convertNameToHeight = (name) => {
+    const sound = allSounds.find((i) => {
+        if (i.name === name) return true;
         return false;
     });
     return sound.height;
+};
+
+const convertNameToOutput = (name) => {
+    const sound = allSounds.find((i) => {
+        if (i.name === name) return true;
+        return false;
+    });
+    return sound.output;
 };
 
 export {
     playSound,
     playRecorderSound,
     convertSoundToHeight,
-    convertOutputToHeight,
+    convertNameToHeight,
+    convertNameToOutput,
     getAllSounds,
     getTypeFromOutput,
 };

@@ -1,7 +1,8 @@
 import { convertOutputTableToStrings } from '../../components/recorder/recorderFunctions';
 import {
     playRecorderSound,
-    convertOutputToHeight,
+    convertNameToHeight,
+    convertNameToOutput,
 } from '../../components/sound/soundFunctions';
 import { selectOutputTable, selectName } from './selectors';
 import { addSound } from '../displayer';
@@ -48,12 +49,11 @@ export const checkSoundList = () => {
         if (!record || record.length === 0) return;
         record.map((i) => {
             playRecorderSound(i.output);
-
             dispatch(
                 addSound({
-                    output: i.output,
+                    output: convertNameToOutput(i.output),
                     origin: 'self',
-                    height: convertOutputToHeight(i.output),
+                    height: convertNameToHeight(i.output),
                 }),
             );
         });
