@@ -23,9 +23,12 @@ export const displayerSlice = createSlice({
             });
             state.playedSounds = newPositions;
         },
+        clearDisplayer: (state) => {
+            state.playedSounds = [];
+        },
     },
 });
 
-export const { addSound, xPosHandler } = displayerSlice.actions;
+export const { addSound, xPosHandler, clearDisplayer } = displayerSlice.actions;
 
 export default displayerSlice.reducer;

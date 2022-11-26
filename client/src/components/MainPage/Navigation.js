@@ -3,6 +3,7 @@ import { navigation, classNames } from '../../config/navigation';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavigation, selectNavigation } from '../../store/appState';
+import { clearDisplayer } from '../../store';
 
 function NavigationSmall() {
     const dispatch = useDispatch();
@@ -12,7 +13,10 @@ function NavigationSmall() {
                 <Link
                     key={i.name}
                     to={i.href}
-                    onClick={() => dispatch(setNavigation(i.name))}
+                    onClick={() => {
+                        dispatch(setNavigation(i.name));
+                        dispatch(clearDisplayer());
+                    }}
                     className={classNames(
                         i.current
                             ? 'bg-gray-900 text-white'
@@ -53,7 +57,10 @@ function NavigationBig() {
                 <Link
                     key={i.name}
                     to={i.href}
-                    onClick={() => dispatch(setNavigation(i.name))}
+                    onClick={() => {
+                        dispatch(setNavigation(i.name));
+                        dispatch(clearDisplayer());
+                    }}
                     className={classNames(
                         i.current
                             ? 'bg-gray-900 text-white'

@@ -5,14 +5,16 @@ function SettingsPage() {
     const [presetsVisible, setPresetsVisible] = useState(false);
 
     return (
-        <div>
-            <button
-                className={cnButton}
-                onClick={() => setPresetsVisible(!presetsVisible)}
-            >
-                Presets
-            </button>
-            {presetsVisible ? <PresetsPage /> : 'Test'}
+        <div className="overflow-hidden">
+            <div>
+                <button
+                    className={cnButton}
+                    onClick={() => setPresetsVisible(!presetsVisible)}
+                >
+                    Presets
+                </button>
+                {presetsVisible ? <PresetsPage /> : ''}
+            </div>
         </div>
     );
 }

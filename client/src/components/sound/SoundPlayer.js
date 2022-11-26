@@ -133,7 +133,7 @@ function SoundPlayer(p) {
     };
 
     return (
-        <div>
+        <div className="my-4">
             <RenderButtons />
             <br />
             <RenderInstrument />

@@ -190,22 +190,20 @@ function PresetsPage() {
     };
     const RenderHotkeys = () => {
         const hotkeys = useSelector(selectHotkeys());
-
         if (!hotkeys) return;
         const { presets } = hotkeys;
         const currentPresetId = hotkeys.currentPreset;
-
         const currentPreset = presets.find((i) => {
             if (i.id === currentPresetId) return true;
         });
         return (
             <>
+                <AddPresetSection />
                 <PresetsSelection
                     currentPresetId={currentPresetId}
                     hotkeys={hotkeys}
                 />
                 <div className="mt-4">
-                    <AddPresetSection />{' '}
                     <ChangePreset
                         currentPresetId={currentPresetId}
                         currentPreset={currentPreset}
@@ -226,7 +224,7 @@ function PresetsPage() {
     };
 
     return (
-        <div>
+        <div className="mt-4">
             <RenderHotkeys />
         </div>
     );

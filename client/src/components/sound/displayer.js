@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSounds, xPosHandler } from '../../store';
+import { selectSounds, xPosHandler, clearDisplayer } from '../../store';
 import { OutputCanvas } from '.';
 
 function Displayer() {
