@@ -1,5 +1,6 @@
 export * from './MainPage';
 export * from './SettingsPage';
+export * from './RecordingsPage';
 export * from './Instruments';
 export * from './recorder';
 export * from './sound/SoundPlayer';

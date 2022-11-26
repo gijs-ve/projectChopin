@@ -1,11 +1,24 @@
-import { RecordListener } from '../components';
-import { whiteLabel } from '../components/classNames';
+import { RecordingsSection } from '../components';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectRecordList } from '../store';
 function RecordingsPage() {
+    const ownRecords = useSelector(selectRecordList());
+    const [displayStatus, setDisplayStatus] = useState([
+        { label: 'My recordings', status: false },
+    ]);
+
+    console.log(displayStatus);
     return (
         <>
-            <h1 className={whiteLabel}>My recordings</h1>
-            <h1 className={whiteLabel}>Shared recordings</h1>
-            <h1 className={whiteLabel}>Public recordings</h1>
+            <RecordingsSection
+                data={{
+                    recordings: ownRecords,
+                    label: 'My recordings',
+                    displayStatus,
+                    setDisplayStatus,
+                }}
+            />
         </>
     );
 }

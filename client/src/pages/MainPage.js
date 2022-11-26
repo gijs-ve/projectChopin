@@ -198,11 +198,19 @@ function MainPage() {
                     </div>
 
                     <main className="flex-1">
-                        <div className="py-6 bg-gray-600">
-                            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 bg-gray-600">
+                        <div
+                            className="py-6 pb-96 bg-gray-600"
+                            id="hideScrollContainer"
+                        >
+                            <div
+                                className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 bg-gray-600"
+                                id="hideScrollItem"
+                            >
                                 <Router />
                             </div>
                         </div>
+                        <div className="pb-96 bg-gray-600"></div>
+                        <div className="pb-96 bg-gray-600"></div>
                     </main>
                 </div>
             </div>
