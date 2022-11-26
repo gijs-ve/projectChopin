@@ -14,17 +14,11 @@ function PresetsPage() {
     const dispatch = useDispatch();
     const [changeActive, setChangeActive] = useState(false);
     const AddPresetSection = () => {
-        const [presetName, setPresetName] = useState('');
         return (
             <>
-                <input
-                    type="text"
-                    value={presetName}
-                    onChange={(e) => setPresetName(e.target.value)}
-                />
                 <button
                     className={cnButton}
-                    onClick={() => dispatch(addPreset(presetName))}
+                    onClick={() => dispatch(addPreset())}
                 >
                     Create new preset
                 </button>
@@ -116,7 +110,6 @@ function PresetsPage() {
     const RenderHotkeySection = (array, sectionName, currentPresetId) => {
         const [hotkeysVisible, setHotkeysVisisble] = useState(true);
         const output = array.map((i) => {
-            console.log(i);
             return (
                 <div
                     key={i.ouput}

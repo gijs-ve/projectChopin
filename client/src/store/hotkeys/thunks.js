@@ -9,19 +9,15 @@ import {
     convertHotkeysToString,
 } from '../../components/settings';
 
-export const addPreset = (name) => {
+export const addPreset = () => {
     return async (dispatch, getState) => {
         dispatch(appLoading());
         const token = selectToken(getState());
         if (token === null) return;
         try {
-            await axios.post(
-                `${apiUrl}/hotkeys/newPreset`,
-                {
-                    name,
-                },
-                { headers: { Authorization: `Bearer ${token}` } },
-            );
+            await axios.post(`${apiUrl}/hotkeys/newPreset`, '', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
             dispatch(refreshSelf());
             dispatch(appDoneLoading());
         } catch (error) {

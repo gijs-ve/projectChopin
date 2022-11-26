@@ -7,14 +7,13 @@ const Hotkeys = require('../models/').hotkeys;
 const router = new Router();
 router.post('/newPreset', authMiddleware, async (req, res) => {
     try {
-        const { name } = req.body;
         const { id } = req.user;
-        if (!name || !id)
+        if (!id)
             return res.status(400).send({
                 message: 'Inappriopriate action',
             });
         const newPreset = await Presets.create({
-            name,
+            name: `${req.user.name}'s preset`,
             userId: id,
         });
         const newHotkeys = await Hotkeys.bulkCreate([
