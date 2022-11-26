@@ -2,6 +2,7 @@ const { Router } = require('express');
 const authMiddleware = require('../auth/middleware');
 const Recordings = require('../models/').recordings;
 const RecordStrings = require('../models/').recordstrings;
+const { v4 } = require('uuid');
 
 const router = new Router();
 router.post('/saveRecording', authMiddleware, async (req, res) => {
@@ -12,9 +13,13 @@ router.post('/saveRecording', authMiddleware, async (req, res) => {
             return res.status(400).send({
                 message: 'Inappriopriate action',
             });
+        const v4uuid = v4();
+        const uuid = v4uuid.split('-')[0];
         const newRecording = await Recordings.create({
             name,
             userId: id,
+            createdBy: req.user.name,
+            uuid,
         });
 
         const bulkArray = strings.map((i) => {
