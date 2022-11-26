@@ -1,6 +1,7 @@
-const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const { jwtSecret } = require('../config/constants');
+const jwt = require('jsonwebtoken');
+const { jwtSecret } = process.env;
 
 function toJWT(data) {
     return jwt.sign(data, jwtSecret, { expiresIn: '24h' });

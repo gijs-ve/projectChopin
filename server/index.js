@@ -1,16 +1,21 @@
+require('dotenv').config();
 const corsMiddleWare = require('cors');
 
 //Server setup
 const express = require('express');
 const app = express();
-const { PORT } = require('./config/constants');
+const { PORT } = process.env;
 const { toData } = require('./auth/jwt');
 const Users = require('./models/').users;
 
 //Socket setup
 const io = require('socket.io')(4001, {
     cors: {
-        origin: ['http://localhost:3000', 'http://192.168.0.118:3000'],
+        origin: [
+            'http://localhost:3000',
+            'http://192.168.0.118:3000',
+            'https://project-chopin.netlify.app/',
+        ],
     },
 });
 const { v4 } = require('uuid');
