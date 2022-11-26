@@ -23,7 +23,7 @@ function RecordingsSection(p) {
                 </h1>
             );
 
-        return <RecordList records={recordings} />;
+        return <RecordList label={label} records={recordings} />;
     };
     return (
         <>
