@@ -1,6 +1,9 @@
 import { getLengthFromRecordStrings } from '../../components/recorder/recorderFunctions';
+import { deleteRecording } from '../../store';
+import { useDispatch } from 'react-redux';
 
 function RecordList(p) {
+    const dispatch = useDispatch();
     const { records, label, selfName } = p;
     let showPublish = false;
     if (label === 'My recordings') showPublish = true;
@@ -129,15 +132,20 @@ function RecordList(p) {
                                             </td>
                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                 {selfIsCreator(i.createdBy) ? (
-                                                    <a
-                                                        href="#"
-                                                        className="text-indigo-600 hover:text-indigo-900"
+                                                    <div
+                                                        onClick={() =>
+                                                            dispatch(
+                                                                deleteRecording(
+                                                                    i.id,
+                                                                ),
+                                                            )
+                                                        }
                                                     >
                                                         Delete
                                                         <span className="sr-only">
                                                             Delete
                                                         </span>
-                                                    </a>
+                                                    </div>
                                                 ) : (
                                                     ''
                                                 )}

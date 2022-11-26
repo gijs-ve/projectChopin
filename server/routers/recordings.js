@@ -37,4 +37,57 @@ router.post('/saveRecording', authMiddleware, async (req, res) => {
             .send({ message: 'Something went wrong while saving!' });
     }
 });
+
+router.delete('/deleteRecording', authMiddleware, async (req, res) => {
+    try {
+        const { recordId } = req.body;
+        const { id } = req.user;
+        if (!recordId || !id)
+            return res.status(400).send({
+                message: 'Inappriopriate action',
+            });
+        const record = await Recordings.findOne({ where: { id: recordId } });
+        if (record.userId !== id)
+            return res.status(403).send({
+                message: `You are not the creator of this recording!`,
+            });
+        const name = record.name;
+        await record.destroy();
+        return res.status(200).send({
+            message: `Succesfully destroyed ${name}`,
+        });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(400)
+            .send({ message: 'Something went wrong while deleting!' });
+    }
+});
+
+router.patch('/togglePublish', authMiddleware, async (req, res) => {
+    try {
+        const { recordId } = req.body;
+        const { id } = req.user;
+        if (!recordId || !id)
+            return res.status(400).send({
+                message: 'Inappriopriate action',
+            });
+        const record = await Recordings.findOne({ where: { id: recordId } });
+        console.log(record);
+        if (record.userId !== id)
+            return res.status(403).send({
+                message: `You are not the creator of this recording!`,
+            });
+        const { name, isPublished } = record;
+        await record.update({ isPublished: !isPublished });
+        return res.status(200).send({
+            message: `Succesfully (un)published ${name}`,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send({
+            message: 'Something went wrong while changing the publish status!',
+        });
+    }
+});
 module.exports = router;
