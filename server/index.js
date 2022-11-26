@@ -1,9 +1,10 @@
+require('dotenv').config();
 const corsMiddleWare = require('cors');
 
 //Server setup
 const express = require('express');
 const app = express();
-const { PORT } = require('./config/constants');
+const { PORT } = process.env;
 const { toData } = require('./auth/jwt');
 const Users = require('./models/').users;
 
