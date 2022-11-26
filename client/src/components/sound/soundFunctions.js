@@ -97,6 +97,10 @@ const convertNameToOutput = (name) => {
     return sound.output;
 };
 
+const colorIsValidHexValue = (color) => {
+    return /^#[0-9A-F]{6}$/i.test(color);
+};
+
 export {
     playSound,
     playRecorderSound,
@@ -105,4 +109,5 @@ export {
     convertNameToOutput,
     getAllSounds,
     getTypeFromOutput,
+    colorIsValidHexValue,
 };

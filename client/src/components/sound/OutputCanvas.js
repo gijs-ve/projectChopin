@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { getTypeFromOutput } from './soundFunctions';
+import { getTypeFromOutput, colorIsValidHexValue } from './soundFunctions';
 
 const OutputCanvas = (p) => {
     const canvasRef = useRef(null);
@@ -11,7 +11,10 @@ const OutputCanvas = (p) => {
         if (!sounds || sounds.length === 0) return;
 
         sounds.map((i) => {
-            let color = '#2563eb';
+            let color = undefined;
+            if (!colorIsValidHexValue(color)) {
+                color = '#2563eb';
+            }
             ctx.fill();
             ctx.beginPath();
             ctx.globalAlpha = 1;
