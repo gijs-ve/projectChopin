@@ -178,7 +178,13 @@ function PresetsPage() {
         }
         return (
             <>
-                <button className={cnButton} onClick={() => savePreset()}>
+                <button
+                    className={cnButton}
+                    onClick={() => {
+                        setChangeActive(false);
+                        savePreset();
+                    }}
+                >
                     Save
                 </button>
                 <button className={cnButton} onClick={() => setTest(!test)}>
@@ -202,6 +208,7 @@ function PresetsPage() {
                 <PresetsSelection
                     currentPresetId={currentPresetId}
                     hotkeys={hotkeys}
+                    addLabel={true}
                 />
                 <div className="mt-4">
                     <ChangePreset

@@ -117,7 +117,11 @@ function MultiplayerPage() {
                     Copy ID
                 </button>
                 <Displayer />
-                <SoundPlayer sendSound={sendSound} roomId={room.roomId} />
+                <SoundPlayer
+                    status="active"
+                    sendSound={sendSound}
+                    roomId={room.roomId}
+                />
                 <RenderUsers />
             </>
         );

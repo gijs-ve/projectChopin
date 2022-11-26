@@ -10,7 +10,7 @@ import {
     addRecord,
 } from '../../store/';
 import { useDispatch, useSelector } from 'react-redux';
-import { Piano } from '../../components';
+import { Piano, PresetsSelection } from '../../components';
 import { cnButton } from '../classNames';
 
 function SoundPlayer(p) {
@@ -131,9 +131,20 @@ function SoundPlayer(p) {
         if (instrument === 'drum') return;
         //  if (instrument === 'piano') return <Piano />;
     };
+    const PresetSelector = () => {
+        if (status !== 'active') return;
+        return (
+            <PresetsSelection
+                currentPresetId={currentPresetId}
+                hotkeys={hotkeys}
+                addLabel={false}
+            />
+        );
+    };
 
     return (
         <div className="my-4">
+            <PresetSelector />
             <RenderButtons />
             <br />
             <RenderInstrument />

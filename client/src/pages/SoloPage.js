@@ -8,12 +8,13 @@ import {
 function SoloPage() {
     return (
         <div>
-            <SoundPlayer />
+            <SoundPlayer status={'active'} />
+
+            <Displayer />
             <div className="flex flex-wrap">
                 <Recorder />
                 <RecordListener />
             </div>
-            <Displayer />
         </div>
     );
 }
