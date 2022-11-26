@@ -1,16 +1,10 @@
-import { getLengthFromRecordStrings } from '../../components/recorder/recorderFunctions';
-import { deleteRecording } from '../../store';
-import { useDispatch } from 'react-redux';
+import { RecordEntry } from '.';
 
 function RecordList(p) {
-    const dispatch = useDispatch();
     const { records, label, selfName } = p;
     let showPublish = false;
     if (label === 'My recordings') showPublish = true;
-    const selfIsCreator = (creator) => {
-        if (selfName === creator) return true;
-        return false;
-    };
+
     return (
         <div className="px-4 sm:px-6 lg:px-8">
             <div className="mt-8 flex flex-col">
@@ -50,7 +44,14 @@ function RecordList(p) {
                                                 >
                                                     Share key
                                                 </th>
-
+                                                <th
+                                                    scope="col"
+                                                    className="relative py-3.5 pl-3 pr-4 sm:pr-6"
+                                                >
+                                                    <span className="sr-only">
+                                                        Rename
+                                                    </span>
+                                                </th>
                                                 <th
                                                     scope="col"
                                                     className="relative py-3.5 pl-3 pr-4 sm:pr-6"
@@ -82,76 +83,16 @@ function RecordList(p) {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {records.map((i) => (
-                                        <tr key={i.id}>
-                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                {i.name}
-                                            </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                {getLengthFromRecordStrings(
-                                                    i.recordstrings,
-                                                )}
-                                            </td>
-                                            {!showPublish ? (
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                    {i.createdBy}
-                                                </td>
-                                            ) : (
-                                                ''
-                                            )}
-                                            {showPublish ? (
-                                                <>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                        {i.uuid}
-                                                    </td>
-                                                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                        <a
-                                                            href="#"
-                                                            className="text-indigo-600 hover:text-indigo-900"
-                                                        >
-                                                            Publish
-                                                            <span className="sr-only">
-                                                                , {i.name}
-                                                            </span>
-                                                        </a>
-                                                    </td>
-                                                </>
-                                            ) : (
-                                                ''
-                                            )}
-                                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                <a
-                                                    href="#"
-                                                    className="text-indigo-600 hover:text-indigo-900"
-                                                >
-                                                    Play
-                                                    <span className="sr-only">
-                                                        , {i.name}
-                                                    </span>
-                                                </a>
-                                            </td>
-                                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                {selfIsCreator(i.createdBy) ? (
-                                                    <div
-                                                        onClick={() =>
-                                                            dispatch(
-                                                                deleteRecording(
-                                                                    i.id,
-                                                                ),
-                                                            )
-                                                        }
-                                                    >
-                                                        Delete
-                                                        <span className="sr-only">
-                                                            Delete
-                                                        </span>
-                                                    </div>
-                                                ) : (
-                                                    ''
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
+                                    {records.map((i) => {
+                                        return (
+                                            <RecordEntry
+                                                key={i.id}
+                                                i={i}
+                                                selfName={selfName}
+                                                showPublish={showPublish}
+                                            />
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>

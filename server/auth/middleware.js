@@ -23,7 +23,15 @@ async function auth(req, res, next) {
             include: [
                 { model: Presets, include: [{ model: Hotkeys }] },
                 { model: Recordings, include: [{ model: RecordStrings }] },
-                { model: SharedRecordings, include: [{ model: Recordings }] },
+                {
+                    model: SharedRecordings,
+                    include: [
+                        {
+                            model: Recordings,
+                            include: [{ model: RecordStrings }],
+                        },
+                    ],
+                },
             ],
         });
         if (!user) {

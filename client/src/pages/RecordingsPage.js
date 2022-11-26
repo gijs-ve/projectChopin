@@ -1,16 +1,32 @@
 import { RecordingsSection, RecordListener } from '../components';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectRecordList, selectProfileName } from '../store';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    selectRecordList,
+    selectProfileName,
+    selectPublicRecords,
+    selectSharedRecordings,
+    getPublicRecords,
+} from '../store';
 function RecordingsPage() {
     const ownRecords = useSelector(selectRecordList());
+    const publicRecords = useSelector(selectPublicRecords);
+    const rawSharedRecords = useSelector(selectSharedRecordings);
+    const sharedRecords = rawSharedRecords.map((i) => {
+        return { ...i.recording };
+    });
     const selfName = useSelector(selectProfileName);
     const [displayStatus, setDisplayStatus] = useState([
         { label: 'My recordings', status: false },
         { label: 'Shared recordings', status: false },
+        { label: 'Public recordings', status: true },
     ]);
-
-    console.log(displayStatus);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getPublicRecords());
+    }, []);
+    console.log(sharedRecords);
+    console.log(ownRecords);
     return (
         <>
             <RecordListener status={'onRecordingsPage'} />
@@ -25,8 +41,17 @@ function RecordingsPage() {
             />
             <RecordingsSection
                 data={{
-                    recordings: [],
+                    recordings: sharedRecords,
                     label: 'Shared recordings',
+                    selfName,
+                    displayStatus,
+                    setDisplayStatus,
+                }}
+            />
+            <RecordingsSection
+                data={{
+                    recordings: publicRecords,
+                    label: 'Public recordings',
                     selfName,
                     displayStatus,
                     setDisplayStatus,

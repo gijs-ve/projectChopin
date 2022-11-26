@@ -9,3 +9,4 @@ export const selectRecord = (state) => state.recorder.recordings;
 export const selectOutputTable = (state) => state.recorder.outputTable;
 export const selectName = (state) => state.recorder.name;
 export const selectListenTime = (state) => state.recorder.listenTimer;
+export const selectPublicRecords = (state) => state.recorder.publicRecordings;

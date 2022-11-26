@@ -5,6 +5,7 @@ const initialState = {
     outputTable: [],
     name: '',
     recordings: [],
+    publicRecordings: [],
     activeRecord: 0,
     recording: false,
     listening: false,
@@ -43,10 +44,10 @@ export const recorderSlice = createSlice({
             const { soundName } = action.payload;
             if (state.outputTable.length === 0) {
                 state.outputTable.push({
-                    time: 500,
+                    time: 100,
                     output: 'GEN',
                 });
-                state.timer = 500;
+                state.timer = 100;
             }
             state.outputTable.push({
                 time: state.timer,
@@ -62,8 +63,15 @@ export const recorderSlice = createSlice({
         setActiveRecord: (state, action) => {
             state.activeRecord = action.payload;
         },
-        clearListening: (state, action) => {
+        startListening: (state) => {
+            state.listenTimer = 50;
+            state.listening = true;
+        },
+        clearListening: (state) => {
             state.listening = false;
+        },
+        setPublicRecords: (state, action) => {
+            state.publicRecordings = action.payload;
         },
     },
 });
@@ -79,7 +87,9 @@ export const {
     setRecordings,
     setActiveRecord,
     toggleListening,
+    startListening,
     clearListening,
+    setPublicRecords,
 } = recorderSlice.actions;
 
 export default recorderSlice.reducer;

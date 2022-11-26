@@ -1,6 +1,6 @@
 import React from 'react';
 import { whiteLabel } from '../classNames';
-import { RecordList } from '.';
+import { RecordList, AddSharedRecord } from '.';
 
 function RecordingsSection(p) {
     const { label, recordings, displayStatus, setDisplayStatus, selfName } =
@@ -19,19 +19,27 @@ function RecordingsSection(p) {
     const displayRecords = () => {
         if (!recordings || recordings.length === 0)
             return (
-                <h1 className={whiteLabel}>
-                    There are no {label.toLowerCase()}
-                </h1>
+                <>
+                    {shared ? <AddSharedRecord /> : ''}
+                    <h1 className={whiteLabel}>
+                        There are currently no {label.toLowerCase()} available
+                    </h1>
+                </>
             );
 
         return (
-            <RecordList
-                label={label}
-                records={recordings}
-                selfName={selfName}
-            />
+            <>
+                {shared ? <AddSharedRecord /> : ''}
+                <RecordList
+                    label={label}
+                    records={recordings}
+                    selfName={selfName}
+                />
+            </>
         );
     };
+    let shared = false;
+    if (label === 'Shared recordings') shared = true;
     return (
         <>
             <div className={whiteLabel + ' pt-12'}>
@@ -40,6 +48,7 @@ function RecordingsSection(p) {
                     {status ? '(hide)' : '(show)'}
                 </h2>
             </div>
+
             {status ? displayRecords() : ''}
         </>
     );

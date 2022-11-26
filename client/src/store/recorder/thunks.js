@@ -18,10 +18,23 @@ import {
     selectListenTime,
     selectRecord,
     selectRecordingStatus,
+    selectPublicRecords,
+    selectSharedRecordings,
     addRecord,
+    setPublicRecords,
+    clearListening,
 } from '../';
 import { appLoading, appDoneLoading, setMessage } from '../appState/slice';
 import { convertStringsToOutputTable } from '../../components/recorder';
+
+export const getPublicRecords = () => {
+    return async (dispatch) => {
+        const response = await axios.get(
+            `${apiUrl}/recordings/getPublishedRecords`,
+        );
+        dispatch(setPublicRecords(response.data.records));
+    };
+};
 
 export const setRecordStartName = () => {
     return async (dispatch, getState) => {
@@ -29,20 +42,66 @@ export const setRecordStartName = () => {
         dispatch(confirmRecordName(name));
     };
 };
+export const editRecordName = (id, name) => {
+    return async (dispatch, getState) => {
+        dispatch(appLoading());
+        try {
+            const token = selectToken(getState());
+            if (token === null) return;
+            await axios.patch(
+                `${apiUrl}/recordings/editName`,
+                { id, name },
+                { headers: { Authorization: `Bearer ${token}` } },
+            );
+            dispatch(refreshSelf());
+            dispatch(getPublicRecords());
+            dispatch(appDoneLoading());
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.message);
+                dispatch(
+                    setMessage({
+                        variant: 'danger',
+                        dismissable: true,
+                        text: error.response.data.message,
+                    }),
+                );
+            } else {
+                console.log(error.message);
+                dispatch(
+                    setMessage({
+                        variant: 'danger',
+                        dismissable: true,
+                        text: error.message,
+                    }),
+                );
+            }
+            dispatch(appDoneLoading());
+        }
+    };
+};
 
 export const checkSoundList = () => {
     return async (dispatch, getState) => {
         dispatch(raiseListenTimer());
         const checkRecord = () => {
-            //CHANGE TO THE FOLLOWING: SELECTOR + [RECORDING] HAS TO BE REFERING TO ACTIVE RECORD
             const recordId = selectActiveRecording(getState());
             const recordList = selectRecord(getState());
-            console.log(recordId);
-            const record = recordList.find((i) => {
-                console.log(i);
+            const publicRecordList = selectPublicRecords(getState());
+            const sharedRecordList = selectSharedRecordings(getState());
+            let record = recordList.find((i) => {
                 return recordId === i.id;
             });
-            console.log(record);
+            if (!record) {
+                record = publicRecordList.find((i) => {
+                    return recordId === i.id;
+                });
+            }
+            if (!record) {
+                record = sharedRecordList.find((i) => {
+                    return recordId === i.id;
+                });
+            }
             const outputTable = convertStringsToOutputTable(
                 record.recordstrings,
             );
@@ -50,11 +109,16 @@ export const checkSoundList = () => {
             const foundSounds = outputTable.filter((i) => {
                 return +i.time === listenTime;
             });
-
+            if (outputTable[outputTable.length - 1].time < listenTime)
+                return 'End';
             return foundSounds;
         };
 
         const record = checkRecord();
+        if (record === 'End') {
+            dispatch(clearListening());
+            return;
+        }
         const recordStatus = selectRecordingStatus(getState());
         if (!record || record.length === 0) return;
         record.map((i) => {
@@ -120,6 +184,46 @@ export const addRecording = () => {
     };
 };
 
+export const addSharedKey = (key) => {
+    return async (dispatch, getState) => {
+        dispatch(appLoading());
+        const token = selectToken(getState());
+        if (token === null) return;
+        try {
+            await axios.post(
+                `${apiUrl}/recordings/addSharedKey`,
+                {
+                    key,
+                },
+                { headers: { Authorization: `Bearer ${token}` } },
+            );
+            dispatch(refreshSelf());
+            dispatch(appDoneLoading());
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.message);
+                dispatch(
+                    setMessage({
+                        variant: 'danger',
+                        dismissable: true,
+                        text: error.response.data.message,
+                    }),
+                );
+            } else {
+                console.log(error.message);
+                dispatch(
+                    setMessage({
+                        variant: 'danger',
+                        dismissable: true,
+                        text: error.message,
+                    }),
+                );
+            }
+            dispatch(appDoneLoading());
+        }
+    };
+};
+
 export const deleteRecording = (id) => {
     return async (dispatch, getState) => {
         try {
@@ -131,6 +235,48 @@ export const deleteRecording = (id) => {
                 headers: { Authorization: `Bearer ${token}` },
             });
             dispatch(refreshSelf());
+            dispatch(getPublicRecords());
+            dispatch(appDoneLoading());
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.message);
+                dispatch(
+                    setMessage({
+                        variant: 'danger',
+                        dismissable: true,
+                        text: error.response.data.message,
+                    }),
+                );
+            } else {
+                console.log(error.message);
+                dispatch(
+                    setMessage({
+                        variant: 'danger',
+                        dismissable: true,
+                        text: error.message,
+                    }),
+                );
+            }
+            dispatch(appDoneLoading());
+        }
+    };
+};
+
+export const updatePublishStatus = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(appLoading());
+            const token = selectToken(getState());
+            if (token === null) return;
+            await axios.patch(
+                `${apiUrl}/recordings/togglePublish`,
+                {
+                    recordId: id,
+                },
+                { headers: { Authorization: `Bearer ${token}` } },
+            );
+            dispatch(refreshSelf());
+            dispatch(getPublicRecords());
             dispatch(appDoneLoading());
         } catch (error) {
             if (error.response) {

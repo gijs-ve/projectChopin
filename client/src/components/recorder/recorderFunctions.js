@@ -72,7 +72,10 @@ const convertStringsToOutputTable = (stringArray) => {
 const generateDefaultRecording = () => {
     const recordstrings = [
         {
-            string: '!500^GEN/!500^dfk/!530^dfh/!590^gth/!670^dfk/!680^dfh/!810^dfk/!810^gth/!820^dfh/!920^dfk/!940^dfh/!950^gth/!1560^gth/!1680^dfk/!1720^dfh/!1820^gth/!2000^dfh/!2060^gth/!2170^dfk/!2190^dfh/',
+            string: '!100^GEN/!500^dfk/!830^gth/!1140^gth/!1490^gth/!1820^dfk/!2110^gth/!2450^gth/!2760^gth/!3090^dfk/!3400^gth/!3710^gth/!4040^gth/!4360^dfk/!4670^gth/!4990^gth/!5290^gth/!5610^dfk/!5920^gth/!6230^gth/',
+        },
+        {
+            string: '!6520^gth/!6820^dfk/!7140^gth/!7460^gth/!7770^gth/!8070^dfk/!8370^gth/!8670^gth/!8980^gth/!9330^dfk/#n^n/#n^n/#n^n/#n^n/#n^n/#n^n/#n^n/#n^n/#n^n/#n^n/',
         },
     ];
     const defaultRecording = {
