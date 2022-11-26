@@ -3,7 +3,8 @@ import { whiteLabel } from '../classNames';
 import { RecordList } from '.';
 
 function RecordingsSection(p) {
-    const { label, recordings, displayStatus, setDisplayStatus } = p.data;
+    const { label, recordings, displayStatus, setDisplayStatus, selfName } =
+        p.data;
     const handleOnClick = () => {
         const newStatus = displayStatus.map((i) => {
             if (i.label === label) return { ...i, status: !i.status };
@@ -23,7 +24,13 @@ function RecordingsSection(p) {
                 </h1>
             );
 
-        return <RecordList label={label} records={recordings} />;
+        return (
+            <RecordList
+                label={label}
+                records={recordings}
+                selfName={selfName}
+            />
+        );
     };
     return (
         <>

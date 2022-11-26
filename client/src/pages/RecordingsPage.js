@@ -1,9 +1,10 @@
 import { RecordingsSection, RecordListener } from '../components';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectRecordList } from '../store';
+import { selectRecordList, selectProfileName } from '../store';
 function RecordingsPage() {
     const ownRecords = useSelector(selectRecordList());
+    const selfName = useSelector(selectProfileName);
     const [displayStatus, setDisplayStatus] = useState([
         { label: 'My recordings', status: false },
         { label: 'Shared recordings', status: false },
@@ -17,6 +18,7 @@ function RecordingsPage() {
                 data={{
                     recordings: ownRecords,
                     label: 'My recordings',
+                    selfName,
                     displayStatus,
                     setDisplayStatus,
                 }}
@@ -25,6 +27,7 @@ function RecordingsPage() {
                 data={{
                     recordings: [],
                     label: 'Shared recordings',
+                    selfName,
                     displayStatus,
                     setDisplayStatus,
                 }}

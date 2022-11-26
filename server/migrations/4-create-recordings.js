@@ -12,6 +12,10 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            isPublished: {
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+            },
             createdBy: {
                 type: Sequelize.STRING,
                 allowNull: false,

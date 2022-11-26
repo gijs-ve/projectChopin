@@ -1,9 +1,13 @@
 import { getLengthFromRecordStrings } from '../../components/recorder/recorderFunctions';
 
 function RecordList(p) {
-    const { records, label } = p;
+    const { records, label, selfName } = p;
     let showPublish = false;
     if (label === 'My recordings') showPublish = true;
+    const selfIsCreator = (creator) => {
+        if (selfName === creator) return true;
+        return false;
+    };
     return (
         <div className="px-4 sm:px-6 lg:px-8">
             <div className="mt-8 flex flex-col">
@@ -69,7 +73,7 @@ function RecordList(p) {
                                             className="relative py-3.5 pl-3 pr-4 sm:pr-6"
                                         >
                                             <span className="sr-only">
-                                                Edit
+                                                Delete
                                             </span>
                                         </th>
                                     </tr>
@@ -124,15 +128,19 @@ function RecordList(p) {
                                                 </a>
                                             </td>
                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                <a
-                                                    href="#"
-                                                    className="text-indigo-600 hover:text-indigo-900"
-                                                >
-                                                    Edit
-                                                    <span className="sr-only">
-                                                        , {i.name}
-                                                    </span>
-                                                </a>
+                                                {selfIsCreator(i.createdBy) ? (
+                                                    <a
+                                                        href="#"
+                                                        className="text-indigo-600 hover:text-indigo-900"
+                                                    >
+                                                        Delete
+                                                        <span className="sr-only">
+                                                            Delete
+                                                        </span>
+                                                    </a>
+                                                ) : (
+                                                    ''
+                                                )}
                                             </td>
                                         </tr>
                                     ))}

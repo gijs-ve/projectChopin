@@ -20,6 +20,7 @@ router.post('/saveRecording', authMiddleware, async (req, res) => {
             userId: id,
             createdBy: req.user.name,
             uuid,
+            isPublished: false,
         });
 
         const bulkArray = strings.map((i) => {
