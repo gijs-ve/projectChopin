@@ -13,7 +13,7 @@ function SoloPage() {
             <Displayer />
             <div className="flex flex-wrap">
                 <Recorder />
-                <RecordListener />
+                <RecordListener status={'onInstrumentPage'} />
             </div>
         </div>
     );

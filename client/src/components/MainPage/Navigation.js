@@ -3,7 +3,7 @@ import { navigation, classNames } from '../../config/navigation';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavigation, selectNavigation } from '../../store/appState';
-import { clearDisplayer } from '../../store';
+import { clearDisplayer, clearListening } from '../../store';
 
 function NavigationSmall() {
     const dispatch = useDispatch();
@@ -60,6 +60,7 @@ function NavigationBig() {
                     onClick={() => {
                         dispatch(setNavigation(i.name));
                         dispatch(clearDisplayer());
+                        dispatch(clearListening());
                     }}
                     className={classNames(
                         i.current

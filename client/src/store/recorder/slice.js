@@ -62,6 +62,9 @@ export const recorderSlice = createSlice({
         setActiveRecord: (state, action) => {
             state.activeRecord = action.payload;
         },
+        clearListening: (state, action) => {
+            state.listening = false;
+        },
     },
 });
 
@@ -76,6 +79,7 @@ export const {
     setRecordings,
     setActiveRecord,
     toggleListening,
+    clearListening,
 } = recorderSlice.actions;
 
 export default recorderSlice.reducer;

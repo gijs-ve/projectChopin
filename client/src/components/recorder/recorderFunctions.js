@@ -86,8 +86,18 @@ const getDefaultRecording = () => {
     return generateDefaultRecording();
 };
 
+const getLengthFromRecordStrings = (stringArray) => {
+    if (!stringArray) return;
+    const outputTable = convertStringsToOutputTable(stringArray);
+
+    const lastTime = outputTable[outputTable.length - 1];
+    const minutes = Math.floor(lastTime.time / 60000);
+    const seconds = ((lastTime.time % 60000) / 1000).toFixed(0);
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+};
 export {
     convertOutputTableToStrings,
     convertStringsToOutputTable,
     getDefaultRecording,
+    getLengthFromRecordStrings,
 };
