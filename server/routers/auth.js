@@ -3,7 +3,10 @@ const { Router } = require('express');
 const { toJWT } = require('../auth/jwt');
 const authMiddleware = require('../auth/middleware');
 const Users = require('../models/').users;
+const Settings = require('../models/').settings;
 const { SALT_ROUNDS } = process.env;
+const { getRandomColor } = require('../functions/getRandomColor');
+const { getRandomImage } = require('../functions/getRandomImage');
 
 const router = new Router();
 
@@ -47,7 +50,16 @@ router.post('/signup', async (req, res) => {
             password: bcrypt.hashSync(password, +SALT_ROUNDS),
             name,
         });
-
+        await Settings.create({
+            imageURL: getRandomImage(),
+            color: '#2563eb',
+            activePresets: getRandomColor(),
+            showInstrumentButtons: true,
+            showPresetButtons: true,
+            displayerOn: true,
+            recordsOn: true,
+            userId: newUser.id,
+        });
         delete newUser.dataValues['password']; // don't send back the password hash
 
         const token = toJWT({ userId: newUser.id });
