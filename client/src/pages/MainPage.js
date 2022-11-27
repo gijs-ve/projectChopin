@@ -90,7 +90,7 @@ function MainPage() {
                                     <div className="flex flex-shrink-0 items-center px-4">
                                         <img
                                             className="h-8 w-auto"
-                                            src={`${user.imageURL}`}
+                                            src={`${user.userSettings.imageURL}`}
                                             alt="Your Company"
                                         />
                                     </div>
@@ -113,20 +113,20 @@ function MainPage() {
                 <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
                     {/* Sidebar component, swap this element with another sidebar if you like */}
                     <div className="flex min-h-0 flex-1 flex-col bg-gray-800">
-                        <div className="flex h-16 flex-shrink-0 items-center bg-gray-900 px-4">
+                        <div className="flex h-16 flex-shrink-0 items-center bg-gray-900 px-4 py-12">
                             <img
-                                className="h-8 w-auto"
+                                className="h-16 w-auto"
                                 src="https://www.streamscheme.com/wp-content/uploads/2020/04/Monkas.png.webp"
                                 alt="Your Company"
                             />
                         </div>
-                        <div className="flex flex-1 flex-col overflow-y-auto">
+                        <div className="flex flex-1 flex-col overflow-y-auto py-12">
                             <NavigationBig />
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-col md:pl-64">
-                    <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
+                    <div className="sticky top-0 z-10 flex h-24 flex-shrink-0 bg-white shadow ">
                         <button
                             type="button"
                             className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
@@ -138,7 +138,7 @@ function MainPage() {
                                 aria-hidden="true"
                             />
                         </button>
-                        <div className="flex flex-1 justify-between px-4 bg-gray-700">
+                        <div className="flex flex-1 justify-between px-4 bg-gray-700 py-12">
                             <div className="flex flex-1">
                                 <form
                                     className="flex w-full md:ml-0"
@@ -148,17 +148,17 @@ function MainPage() {
                                     <SearchBar />
                                 </form>
                             </div>
-                            <div className="ml-4 flex items-center md:ml-6">
+                            <div className="ml-4 flex items-center md:ml-6 ">
                                 {/* Profile dropdown */}
-                                <Menu as="div" className="relative ml-3">
+                                <Menu as="div" className="relative ml-3 ">
                                     <div>
                                         <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                             <span className="sr-only">
                                                 Open user menu
                                             </span>
                                             <img
-                                                className="h-8 w-8 rounded-full"
-                                                src={`${user.imageURL}`}
+                                                className="h-16 w-16 rounded-full"
+                                                src={`${user.userSettings.imageURL}`}
                                                 alt=""
                                             />
                                         </Menu.Button>

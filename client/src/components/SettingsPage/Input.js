@@ -27,7 +27,7 @@ function Input(p) {
             value={input}
             onBlur={() => handleOnBlur()}
             onChange={(e) => setInput(e.target.value)}
-            maxlength={wide ? 1000 : 7}
+            maxLength={wide ? 1000 : 7}
         />
     );
 }
