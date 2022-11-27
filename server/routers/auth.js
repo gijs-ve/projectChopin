@@ -44,7 +44,7 @@ router.post('/signup', async (req, res) => {
 
     try {
         const newUser = await Users.create({
-            password: bcrypt.hashSync(password, SALT_ROUNDS),
+            password: bcrypt.hashSync(password, +SALT_ROUNDS),
             name,
         });
 
@@ -59,7 +59,7 @@ router.post('/signup', async (req, res) => {
                 message: 'There is an existing account with this email',
             });
         }
-
+        console.log(error);
         return res.status(400).send({ message: 'Something went wrong, sorry' });
     }
 });

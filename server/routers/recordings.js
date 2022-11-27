@@ -54,6 +54,16 @@ router.post('/addSharedKey', authMiddleware, async (req, res) => {
                 message: 'You cant add your own recordings as a share!',
             });
         }
+
+        const SharedRecording = await SharedRecordings.findOne({
+            where: { [Op.and]: [{ userId: id }, { recordingId: record.id }] },
+        });
+        if (SharedRecording) return;
+        if (record.userId === id) {
+            return res.status(403).send({
+                message: 'You cant add your own recordings as a share!',
+            });
+        }
         await SharedRecordings.create({ userId: id, recordingId: record.id });
     } catch (error) {
         console.log(error);
@@ -119,6 +129,7 @@ router.get('/getPublishedRecords', async (req, res) => {
     try {
         const records = await Recordings.findAll({
             where: { isPublished: true },
+            attributes: ['name', 'isPublished', 'createdBy', 'id'],
             include: [{ model: RecordStrings }],
         });
 
