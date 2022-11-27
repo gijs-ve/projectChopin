@@ -1,9 +1,10 @@
-# Project Chopin - Server
+# Project Chopin - This project is a Work In Progress
 
-In order to setup the server, follow the following instructions.
+In order to setup the server of Project Chopin read the following.
+
+## Server requirements
 
 ## Server setup
 
-1. Create a new folder inside server named `config`
-2. Inside the newly created `config` folder, create two new files: `config.json` and `constants.js`
-3. Wait for author to finish the instructions
+1. Create a new '.env' file in './server'
+2. Wait for author to finish the instructions

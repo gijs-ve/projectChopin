@@ -10,19 +10,11 @@ function Toggle(p) {
     });
     const { setting } = foundSetting;
 
-    const toggleSetting = () => {
-        const newSettings = settings.map((i) => {
-            if (i.name === name) return { ...i, setting: !i.setting };
-            return i;
-        });
-        setSettings(newSettings);
-    };
     return (
         <Switch
             checked={setting}
-            onClick={() => toggleSetting()}
             className={classNames(
-                setting ? 'bg-indigo-600' : 'bg-gray-200',
+                setting ? 'bg-blue-600' : 'bg-gray-200',
                 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
             )}
         >
