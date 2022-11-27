@@ -3,6 +3,7 @@ const authMiddleware = require('../auth/middleware');
 const Recordings = require('../models/').recordings;
 const RecordStrings = require('../models/').recordstrings;
 const SharedRecordings = require('../models/').sharedrecordings;
+const { Op } = require('sequelize');
 const { v4 } = require('uuid');
 
 const router = new Router();
@@ -47,24 +48,44 @@ router.post('/addSharedKey', authMiddleware, async (req, res) => {
             return res.status(400).send({
                 message: 'Inappriopriate action',
             });
-
         const record = await Recordings.findOne({ where: { uuid: key } });
-        if (record.userId === id) {
+        if (record.userId === id)
             return res.status(403).send({
                 message: 'You cant add your own recordings as a share!',
             });
-        }
-
+        if (!record)
+            return res.status(400).send({
+                message: 'No record found with that key!',
+            });
         const SharedRecording = await SharedRecordings.findOne({
             where: { [Op.and]: [{ userId: id }, { recordingId: record.id }] },
         });
-        if (SharedRecording) return;
-        if (record.userId === id) {
+        if (SharedRecording)
+            return res.status(400).send({
+                message: 'This recording is already shared with you!',
+            });
+        if (record.userId === id)
             return res.status(403).send({
                 message: 'You cant add your own recordings as a share!',
             });
-        }
-        await SharedRecordings.create({ userId: id, recordingId: record.id });
+        await SharedRecordings.create({
+            userId: id,
+            recordingId: record.id,
+        });
+        const newSharedRecording = await SharedRecordings.findOne({
+            where: { [Op.and]: [{ userId: id }, { recordingId: record.id }] },
+            include: [
+                {
+                    model: Recordings,
+                    attributes: ['name', 'isPublished', 'createdBy', 'id'],
+                    include: [{ model: RecordStrings }],
+                },
+            ],
+        });
+        return res.status(200).send({
+            message: 'Key was succesfully added!',
+            record: newSharedRecording,
+        });
     } catch (error) {
         console.log(error);
         return res
@@ -132,7 +153,6 @@ router.get('/getPublishedRecords', async (req, res) => {
             attributes: ['name', 'isPublished', 'createdBy', 'id'],
             include: [{ model: RecordStrings }],
         });
-
         return res.status(200).send({
             records,
         });

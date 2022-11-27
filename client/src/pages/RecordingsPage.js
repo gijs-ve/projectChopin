@@ -27,6 +27,7 @@ function RecordingsPage() {
     }, []);
     console.log(sharedRecords);
     console.log(ownRecords);
+    console.log(publicRecords);
     return (
         <>
             <RecordListener status={'onRecordingsPage'} />

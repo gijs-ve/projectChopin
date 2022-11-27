@@ -22,9 +22,13 @@ export const userSlice = createSlice({
         tokenStillValid: (state, action) => {
             state.profile = action.payload.user;
         },
+        addSharedRecord: (state, action) => {
+            state.profile.sharedrecordings.push(action.payload);
+        },
     },
 });
 
-export const { loginSuccess, logOut, tokenStillValid } = userSlice.actions;
+export const { loginSuccess, logOut, tokenStillValid, addSharedRecord } =
+    userSlice.actions;
 
 export default userSlice.reducer;

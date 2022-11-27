@@ -21,6 +21,7 @@ import {
     selectPublicRecords,
     selectSharedRecordings,
     addRecord,
+    addSharedRecord,
     setPublicRecords,
     clearListening,
 } from '../';
@@ -88,7 +89,10 @@ export const checkSoundList = () => {
             const recordId = selectActiveRecording(getState());
             const recordList = selectRecord(getState());
             const publicRecordList = selectPublicRecords(getState());
-            const sharedRecordList = selectSharedRecordings(getState());
+            const rawSharedRecords = selectSharedRecordings(getState());
+            const sharedRecordList = rawSharedRecords.map((i) => {
+                return { ...i.recording };
+            });
             let record = recordList.find((i) => {
                 return recordId === i.id;
             });
@@ -97,11 +101,13 @@ export const checkSoundList = () => {
                     return recordId === i.id;
                 });
             }
+            console.log(publicRecordList);
             if (!record) {
                 record = sharedRecordList.find((i) => {
                     return recordId === i.id;
                 });
             }
+            console.log(record);
             const outputTable = convertStringsToOutputTable(
                 record.recordstrings,
             );
@@ -190,7 +196,7 @@ export const addSharedKey = (key) => {
         const token = selectToken(getState());
         if (token === null) return;
         try {
-            await axios.post(
+            const response = await axios.post(
                 `${apiUrl}/recordings/addSharedKey`,
                 {
                     key,
@@ -198,6 +204,8 @@ export const addSharedKey = (key) => {
                 { headers: { Authorization: `Bearer ${token}` } },
             );
             dispatch(refreshSelf());
+            dispatch(addSharedRecord(response.data.record.recording));
+            console.log();
             dispatch(appDoneLoading());
         } catch (error) {
             if (error.response) {
