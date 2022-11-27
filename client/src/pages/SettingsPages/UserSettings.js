@@ -5,7 +5,6 @@ import { selectUser } from '../../store';
 function UserSettings() {
     const user = useSelector(selectUser);
     const { userSettings } = user;
-
     const [settings, setSettings] = useState([]);
     const [initialState, setInitialState] = useState([]);
     const [save, setSave] = useState(false);
