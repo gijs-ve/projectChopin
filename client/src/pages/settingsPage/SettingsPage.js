@@ -1,7 +1,6 @@
 import { HotkeysSettings, UserSettings } from '.';
 import { useState } from 'react';
-import { cnButton, whiteLabel } from '../../components/classNames';
-import { convertOutputTableToStrings } from '../../components';
+import { whiteLabel } from '../../components/classNames';
 function SettingsPage() {
     const [userSettingsVisible, setUserSettingsVisible] = useState(false);
     const [hotkeysVisible, setHotkeysVisible] = useState(false);
