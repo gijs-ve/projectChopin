@@ -6,4 +6,10 @@ const convertHotkeysToString = (array) => {
     return stringedArray.join('');
 };
 
-export { convertHotkeysToString };
+const checkHexColor = (string) => {
+    const reg = /^#([0-9a-f]{3}){1,2}$/i;
+    if (!reg.test(string)) return false;
+    return true;
+};
+
+export { convertHotkeysToString, checkHexColor };

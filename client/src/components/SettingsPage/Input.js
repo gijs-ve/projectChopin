@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { checkHexColor } from '../settings/settingsFunctions';
 
 function Input(p) {
     const { settings, name, setSettings } = p;
@@ -9,8 +10,7 @@ function Input(p) {
     const handleOnBlur = () => {
         let testedInput = input;
         if (!wide) {
-            const reg = /^#([0-9a-f]{3}){1,2}$/i;
-            if (!reg.test(input)) {
+            if (!checkHexColor(input)) {
                 testedInput = '#000000';
             }
         }
