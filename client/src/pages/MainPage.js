@@ -199,7 +199,7 @@ function MainPage() {
 
                     <main className="flex-1">
                         <div
-                            className="py-6 pb-96 bg-gray-600"
+                            className="noselect py-6 pb-96 bg-gray-600"
                             id="hideScrollContainer"
                         >
                             <div
@@ -209,7 +209,6 @@ function MainPage() {
                                 <Router />
                             </div>
                         </div>
-                        <div className="pb-96 bg-gray-600"></div>
                         <div className="pb-96 bg-gray-600"></div>
                     </main>
                 </div>
