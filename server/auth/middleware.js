@@ -24,7 +24,7 @@ async function auth(req, res, next) {
             include: [
                 { model: Presets, include: [{ model: Hotkeys }] },
                 { model: Recordings, include: [{ model: RecordStrings }] },
-                { model: Settings },
+                { model: Settings, as: 'userSettings' },
                 {
                     model: SharedRecordings,
                     include: [

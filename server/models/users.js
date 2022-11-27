@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
             users.hasMany(models.presets);
             users.hasMany(models.recordings);
             users.hasMany(models.sharedrecordings);
-            users.hasOne(models.settings);
+            users.hasOne(models.settings, {
+                as: 'userSettings',
+                foreignKey: 'userId',
+            });
         }
     }
     users.init(
