@@ -1,6 +1,6 @@
-# Project Chopin - This project is a Work In Progress
+# Project Chopin - Server
 
-In order to launch this project read the following very carefully.
+In order to setup the server, follow the following instructions.
 
 ## Server setup
 
