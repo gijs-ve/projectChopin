@@ -1,6 +1,7 @@
 import React from 'react';
 import { whiteLabel } from '../../components/classNames';
 import { Toggle } from './Toggle';
+import { Input } from './Input';
 
 function UserSection(p) {
     const { name, type, settings, setSettings } = p;
@@ -18,11 +19,7 @@ function UserSection(p) {
                 <div>
                     <h1 className={whiteLabel}>{name}</h1>
                     <div className="py-2 pl-4 flex flex wrap">
-                        <Toggle
-                            settings={settings}
-                            name={name}
-                            setSettings={setSettings}
-                        />
+                        <Toggle settings={settings} name={name} />
                     </div>
                 </div>
             );
@@ -32,7 +29,11 @@ function UserSection(p) {
                 <>
                     <h1 className={whiteLabel}>{name}</h1>
                     <div className="py-2 pl-4 flex flex wrap">
-                        <input />
+                        <Input
+                            settings={settings}
+                            name={name}
+                            setSettings={setSettings}
+                        />
                     </div>
                 </>
             );

@@ -3,8 +3,7 @@ import { Switch } from '@headlessui/react';
 import { classNames } from '../classNames';
 
 function Toggle(p) {
-    const { name, setSettings, settings } = p;
-    const [enabled, setEnabled] = useState(false);
+    const { name, settings } = p;
     const foundSetting = settings.find((i) => {
         if (i.name === name) return true;
     });

@@ -11,8 +11,18 @@ function UserSettings() {
     const [save, setSave] = useState(false);
     useEffect(() => {
         const initialState = [
-            { name: 'ImageURL', setting: userSettings.imageURL, type: 'input' },
-            { name: 'Hex color', setting: userSettings.color, type: 'input' },
+            {
+                name: 'ImageURL',
+                setting: userSettings.imageURL,
+                type: 'input',
+                wide: true,
+            },
+            {
+                name: 'Hex color',
+                setting: userSettings.color,
+                type: 'input',
+                wide: false,
+            },
             {
                 name: 'Enable instrument',
                 setting: userSettings.showInstrumentButtons,
