@@ -8,7 +8,7 @@ function SettingsPage() {
     return (
         <>
             <div>
-                <div className={whiteLabel + ' pt-12'}>
+                <div className={whiteLabel + ' pt-12 '}>
                     <h1>User settings</h1>
                     <h2
                         className="pl-2"

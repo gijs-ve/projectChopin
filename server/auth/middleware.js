@@ -4,6 +4,7 @@ const Hotkeys = require('../models').hotkeys;
 const Recordings = require('../models').recordings;
 const RecordStrings = require('../models').recordstrings;
 const SharedRecordings = require('../models').sharedrecordings;
+const Settings = require('../models').settings;
 const { toData } = require('./jwt');
 
 async function auth(req, res, next) {
@@ -23,6 +24,7 @@ async function auth(req, res, next) {
             include: [
                 { model: Presets, include: [{ model: Hotkeys }] },
                 { model: Recordings, include: [{ model: RecordStrings }] },
+                { model: Settings },
                 {
                     model: SharedRecordings,
                     include: [

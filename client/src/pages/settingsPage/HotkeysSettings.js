@@ -231,7 +231,7 @@ function HotkeysSettings() {
     };
 
     return (
-        <div className="mt-4">
+        <div className="pt-8 mt-4 px-2 bg-gray-500 rounded-xl">
             <RenderHotkeys />
         </div>
     );
