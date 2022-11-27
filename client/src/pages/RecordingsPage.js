@@ -24,10 +24,7 @@ function RecordingsPage() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPublicRecords());
-    }, []);
-    console.log(sharedRecords);
-    console.log(ownRecords);
-    console.log(publicRecords);
+    }, [dispatch]);
     return (
         <>
             <RecordListener status={'onRecordingsPage'} />

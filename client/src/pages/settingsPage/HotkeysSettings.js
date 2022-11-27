@@ -10,7 +10,7 @@ import { playSound } from '../../components/sound/soundFunctions';
 import { PresetsSelection, SoundPlayer } from '../../components';
 import { cnButton, cnButtonUnbound } from '../../components/classNames';
 
-function PresetsPage() {
+function HotkeysSettings() {
     const dispatch = useDispatch();
     const [changeActive, setChangeActive] = useState(false);
     const AddPresetSection = () => {
@@ -236,4 +236,4 @@ function PresetsPage() {
         </div>
     );
 }
-export { PresetsPage };
+export { HotkeysSettings };

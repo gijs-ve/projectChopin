@@ -1,1 +1,2 @@
-export * from './PresetsPage';
+export * from './HotkeysSettings';
+export * from './UserSettings';
