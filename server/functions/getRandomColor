@@ -26,3 +26,5 @@ const getRandomColor = () => {
     const color = colors[Math.floor(Math.random() * colors.length)];
     return color;
 };
+
+module.exports = getRandomColor;

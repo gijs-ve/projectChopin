@@ -8,6 +8,7 @@ const getRandomImage = () => {
         'https://vroegert.nl/wp-content/uploads/2021/08/Boes-Boes-uitdrukkingen-VPRO--scaled-e1630338511156-1024x753.jpg',
         'https://upload.wikimedia.org/wikipedia/commons/3/33/Chopin%2C_by_Wodzinska.JPG',
     ];
-    const image = images[Math.floor(Math.random() * colors.length)];
+    const image = images[Math.floor(Math.random() * images.length)];
     return image;
 };
+module.exports = getRandomImage;

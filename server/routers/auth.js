@@ -5,8 +5,8 @@ const authMiddleware = require('../auth/middleware');
 const Users = require('../models/').users;
 const Settings = require('../models/').settings;
 const { SALT_ROUNDS } = process.env;
-const { getRandomColor } = require('../functions/getRandomColor');
-const { getRandomImage } = require('../functions/getRandomImage');
+const getRandomColor = require('../functions/getRandomColor');
+const getRandomImage = require('../functions/getRandomImage');
 
 const router = new Router();
 
@@ -52,8 +52,8 @@ router.post('/signup', async (req, res) => {
         });
         await Settings.create({
             imageURL: getRandomImage(),
-            color: '#2563eb',
-            activePresets: getRandomColor(),
+            color: getRandomColor(),
+            activePresets: '000000000',
             showInstrumentButtons: true,
             showPresetButtons: true,
             displayerOn: true,
