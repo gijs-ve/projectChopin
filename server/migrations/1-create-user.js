@@ -13,12 +13,7 @@ module.exports = {
                 allowNull: false,
                 unique: true,
             },
-            imageURL: {
-                type: Sequelize.STRING,
-                allowNull: true,
-                defaultValue:
-                    'https://www.streamscheme.com/wp-content/uploads/2020/04/poggers.png.webp',
-            },
+
             password: {
                 type: Sequelize.STRING,
                 allowNull: false,
