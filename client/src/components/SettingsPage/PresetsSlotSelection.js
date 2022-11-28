@@ -8,7 +8,7 @@ function PresetsSlotSelection(p) {
     const presets = useSelector(selectPresets());
     const { preset, keySlots, setKeySlots, key } = p.data;
     let currentPreset = presets.find((i) => {
-        return i.id === preset;
+        return +i.id === +preset;
     });
     if (!currentPreset) {
         currentPreset = presets.find((i) => {
@@ -16,12 +16,18 @@ function PresetsSlotSelection(p) {
         });
     }
     const [selected, setSelected] = useState(currentPreset);
+    const [firstRender, setFirstRender] = useState(false);
     useEffect(() => {
-        const newKeySlots = keySlots.map((i) => {
-            if (i.key === key) return { ...i, preset: selected.id.toString() };
-            return i;
-        });
-        setKeySlots(newKeySlots);
+        setFirstRender(true);
+        if (!firstRender) return;
+        {
+            const newKeySlots = keySlots.map((i) => {
+                if (i.key === key)
+                    return { ...i, preset: selected.id.toString() };
+                return i;
+            });
+            setKeySlots(newKeySlots);
+        }
     }, [selected]);
     return (
         <Listbox value={selected} onChange={setSelected}>

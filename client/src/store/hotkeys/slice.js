@@ -22,9 +22,11 @@ export const hotkeysSlice = createSlice({
     name: 'hotkeys',
     initialState,
     reducers: {
-        changeHotkey: (state, action) => {},
         setInstrument: (state, action) => {
             state.instrument = action.payload;
+        },
+        setActivePresets: (state, action) => {
+            state.activePresets = action.payload;
         },
         //changes currentPresent
         setPreset: (state, action) => {
@@ -121,6 +123,7 @@ export const {
     setPresetById,
     editHotkey,
     changePreset,
+    setActivePresets,
 } = hotkeysSlice.actions;
 
 export default hotkeysSlice.reducer;

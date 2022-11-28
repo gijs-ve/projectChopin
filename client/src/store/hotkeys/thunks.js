@@ -1,13 +1,14 @@
 import { apiUrl } from '../../config/constants';
 import axios from 'axios';
-import { selectToken } from '../user/';
+import { selectToken, refreshSelf } from '../user/';
 import { appLoading, appDoneLoading, setMessage } from '../appState/';
-import { refreshSelf } from '../user/';
+
 import {
     drumLength,
     pianoLength,
     convertHotkeysToString,
 } from '../../components/settings';
+import { setActivePresets, selectPresetList } from '.';
 
 export const addPreset = () => {
     return async (dispatch, getState) => {
@@ -98,15 +99,22 @@ export const editPreset = (id, preset) => {
     };
 };
 
-export const editPresetKeySlots = (id, preset) => {
+export const editPresetKeySlots = (settings) => {
     return async (dispatch, getState) => {
         dispatch(appLoading());
         try {
-            // await axios.patch(`${apiUrl}/hotkeys/editPreset`, {
-            //     headers: { Authorization: `Bearer ${token}` },
-            // });
-            // dispatch(refreshSelf());
-            // dispatch(appDoneLoading());
+            const token = selectToken(getState());
+            if (token === null) return;
+
+            await axios.patch(
+                `${apiUrl}/settings/activePresets`,
+                {
+                    settings,
+                },
+                { headers: { Authorization: `Bearer ${token}` } },
+            );
+            dispatch(refreshSelf());
+            dispatch(appDoneLoading());
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.message);
@@ -172,3 +180,13 @@ export const editSettings = (settings) => {
         }
     };
 };
+export const changeActivePresets = (settings) => {
+    return async (dispatch) => {
+        const joinedSettings = settings.split('!').map((i, index) => {
+            return { key: index + 1, presetId: +i };
+        });
+        dispatch(setActivePresets(joinedSettings));
+    };
+};
+
+// [{ key: '0', presetId: 0 }];

@@ -8,6 +8,7 @@ import {
     addSound,
     selectRecordStatus,
     addRecord,
+    setPresetById,
 } from '../../store/';
 import { useDispatch, useSelector } from 'react-redux';
 import { Piano, PresetsSelection } from '../../components';
@@ -85,8 +86,15 @@ function SoundPlayer(p) {
                     }
                 }
                 const presetKeys = activePresets.map((i) => {
-                    return i.key;
+                    return +i.key;
                 });
+
+                if (presetKeys.includes(+key)) {
+                    const newPreset = activePresets.find((i) => {
+                        return +i.key === +key;
+                    });
+                    dispatch(setPresetById(newPreset.presetId));
+                }
                 if (presetKeys.includes(key)) {
                     handlePresetSwitch(key);
                 }

@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { SaveButton, KeySlotSelection } from '../../components';
-import { selectUser } from '../../store';
+import { selectUser, editPresetKeySlots } from '../../store';
 function PresetsSettings() {
     const user = useSelector(selectUser);
     const { activePresets } = user.userSettings;
     const presets = activePresets.split('!');
-
     const [save, setSave] = useState(false);
     const [keySlots, setKeySlots] = useState([]);
     const [initialState, setInitialState] = useState([]);
+    const [firstRender, setFirstRender] = useState(false);
 
     useEffect(() => {
         const keySlotsArray = [
@@ -50,12 +50,12 @@ function PresetsSettings() {
                 preset: presets[8],
             },
         ];
+
         setKeySlots(keySlotsArray);
-        setInitialState(keySlotsArray);
+        if (!firstRender) setInitialState(keySlotsArray);
+        setFirstRender(true);
     }, [activePresets]);
     useEffect(() => {
-        console.log(keySlots);
-        console.log(initialState);
         if (keySlots.length === 0 || !keySlots) return;
         const arrayEquals = (i, j) => {
             const iArray = i.map((k) => {
@@ -76,7 +76,11 @@ function PresetsSettings() {
     }, [keySlots]);
     return (
         <div className="py-4 my-4 px-2 bg-gray-500 rounded-xl">
-            {save ? <SaveButton /> : ''}
+            {save ? (
+                <SaveButton settings={keySlots} handler={editPresetKeySlots} />
+            ) : (
+                ''
+            )}
             {keySlots.map((i) => {
                 return (
                     <KeySlotSelection

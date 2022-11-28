@@ -52,4 +52,34 @@ router.patch('/edit', authMiddleware, async (req, res) => {
     }
 });
 
+router.patch('/activePresets', authMiddleware, async (req, res) => {
+    try {
+        console.log('test');
+        const { user } = req;
+        const { settings } = req.body;
+
+        const foundSettings = await Settings.findOne({
+            where: { userId: user.id },
+        });
+        if (req.user.id !== foundSettings.userId)
+            return res.status(403).send({
+                message: 'You have no access to edit these settings.',
+            });
+        if (settings.length !== 9)
+            return res.status(400).send({
+                message: 'Invalid string!',
+            });
+        const settingString = settings.map((i) => i.preset).join('!');
+        await foundSettings.update({
+            activePresets: settingString,
+        });
+        return res
+            .status(200)
+            .send({ message: 'Your settings were succesfully updated!' });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send({ message: 'Something went wrong!' });
+    }
+});
+
 module.exports = router;
