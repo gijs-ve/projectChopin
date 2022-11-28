@@ -8,7 +8,7 @@ import {
     Router,
 } from '../components';
 import { userNavigation, classNames } from '../config/navigation';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { selectToken, selectUser } from '../store/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshSelf } from '../store/user';
@@ -176,8 +176,8 @@ function MainPage() {
                                             {userNavigation.map((item) => (
                                                 <Menu.Item key={item.name}>
                                                     {({ active }) => (
-                                                        <a
-                                                            href={item.href}
+                                                        <Link
+                                                            to={item.href}
                                                             className={classNames(
                                                                 active
                                                                     ? 'bg-gray-100'
@@ -186,7 +186,7 @@ function MainPage() {
                                                             )}
                                                         >
                                                             {item.name}
-                                                        </a>
+                                                        </Link>
                                                     )}
                                                 </Menu.Item>
                                             ))}
