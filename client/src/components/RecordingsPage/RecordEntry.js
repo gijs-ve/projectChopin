@@ -66,7 +66,7 @@ function RecordEntry(p) {
                         <input
                             id="removeBox"
                             className="outline-0 :focus no-underline"
-                            value={i.uuid}
+                            defaultValue={i.uuid}
                         />
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
