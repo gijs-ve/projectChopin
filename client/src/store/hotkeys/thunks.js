@@ -102,30 +102,11 @@ export const editPresetKeySlots = (id, preset) => {
     return async (dispatch, getState) => {
         dispatch(appLoading());
         try {
-            const drumString = convertHotkeysToString(preset.drum);
-            const pianoString = convertHotkeysToString(preset.piano);
-            if (
-                pianoString.length !== pianoLength ||
-                drumString.length !== drumLength
-            ) {
-                dispatch(
-                    setMessage({
-                        variant: 'danger',
-                        dismissable: true,
-                        text: 'Invalid save attempt',
-                    }),
-                );
-                return;
-            }
-            const token = selectToken(getState());
-            if (token === null) return;
-            await axios.patch(
-                `${apiUrl}/hotkeys/editPreset`,
-                { id, drumString, pianoString },
-                { headers: { Authorization: `Bearer ${token}` } },
-            );
-            dispatch(refreshSelf());
-            dispatch(appDoneLoading());
+            // await axios.patch(`${apiUrl}/hotkeys/editPreset`, {
+            //     headers: { Authorization: `Bearer ${token}` },
+            // });
+            // dispatch(refreshSelf());
+            // dispatch(appDoneLoading());
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.message);
@@ -152,12 +133,19 @@ export const editPresetKeySlots = (id, preset) => {
 };
 
 export const editSettings = (settings) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         dispatch(appLoading());
         try {
-            const response = await axios.post(`${apiUrl}/settings/edit`, {
-                settings,
-            });
+            const token = selectToken(getState());
+            if (token === null) return;
+            const response = await axios.patch(
+                `${apiUrl}/settings/edit`,
+                {
+                    settings,
+                },
+                { headers: { Authorization: `Bearer ${token}` } },
+            );
+            console.log(response);
             dispatch(refreshSelf());
             dispatch(appDoneLoading());
         } catch (error) {
