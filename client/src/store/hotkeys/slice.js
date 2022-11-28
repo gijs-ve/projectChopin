@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { defaultPreset } from '../../components/sound/sounds';
-import { convertHotkeysToString } from '../../components/settings/settingsFunctions';
 import { allowedKeybindings } from '../../components/settings';
 const { id, name, drum, piano, strings } = defaultPreset;
 const activePresets = [{ key: '0', presetId: 0 }];

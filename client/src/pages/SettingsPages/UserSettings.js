@@ -9,7 +9,7 @@ function UserSettings() {
     const [initialState, setInitialState] = useState([]);
     const [save, setSave] = useState(false);
     useEffect(() => {
-        const initialState = [
+        const userSettingsArray = [
             {
                 name: 'ImageURL',
                 setting: userSettings.imageURL,
@@ -43,8 +43,8 @@ function UserSettings() {
                 type: 'boolean',
             },
         ];
-        setSettings(initialState);
-        setInitialState(initialState);
+        setSettings(userSettingsArray);
+        setInitialState(userSettingsArray);
     }, [userSettings]);
     useEffect(() => {
         if (settings.length === 0 || !settings) return;
@@ -55,7 +55,7 @@ function UserSettings() {
             const jArray = j.map((k) => {
                 return k.setting;
             });
-            return JSON.stringify(iArray) == JSON.stringify(jArray);
+            return JSON.stringify(iArray) === JSON.stringify(jArray);
         };
         if (arrayEquals(settings, initialState)) {
             setSave(false);

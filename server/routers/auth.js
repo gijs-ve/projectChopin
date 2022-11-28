@@ -53,7 +53,7 @@ router.post('/signup', async (req, res) => {
         await Settings.create({
             imageURL: getRandomImage(),
             color: getRandomColor(),
-            activePresets: '000000000',
+            activePresets: '0!0!0!0!0!0!0!0!0',
             showInstrumentButtons: true,
             showPresetButtons: true,
             displayerOn: true,

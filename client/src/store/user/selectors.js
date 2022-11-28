@@ -3,3 +3,5 @@ export const selectUser = (state) => state.user.profile;
 export const selectProfileName = (state) => state.user.profile.name;
 export const selectSharedRecordings = (state) =>
     state.user.profile.sharedrecordings;
+
+export const selectPresets = () => (state) => state.user.profile.presets;

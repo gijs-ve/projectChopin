@@ -1,91 +1,83 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { UserSection, SaveButton } from '../../components';
+import { UserSection, SaveButton, KeySlotSelection } from '../../components';
 import { selectUser } from '../../store';
 function PresetsSettings() {
     const user = useSelector(selectUser);
-    const { userSettings } = user;
+    const { activePresets } = user.userSettings;
+    const presets = activePresets.split('!');
 
-    const [settings, setSettings] = useState([]);
-    const [initialState, setInitialState] = useState([]);
     const [save, setSave] = useState(false);
+    const [keySlots, setKeySlots] = useState([]);
+    const [initialState, setInitialState] = useState([]);
     useEffect(() => {
-        const initialState = [
+        const keySlotsArray = [
             {
-                name: 'ImageURL',
-                setting: userSettings.imageURL,
-                type: 'input',
-                wide: true,
+                key: '1',
+                preset: presets[0],
             },
             {
-                name: 'Hex color',
-                setting: userSettings.color,
-                type: 'input',
-                wide: false,
+                key: '2',
+                preset: presets[1],
             },
             {
-                name: 'Enable instrument',
-                setting: userSettings.showInstrumentButtons,
-                type: 'boolean',
+                key: '3',
+                preset: presets[2],
             },
             {
-                name: 'Show presets',
-                setting: userSettings.showPresetButtons,
-                type: 'boolean',
+                key: '4',
+                preset: presets[3],
             },
             {
-                name: 'Show displayer',
-                setting: userSettings.displayerOn,
-                type: 'boolean',
+                key: '5',
+                preset: presets[4],
             },
             {
-                name: 'Show recorder',
-                setting: userSettings.recordsOn,
-                type: 'boolean',
+                key: '6',
+                preset: presets[5],
+            },
+            {
+                key: '7',
+                preset: presets[6],
+            },
+            {
+                key: '8',
+                preset: presets[7],
+            },
+            {
+                key: '9',
+                preset: presets[8],
             },
         ];
-        setSettings(initialState);
-        setInitialState(initialState);
-    }, [userSettings]);
+        setKeySlots(keySlotsArray);
+        setInitialState(keySlotsArray);
+    }, [activePresets]);
     useEffect(() => {
-        if (settings.length === 0 || !settings) return;
+        if (keySlots.length === 0 || !keySlots) return;
         const arrayEquals = (i, j) => {
             const iArray = i.map((k) => {
-                return k.setting;
+                return k.key;
             });
             const jArray = j.map((k) => {
-                return k.setting;
+                return k.key;
             });
-            return JSON.stringify(iArray) == JSON.stringify(jArray);
+            return JSON.stringify(iArray) === JSON.stringify(jArray);
         };
-        if (arrayEquals(settings, initialState)) {
+        if (arrayEquals(keySlots, initialState)) {
             setSave(false);
             return;
         }
         setSave(true);
         return;
-    }, [settings]);
-    const Settings = () => {
-        return (
-            <>
-                {settings.map((i) => {
-                    return (
-                        <UserSection
-                            name={i.name}
-                            type={i.type}
-                            settings={settings}
-                            setSettings={setSettings}
-                            key={i.name}
-                        />
-                    );
-                })}
-            </>
-        );
-    };
+    }, [keySlots]);
+    console.log(keySlots);
+
     return (
         <div className="py-4 my-4 px-2 bg-gray-500 rounded-xl">
             {save ? <SaveButton /> : ''}
-            <Settings />
+            {keySlots.map((i) => {
+                return <KeySlotSelection data={i} />;
+            })}
         </div>
     );
 }
