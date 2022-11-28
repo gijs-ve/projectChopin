@@ -11,9 +11,12 @@ export const multiplayerSlice = createSlice({
         setRoom: (state, action) => {
             state.room = action.payload;
         },
+        clearRoom: (state) => {
+            state.room = null;
+        },
     },
 });
 
-export const { setRoom } = multiplayerSlice.actions;
+export const { setRoom, clearRoom } = multiplayerSlice.actions;
 
 export default multiplayerSlice.reducer;

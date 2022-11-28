@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import { socketUrl } from '../config/constants';
 import { setRoom, selectRoom } from '../store/multiplayer';
+import { roomText } from '../components/classNames';
 
 import {
     SoundPlayer,
@@ -25,76 +26,104 @@ import {
 
 const RenderRoom = (p) => {
     const { setId, id, room, socket, multiplayerFunctions } = p;
-    if (!id || !room || !socket || !multiplayerFunctions)
-        if (!room) {
-            return (
-                <div className="App">
-                    <header className="app-header">Rooms</header>
-                    {socket ? (
-                        <>
-                            <button
-                                onClick={() =>
-                                    multiplayerFunctions.createRoom()
-                                }
-                            >
-                                Create room
-                            </button>
-                            <br />
-                            <form>
-                                <input
-                                    placeholder="Room ID"
-                                    value={id}
-                                    onChange={(e) => setId(e.target.value)}
-                                />
-                            </form>
-                            <button
-                                onClick={() => multiplayerFunctions.joinRoom()}
-                            >
-                                Join room
-                            </button>
-                        </>
-                    ) : (
-                        <div>Attempting to connect...</div>
-                    )}
-                </div>
-            );
-        }
+    const [inputId, setInputId] = useState('');
+    console.log(p);
+    if (!room || !id || !socket || !multiplayerFunctions) {
+        console.log('TEST');
+        return (
+            <div className="App">
+                <header className="app-header">Rooms</header>
+                {socket ? (
+                    <>
+                        <button
+                            onClick={() => {
+                                multiplayerFunctions.createRoom();
+                            }}
+                        >
+                            Create room
+                        </button>
+                        <br />
+                        <form>
+                            <input
+                                placeholder="Room ID"
+                                value={inputId}
+                                onChange={(e) => setInputId(e.target.value)}
+                            />
+                        </form>
+                        <button
+                            onClick={() => {
+                                setId(inputId);
+                                multiplayerFunctions.joinRoom();
+                            }}
+                        >
+                            Join room
+                        </button>
+                    </>
+                ) : (
+                    <div>Attempting to connect...</div>
+                )}
+            </div>
+        );
+    }
     const HostOrNot = (i) => {
+        console.log(i);
         if (i.name === room.hostName) {
             return (
                 <>
-                    <h1>(HOST) {i.name}</h1>
+                    <div className="flex flex-wrap bg-gray-300 hover:bg-gray-100">
+                        <h1
+                            className={`px-2 py-2 text-base font-medium text-sm`}
+                            style={{ color: i.color }}
+                        >
+                            {i.name}
+                        </h1>
+                    </div>
                 </>
             );
         }
         return (
             <>
-                <h1>{i.name}</h1>
+                <div className="flex flex-wrap">
+                    <h1
+                        className={`px-2 py-2 text-base font-medium text-sm`}
+                        style={{ color: i.color }}
+                    >
+                        {i.name}
+                    </h1>
+                </div>
             </>
         );
     };
     const RenderUsers = () => {
         const Users = room.users.map((i) => {
             return (
-                <div key={i.id}>
-                    <HostOrNot name={i.name} />
+                <div
+                    key={i.id}
+                    className={`flex flex-wrap border-t-2 border-b-2 h-12`}
+                >
+                    <HostOrNot name={i.name} color={i.color} />
                 </div>
             );
         });
         return Users;
     };
+    if (!room || !room.roomId) return;
     return (
         <>
-            ID {room.roomId} | Room hosted by {room.hostName} <br />
-            <button onClick={() => navigator.clipboard.writeText(room.roomId)}>
-                Copy ID
-            </button>
             <SoundPlayer
                 status="active"
                 sendSound={multiplayerFunctions.sendSound}
                 roomId={room.roomId}
             />
-            <Displayer />
+            <div className="flex flex-row w-full">
+                <Displayer className="w-11/12" />{' '}
+                <div className={`w-1/12 border-t-2 border-b-2 border-r-2`}>
+                    <div className={`${roomText}`}>{room.roomId}</div>
+                    <div className="mt-4">
+                        <RenderUsers />
+                    </div>
+                </div>
+            </div>
             <div className="flex flex-wrap">
                 <Recorder />
                 <RecordListener
@@ -103,7 +132,6 @@ const RenderRoom = (p) => {
                     roomId={room.roomId}
                 />
             </div>
-            <RenderUsers />
         </>
     );
 };
@@ -114,7 +142,7 @@ function MultiplayerPage() {
     const user = useSelector(selectUser);
     const token = useSelector(selectToken);
     const room = useSelector(selectRoom());
-    const [id, setId] = useState('');
+    const [id, setId] = useState(' ');
     const dispatch = useDispatch();
     const recordStatus = useSelector(selectRecordStatus());
 
@@ -162,6 +190,7 @@ function MultiplayerPage() {
         };
         setMultiplayerFunctions({ createRoom, sendSound, joinRoom });
     }, [id]);
+    console.log(multiplayerFunctions);
     if (!multiplayerFunctions) return;
 
     return (
@@ -174,4 +203,5 @@ function MultiplayerPage() {
         />
     );
 }
+
 export { MultiplayerPage };

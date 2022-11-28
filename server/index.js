@@ -136,6 +136,7 @@ io.on('connection', (socket) => {
     });
     socket.on('disconnecting', () => {
         try {
+            console.log('User disconnected:', socket.id);
             const disconnectedIds = socket.rooms;
             const newRoomList = rooms.map((i) => {
                 const newUsers = i.users.filter((j) => {
