@@ -88,6 +88,14 @@ const convertNameToHeight = (name) => {
     return sound.height;
 };
 
+const convertOutputToName = (output) => {
+    const sound = allSounds.find((i) => {
+        if (i.output === output) return true;
+        return false;
+    });
+    return sound.name;
+};
+
 const convertNameToOutput = (name) => {
     const sound = allSounds.find((i) => {
         if (i.name === name) return true;
@@ -106,6 +114,7 @@ export {
     convertSoundToHeight,
     convertNameToHeight,
     convertNameToOutput,
+    convertOutputToName,
     getAllSounds,
     getTypeFromOutput,
     colorIsValidHexValue,

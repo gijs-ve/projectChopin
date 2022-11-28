@@ -10,10 +10,17 @@ import {
     Recorder,
     RecordListener,
 } from '../components';
-import { selectUser, selectToken, addSound } from '../store/';
+import {
+    selectUser,
+    selectToken,
+    addSound,
+    addRecord,
+    selectRecordStatus,
+} from '../store/';
 import {
     playSound,
     convertSoundToHeight,
+    convertOutputToName,
 } from '../components/sound/soundFunctions';
 
 function MultiplayerPage() {
@@ -23,6 +30,7 @@ function MultiplayerPage() {
     const room = useSelector(selectRoom());
 
     const dispatch = useDispatch();
+    const recordStatus = useSelector(selectRecordStatus());
 
     useEffect(() => {
         const socket = io(socketUrl);
@@ -34,7 +42,6 @@ function MultiplayerPage() {
             dispatch(setRoom(newRoom));
         });
         socket.on('receiveSound', (sound) => {
-            console.log(sound, 'test');
             playSound(sound);
             const height = convertSoundToHeight(sound);
 
@@ -45,6 +52,13 @@ function MultiplayerPage() {
                     height,
                 }),
             );
+            if (!recordStatus) return;
+            dispatch(
+                addRecord({
+                    soundName: convertOutputToName(sound),
+                }),
+            );
+            return;
         });
     }, []);
     if (!user || !token) return;

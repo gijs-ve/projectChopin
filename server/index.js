@@ -104,7 +104,6 @@ io.on('connection', (socket) => {
     });
     socket.on('sendSound', (sound, roomId) => {
         try {
-            console.log(sound);
             socket.emit('receiveSound', sound);
             socket.to(roomId).emit('receiveSound', sound);
         } catch (error) {}
