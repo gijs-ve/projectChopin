@@ -42,6 +42,7 @@ const RenderRecordSection = () => {
 };
 function Recorder() {
     const [newRecord, setNewRecord] = useState(false);
+    console.log(newRecord);
     return (
         <>
             {newRecord ? (
