@@ -26,7 +26,7 @@ function MainPage() {
             navigate('/');
         }
     }, [token, navigate]);
-    if (!user) return;
+    if (!user || !user.userSettings) return;
 
     return (
         <>
