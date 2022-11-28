@@ -10,6 +10,11 @@ const router = new Router();
 router.post('/saveRecording', authMiddleware, async (req, res) => {
     try {
         const { strings, name } = req.body;
+        if (strings.length === 0) {
+            return res.status(400).send({
+                message: 'Record is empty',
+            });
+        }
         const { id } = req.user;
         if (!strings || !id || !name)
             return res.status(400).send({
