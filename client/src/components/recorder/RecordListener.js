@@ -12,9 +12,9 @@ import { RecordSelection } from './RecordSelection';
 function RecordListener(p) {
     const dispatch = useDispatch();
     const listenStatus = useSelector(selectListenStatus());
-    const { status } = p;
+    const { status, sendSound, roomId } = p;
     const displayRecordListener = () => {
-        if (status === 'onInstrumentPage') {
+        if (status === 'onInstrumentPage' || status === 'multiplayer') {
             return (
                 <>
                     <button
@@ -25,14 +25,18 @@ function RecordListener(p) {
                     </button>
 
                     <RecordSelection />
-                    <RecordListenHandler />
+                    <RecordListenHandler
+                        sendSound={sendSound}
+                        status={status}
+                        roomId={roomId}
+                    />
                 </>
             );
         }
         if (status === 'onRecordingsPage') {
             return (
                 <>
-                    <RecordListenHandler />
+                    <RecordListenHandler status={status} />
                 </>
             );
         }

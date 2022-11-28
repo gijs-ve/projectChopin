@@ -82,7 +82,7 @@ export const editRecordName = (id, name) => {
     };
 };
 
-export const checkSoundList = () => {
+export const checkSoundList = (sendSound, roomId) => {
     return async (dispatch, getState) => {
         dispatch(raiseListenTimer());
         const checkRecord = () => {
@@ -101,13 +101,11 @@ export const checkSoundList = () => {
                     return recordId === i.id;
                 });
             }
-            console.log(publicRecordList);
             if (!record) {
                 record = sharedRecordList.find((i) => {
                     return recordId === i.id;
                 });
             }
-            console.log(record);
             const outputTable = convertStringsToOutputTable(
                 record.recordstrings,
             );
@@ -129,13 +127,18 @@ export const checkSoundList = () => {
         if (!record || record.length === 0) return;
         record.map((i) => {
             playRecorderSound(i.output);
-            dispatch(
-                addSound({
-                    output: convertNameToOutput(i.output),
-                    origin: 'self',
-                    height: convertNameToHeight(i.output),
-                }),
-            );
+            if (!sendSound) {
+                dispatch(
+                    addSound({
+                        output: convertNameToOutput(i.output),
+                        origin: 'self',
+                        height: convertNameToHeight(i.output),
+                    }),
+                );
+            }
+            if (sendSound) {
+                sendSound(convertNameToOutput(i.output), roomId);
+            }
             if (!recordStatus) return;
             dispatch(
                 addRecord({

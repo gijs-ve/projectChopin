@@ -72,7 +72,6 @@ const getOutput = (array, name) => {
 };
 
 const convertSoundToHeight = (sound) => {
-    console.log(sound);
     if (arrayHasSource(drum, sound)) {
         return getHeightFromSound(drum, sound);
     }

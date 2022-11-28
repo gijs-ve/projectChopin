@@ -4,7 +4,12 @@ import { io } from 'socket.io-client';
 import { socketUrl } from '../config/constants';
 import { setRoom, selectRoom } from '../store/multiplayer';
 
-import { SoundPlayer, Displayer } from '../components';
+import {
+    SoundPlayer,
+    Displayer,
+    Recorder,
+    RecordListener,
+} from '../components';
 import { selectUser, selectToken, addSound } from '../store/';
 import {
     playSound,
@@ -29,6 +34,7 @@ function MultiplayerPage() {
             dispatch(setRoom(newRoom));
         });
         socket.on('receiveSound', (sound) => {
+            console.log(sound, 'test');
             playSound(sound);
             const height = convertSoundToHeight(sound);
 
@@ -116,12 +122,20 @@ function MultiplayerPage() {
                 >
                     Copy ID
                 </button>
-                <Displayer />
                 <SoundPlayer
                     status="active"
                     sendSound={sendSound}
                     roomId={room.roomId}
                 />
+                <Displayer />
+                <div className="flex flex-wrap">
+                    <Recorder />
+                    <RecordListener
+                        status="multiplayer"
+                        sendSound={sendSound}
+                        roomId={room.roomId}
+                    />
+                </div>
                 <RenderUsers />
             </>
         );
