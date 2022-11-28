@@ -1,17 +1,22 @@
 import React, { useRef, useEffect } from 'react';
 import { getTypeFromOutput, colorIsValidHexValue } from './soundFunctions';
+import { selectUserColor } from '../../store';
+import { useSelector } from 'react-redux';
 
 const OutputCanvas = (p) => {
     const canvasRef = useRef(null);
     const { sounds } = p;
-
-    //Hardcoded
-
+    const userColor = useSelector(selectUserColor);
     const draw = (ctx) => {
         if (!sounds || sounds.length === 0) return;
-
         sounds.map((i) => {
             let color = undefined;
+            if (!i.color) {
+                color = userColor;
+            }
+            if (i.color) {
+                color = i.color;
+            }
             if (!colorIsValidHexValue(color)) {
                 color = '#2563eb';
             }

@@ -127,14 +127,14 @@ function MultiplayerPage() {
         socket.on('roomUpdate', (newRoom) => {
             dispatch(setRoom(newRoom));
         });
-        socket.on('receiveSound', (sound) => {
+        socket.on('receiveSound', (sound, color) => {
             playSound(sound);
             const height = convertSoundToHeight(sound);
-
             dispatch(
                 addSound({
                     output: sound,
                     origin: undefined,
+                    color,
                     height,
                 }),
             );
@@ -158,7 +158,6 @@ function MultiplayerPage() {
         };
         const joinRoom = () => {
             if (!socket || !socket.connected) return;
-            console.log(id);
             socket.emit('joinRoom', token, id);
         };
         setMultiplayerFunctions({ createRoom, sendSound, joinRoom });

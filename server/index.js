@@ -6,7 +6,10 @@ const express = require('express');
 const app = express();
 const { PORT } = process.env;
 const { toData } = require('./auth/jwt');
+
+//Models
 const Users = require('./models/').users;
+const Settings = require('./models/').settings;
 
 //Socket setup
 const io = require('socket.io')(4001, {
@@ -35,11 +38,16 @@ app.use('/recordings', recordingsRouter);
 app.use('/settings', settingsRouter);
 
 io.on('connection', (socket) => {
+    const isStringHexColor = require('./functions/getRandomImage');
+    const getRandomColor = require('./functions/getRandomColor');
+    const getPlayerColorFromId = require('./functions/getPlayerColorFromId');
     socket.on('createRoom', async (token) => {
         try {
             const JWTData = toData(token);
             const findUser = async () => {
-                const user = await Users.findByPk(JWTData.userId);
+                const user = await Users.findByPk(JWTData.userId, {
+                    include: [{ model: Settings, as: 'userSettings' }],
+                });
                 if (!user) {
                     return res
                         .status(404)
@@ -68,7 +76,15 @@ io.on('connection', (socket) => {
                 hostName: user.name,
                 hostId: socket.id,
                 roomId,
-                users: [{ name: user.name, id: socket.id }],
+                users: [
+                    {
+                        name: user.name,
+                        id: socket.id,
+                        color: isStringHexColor(user.userSettings.color)
+                            ? user.userSettings.color
+                            : getRandomColor(),
+                    },
+                ],
             };
             rooms.push(newRoom);
             socket.join(roomId);
@@ -81,7 +97,9 @@ io.on('connection', (socket) => {
         try {
             const JWTData = toData(token);
             const findUser = async () => {
-                const user = await Users.findByPk(JWTData.userId);
+                const user = await Users.findByPk(JWTData.userId, {
+                    include: [{ model: Settings, as: 'userSettings' }],
+                });
                 if (!user) {
                     return null;
                 }
@@ -93,7 +111,13 @@ io.on('connection', (socket) => {
                 if (i.roomId === roomId) return true;
             });
             if (!foundRoom) return;
-            const newPlayer = { name: user.name, id: socket.id };
+            const newPlayer = {
+                name: user.name,
+                id: socket.id,
+                color: isStringHexColor(user.userSettings.color)
+                    ? user.userSettings.color
+                    : getRandomColor(),
+            };
             foundRoom.users.push(newPlayer);
             socket.join(roomId);
             socket.emit('roomUpdate', foundRoom);
@@ -103,9 +127,11 @@ io.on('connection', (socket) => {
         }
     });
     socket.on('sendSound', (sound, roomId) => {
+        console.log(rooms);
         try {
-            socket.emit('receiveSound', sound);
-            socket.to(roomId).emit('receiveSound', sound);
+            const color = getPlayerColorFromId(socket.id, roomId, rooms);
+            socket.emit('receiveSound', sound, color);
+            socket.to(roomId).emit('receiveSound', sound, color);
         } catch (error) {}
     });
     socket.on('disconnecting', () => {

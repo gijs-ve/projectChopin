@@ -54,7 +54,6 @@ router.patch('/edit', authMiddleware, async (req, res) => {
 
 router.patch('/activePresets', authMiddleware, async (req, res) => {
     try {
-        console.log('test');
         const { user } = req;
         const { settings } = req.body;
 
