@@ -10,13 +10,8 @@ function SignOutPage() {
     const token = useSelector(selectToken);
     useEffect(() => {
         dispatch(logOut());
+        navigate('/');
     }, []);
-
-    useEffect(() => {
-        if (!token) {
-            navigate('/');
-        }
-    }, [dispatch]);
 
     return (
         <div>
