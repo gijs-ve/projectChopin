@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { UserSection, SaveButton, KeySlotSelection } from '../../components';
+import { SaveButton, KeySlotSelection } from '../../components';
 import { selectUser } from '../../store';
 function PresetsSettings() {
     const user = useSelector(selectUser);
@@ -10,6 +10,7 @@ function PresetsSettings() {
     const [save, setSave] = useState(false);
     const [keySlots, setKeySlots] = useState([]);
     const [initialState, setInitialState] = useState([]);
+
     useEffect(() => {
         const keySlotsArray = [
             {
@@ -53,13 +54,15 @@ function PresetsSettings() {
         setInitialState(keySlotsArray);
     }, [activePresets]);
     useEffect(() => {
+        console.log(keySlots);
+        console.log(initialState);
         if (keySlots.length === 0 || !keySlots) return;
         const arrayEquals = (i, j) => {
             const iArray = i.map((k) => {
-                return k.key;
+                return k.preset;
             });
             const jArray = j.map((k) => {
-                return k.key;
+                return k.preset;
             });
             return JSON.stringify(iArray) === JSON.stringify(jArray);
         };
@@ -67,16 +70,21 @@ function PresetsSettings() {
             setSave(false);
             return;
         }
+
         setSave(true);
         return;
     }, [keySlots]);
-    console.log(keySlots);
-
     return (
         <div className="py-4 my-4 px-2 bg-gray-500 rounded-xl">
             {save ? <SaveButton /> : ''}
             {keySlots.map((i) => {
-                return <KeySlotSelection data={i} />;
+                return (
+                    <KeySlotSelection
+                        data={i}
+                        keySlots={keySlots}
+                        setKeySlots={setKeySlots}
+                    />
+                );
             })}
         </div>
     );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { UserSection, SaveButton } from '../../components';
-import { selectUser } from '../../store';
+import { selectUser, editSettings } from '../../store';
 function UserSettings() {
     const user = useSelector(selectUser);
     const { userSettings } = user;
@@ -83,7 +83,11 @@ function UserSettings() {
     };
     return (
         <div className="py-4 my-4 px-2 bg-gray-500 rounded-xl">
-            {save ? <SaveButton /> : ''}
+            {save ? (
+                <SaveButton settings={settings} handler={editSettings} />
+            ) : (
+                ''
+            )}
             <Settings />
         </div>
     );

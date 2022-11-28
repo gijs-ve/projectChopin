@@ -2,14 +2,11 @@ import { Fragment, useState, useEffect } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { classNames } from '../classNames';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectPresets } from '../../store';
 function PresetsSlotSelection(p) {
     const presets = useSelector(selectPresets());
-
-    const { preset } = p;
-    console.log(preset);
-    console.log(presets);
+    const { preset, keySlots, setKeySlots, key } = p.data;
     let currentPreset = presets.find((i) => {
         return i.id === preset;
     });
@@ -19,11 +16,13 @@ function PresetsSlotSelection(p) {
         });
     }
     const [selected, setSelected] = useState(currentPreset);
-    const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     dispatch(setPresetById(selected.id));
-    // }, [selected]);
+    useEffect(() => {
+        const newKeySlots = keySlots.map((i) => {
+            if (i.key === key) return { ...i, preset: selected.id.toString() };
+            return i;
+        });
+        setKeySlots(newKeySlots);
+    }, [selected]);
     return (
         <Listbox value={selected} onChange={setSelected}>
             {({ open }) => (
