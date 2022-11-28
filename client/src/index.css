@@ -7,16 +7,13 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: rgb(75 85 99);
 }
-
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
-
 ::-webkit-scrollbar {
     display: none;
 }
-
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -25,7 +22,6 @@ code {
     -ms-user-select: none;
     user-select: none;
 }
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

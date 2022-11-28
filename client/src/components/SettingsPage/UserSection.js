@@ -41,7 +41,7 @@ function UserSection(p) {
     };
     return (
         <div
-            className="hover:bg-gray-700 rounded-xl px-2 py-2"
+            className="hover:bg-gray-700 bg-gray-600 rounded-xl px-2 py-4 my-4"
             onClick={() => toggleSetting()}
         >
             <TypeSetting />
