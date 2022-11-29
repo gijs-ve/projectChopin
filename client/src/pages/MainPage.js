@@ -11,7 +11,7 @@ import { userNavigation, classNames } from '../config/navigation';
 import { useNavigate, Link } from 'react-router-dom';
 import { selectToken, selectUser } from '../store/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { refreshSelf, clearRoom } from '../store';
+import { refreshSelf } from '../store';
 
 function MainPage() {
     const dispatch = useDispatch();
@@ -22,7 +22,6 @@ function MainPage() {
     const navigate = useNavigate();
     useEffect(() => {
         dispatch(refreshSelf());
-        dispatch(clearRoom());
 
         if ((token === null) | (user === null)) {
             navigate('/');
