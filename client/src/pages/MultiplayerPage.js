@@ -75,7 +75,6 @@ function MultiplayerPage() {
         setSocket(socket);
         setMultiplayerFunctions(multiplayerFunctions);
     }, [id]);
-    console.log(multiplayerFunctions);
     if (!multiplayerFunctions) return;
 
     return (
