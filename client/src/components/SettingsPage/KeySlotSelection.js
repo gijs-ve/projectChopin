@@ -7,7 +7,7 @@ function KeySlotSelection(p) {
     const presetData = { preset, keySlots, setKeySlots, key };
 
     return (
-        <div className="rounded-xl px-2 py-4 my-4 bg-gray-600 flex flex-wrap hover:bg-gray-700">
+        <div className="flex flex-wrap hover:bg-gray-700 bg-gray-600 my-4 mx-4 rounded-xl px-4 py-4">
             <HotkeySquare inputKey={key} />{' '}
             <PresetsSlotSelection data={presetData} />
         </div>

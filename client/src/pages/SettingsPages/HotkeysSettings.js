@@ -114,11 +114,11 @@ function HotkeysSettings() {
             return (
                 <div
                     key={i.ouput}
-                    className="hover:bg-gray-700 rounded-xl px-2 py-2"
+                    className="hover:bg-gray-700 bg-gray-600 my-4 mx-4 rounded-xl px-4 py-4"
                 >
                     <h1
                         key={`${i.output}h1`}
-                        className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md"
+                        className="text-white group flex items-center px-2 pb-2 text-base font-medium rounded-md"
                     >
                         {i.displayName ? i.displayName : i.name}
                     </h1>
