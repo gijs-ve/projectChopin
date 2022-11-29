@@ -9,7 +9,6 @@ function SoloPage() {
     return (
         <div>
             <SoundPlayer status={'active'} />
-
             <Displayer />
             <div className="flex flex-wrap">
                 <Recorder />

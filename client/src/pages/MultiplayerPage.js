@@ -29,13 +29,6 @@ function MultiplayerPage() {
     const dispatch = useDispatch();
     const recordStatus = useSelector(selectRecordStatus());
 
-    // useEffect(() => {
-    //     if (!multiplayerFunctions || inRoom || room) return;
-    //     console.log(multiplayerFunctions);
-    //     console.log(inRoom);
-    //     multiplayerFunctions.forceDisconnect();
-    // }, [inRoom]);
-
     useEffect(() => {
         if (room) return;
         socket.on('createdRoom', (newRoom) => {

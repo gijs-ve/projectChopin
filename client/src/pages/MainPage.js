@@ -204,7 +204,7 @@ function MainPage() {
                             id="hideScrollContainer"
                         >
                             <div
-                                className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 bg-gray-600"
+                                className="mx-auto max-w-7xl px-2 sm:px-6 md:px-2 bg-gray-600"
                                 id="hideScrollItem"
                             >
                                 <Router />
