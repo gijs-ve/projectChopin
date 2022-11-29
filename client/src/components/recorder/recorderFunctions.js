@@ -64,6 +64,7 @@ const convertStringsToOutputTable = (stringArray) => {
                 i.output !== undefined &&
                 i.output !== 'GEN',
         );
+
         return filteredArray;
     });
     return objectArray.flat();
@@ -92,7 +93,9 @@ const getDefaultRecording = () => {
 const getLengthFromRecordStrings = (stringArray) => {
     if (!stringArray) return;
     const outputTable = convertStringsToOutputTable(stringArray);
-
+    outputTable.sort((i, j) => {
+        return i.time - j.time;
+    });
     const lastTime = outputTable[outputTable.length - 1];
     const minutes = Math.floor(lastTime.time / 60000);
     const seconds = ((lastTime.time % 60000) / 1000).toFixed(0);

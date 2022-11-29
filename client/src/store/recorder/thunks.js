@@ -109,10 +109,14 @@ export const checkSoundList = (sendSound, roomId) => {
             const outputTable = convertStringsToOutputTable(
                 record.recordstrings,
             );
+            outputTable.sort((i, j) => {
+                return i.time - j.time;
+            });
             const listenTime = selectListenTime(getState());
             const foundSounds = outputTable.filter((i) => {
                 return +i.time === listenTime;
             });
+
             if (outputTable[outputTable.length - 1].time < listenTime)
                 return 'End';
             return foundSounds;
@@ -124,6 +128,10 @@ export const checkSoundList = (sendSound, roomId) => {
             return;
         }
         const recordStatus = selectRecordingStatus(getState());
+        // const sortedOutPutTable = outputTable.sort((i, j) => {
+        //     return i.id - j.id;
+        // });
+        console.log(record);
         if (!record || record.length === 0) return;
         record.map((i) => {
             playRecorderSound(i.output);

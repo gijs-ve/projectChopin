@@ -7,9 +7,9 @@ function RecordListenHandler(p) {
     const { status, sendSound, roomId } = p;
     const listenStatus = useSelector(selectListenStatus());
     useEffect(() => {
-        console.log(status);
         const interval = setInterval(() => {
             if (listenStatus && status !== 'multiplayer') {
+                console.log('test');
                 dispatch(checkSoundList());
             }
             if (listenStatus && status === 'multiplayer') {

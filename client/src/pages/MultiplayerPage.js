@@ -185,6 +185,7 @@ function MultiplayerPage() {
             socket.emit('sendSound', sound, roomdId);
         };
         const joinRoom = () => {
+            console.log(id);
             if (!socket || !socket.connected) return;
             socket.emit('joinRoom', token, id);
         };

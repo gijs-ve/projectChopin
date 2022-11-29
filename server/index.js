@@ -127,7 +127,6 @@ io.on('connection', (socket) => {
         }
     });
     socket.on('sendSound', (sound, roomId) => {
-        console.log(rooms);
         try {
             const color = getPlayerColorFromId(socket.id, roomId, rooms);
             socket.emit('receiveSound', sound, color);
