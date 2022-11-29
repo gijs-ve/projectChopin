@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     room: null,
+    inRoom: false,
 };
 
 export const multiplayerSlice = createSlice({
@@ -14,9 +15,13 @@ export const multiplayerSlice = createSlice({
         clearRoom: (state) => {
             state.room = null;
         },
+        setInRoom: (state, action) => {
+            console.log(action.payload);
+            state.inRoom = true;
+        },
     },
 });
 
-export const { setRoom, clearRoom } = multiplayerSlice.actions;
+export const { setRoom, clearRoom, setInRoom } = multiplayerSlice.actions;
 
 export default multiplayerSlice.reducer;

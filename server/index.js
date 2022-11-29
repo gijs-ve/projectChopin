@@ -135,7 +135,6 @@ io.on('connection', (socket) => {
     });
     socket.on('disconnecting', () => {
         try {
-            console.log('User disconnected:', socket.id);
             const disconnectedIds = socket.rooms;
             const newRoomList = rooms.map((i) => {
                 const newUsers = i.users.filter((j) => {
@@ -166,7 +165,41 @@ io.on('connection', (socket) => {
             console.log(error);
         }
     });
+    socket.on('leaveRoom', () => {
+        try {
+            const disconnectedIds = socket.rooms;
+            const newRoomList = rooms.map((i) => {
+                const newUsers = i.users.filter((j) => {
+                    if (disconnectedIds.has(j.id)) {
+                        return false;
+                    }
+                    return true;
+                });
+                if (disconnectedIds.has(i.hostId)) {
+                    const newHost = i.users.find((j) => {
+                        if (i.hostId !== j.id) return true;
+                        return false;
+                    });
+                    return {
+                        ...i,
+                        hostName: newHost.name,
+                        hostId: newHost.id,
+                        users: newUsers,
+                    };
+                }
+                return { ...i, users: newUsers };
+            });
+            rooms = newRoomList;
+            rooms.map((i) => {
+                socket.to(i.roomId).emit('roomUpdate', i);
+            });
+            socket.emit('roomUpdate', null);
+        } catch (error) {
+            console.log(error);
+        }
+    });
 });
+('');
 
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);

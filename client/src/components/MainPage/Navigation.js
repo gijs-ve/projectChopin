@@ -1,12 +1,14 @@
-import React from 'react';
+import { useContext } from 'react';
 import { navigation, classNames } from '../../config/navigation';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavigation, selectNavigation } from '../../store/appState';
 import { clearDisplayer, clearListening, clearRoom } from '../../store';
+import { SocketContext } from '../MultiplayerPage/socket';
 
 function NavigationSmall() {
     const dispatch = useDispatch();
+    const socket = useContext(SocketContext);
     return (
         <nav className="flex-1 space-y-1 px-2 py-4">
             {navigation.map((i) => (
@@ -17,6 +19,7 @@ function NavigationSmall() {
                         dispatch(setNavigation(i.name));
                         dispatch(clearDisplayer());
                         dispatch(clearRoom());
+                        socket.emit('leaveRoom');
                     }}
                     className={classNames(
                         i.current
@@ -42,6 +45,7 @@ function NavigationSmall() {
 }
 
 function NavigationBig() {
+    const socket = useContext(SocketContext);
     const dispatch = useDispatch();
     const navigationCurrent = useSelector(selectNavigation());
     const currentPage = navigationCurrent.find((i) => {
@@ -63,6 +67,7 @@ function NavigationBig() {
                         dispatch(clearDisplayer());
                         dispatch(clearListening());
                         dispatch(clearRoom());
+                        socket.emit('leaveRoom');
                     }}
                     className={classNames(
                         i.current

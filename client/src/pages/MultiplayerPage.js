@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import { socketUrl } from '../config/constants';
 import { setRoom, selectRoom } from '../store/multiplayer';
-
+import { SocketContext } from '../components/MultiplayerPage/socket';
 import { RenderRoom } from '../components';
 import {
     selectUser,
@@ -22,15 +22,22 @@ function MultiplayerPage() {
     const user = useSelector(selectUser);
     const token = useSelector(selectToken);
     const room = useSelector(selectRoom());
-    const [socket, setSocket] = useState(null);
+    const socket = useContext(SocketContext);
     const [multiplayerFunctions, setMultiplayerFunctions] = useState(null);
 
     const [id, setId] = useState(' ');
     const dispatch = useDispatch();
     const recordStatus = useSelector(selectRecordStatus());
 
+    // useEffect(() => {
+    //     if (!multiplayerFunctions || inRoom || room) return;
+    //     console.log(multiplayerFunctions);
+    //     console.log(inRoom);
+    //     multiplayerFunctions.forceDisconnect();
+    // }, [inRoom]);
+
     useEffect(() => {
-        const socket = io(socketUrl);
+        if (room) return;
         socket.on('createdRoom', (newRoom) => {
             dispatch(setRoom(newRoom));
         });
@@ -70,9 +77,16 @@ function MultiplayerPage() {
             if (!socket || !socket.connected) return;
             socket.emit('joinRoom', token, id);
         };
-        const multiplayerFunctions = { createRoom, sendSound, joinRoom };
-
-        setSocket(socket);
+        const forceDisconnect = () => {
+            if (!socket || !socket.connected) return;
+            socket.emit('disconnectSelf');
+        };
+        const multiplayerFunctions = {
+            createRoom,
+            sendSound,
+            joinRoom,
+            forceDisconnect,
+        };
         setMultiplayerFunctions(multiplayerFunctions);
     }, [id]);
     if (!multiplayerFunctions) return;

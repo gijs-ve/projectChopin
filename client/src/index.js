@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import { socket, SocketContext } from './components/MultiplayerPage/socket';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Router>
         <Provider store={store}>
-            <App />
+            <SocketContext.Provider value={socket}>
+                <App />
+            </SocketContext.Provider>
         </Provider>
     </Router>,
 );

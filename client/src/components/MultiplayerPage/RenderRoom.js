@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { roomText } from '../classNames';
 import { SoundPlayer, Displayer, Recorder, RecordListener } from '..';
+import { Routes, Route } from 'react-router-dom';
 
 const RenderRoom = (p) => {
     const { setId, id, room, socket, multiplayerFunctions } = p;
     const [inputId, setInputId] = useState('');
-    console.log(p);
+    console.log(room);
     if (!room || !id || !socket || !multiplayerFunctions) {
         console.log('TEST');
         return (
