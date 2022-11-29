@@ -17,17 +17,27 @@ const PauseOrResume = () => {
     if (!recordStatus) return <ResumeRecordButton />;
     return <PauseRecordButton />;
 };
-const RecordButtons = () => {
+const RecordButtons = (p) => {
+    const { recordStatus } = p;
+    if (recordStatus) {
+        return (
+            <>
+                <PauseOrResume />
+                {/* PhantonSaveButton */}
+                <StopRecordButton />
+                <RecordHandler />
+            </>
+        );
+    }
     return (
         <>
             <PauseOrResume />
-            <StopRecordButton />
             <SaveRecordButton />
-            <RecordHandler />
+            <StopRecordButton />
         </>
     );
 };
-const RenderRecordSection = () => {
+function Recorder() {
     const recordStatus = useSelector(selectRecordStatus());
     const recordings = useSelector(selectRecordings());
     const { outputTable } = recordings;
@@ -35,21 +45,14 @@ const RenderRecordSection = () => {
         return (
             <>
                 <StartRecordButton />
-                <RecordNameInput />
+                {/* <PhantomStopRecordButton />
+                <PhantomInputRecordButton /> */}
             </>
         );
-    return <RecordButtons />;
-};
-function Recorder() {
-    const [newRecord, setNewRecord] = useState(false);
-    console.log(newRecord);
     return (
         <>
-            {newRecord ? (
-                <RenderRecordSection />
-            ) : (
-                <NewRecordButton setNewRecord={setNewRecord} />
-            )}
+            <RecordButtons recordStatus={recordStatus} />
+            <RecordNameInput />{' '}
         </>
     );
 }

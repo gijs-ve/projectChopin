@@ -15,3 +15,6 @@ export const cnInstrumentSquare =
 export const classNames = (...classes) => {
     return classes.filter(Boolean).join(' ');
 };
+
+export const cnRecorderButton =
+    'inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-2xl shadow-sm text-white bg-gray-500 hover:bg-blue-700';

@@ -1,4 +1,4 @@
-import { cnButton } from '../classNames';
+import { cnRecorderButton } from '../classNames';
 import { useDispatch } from 'react-redux';
 import { startRecording } from '../../store';
 
@@ -7,10 +7,11 @@ function ResumeRecordButton() {
     return (
         <>
             <button
-                className={cnButton}
+                className={cnRecorderButton}
                 onClick={() => dispatch(startRecording())}
             >
-                Resume recording
+                <div className="h-4 w-4 bg-red-900 rounded-full mr-4 pr-4"></div>
+                Rec
             </button>
         </>
     );

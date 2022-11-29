@@ -1,17 +1,18 @@
-import { cnButton } from '../classNames';
-import { useDispatch, useSelector } from 'react-redux';
-import { pauseRecording, selectRecordStatus } from '../../store';
-import { useState, useEffect } from 'react';
+import { cnRecorderButton } from '../classNames';
+import { useDispatch } from 'react-redux';
+import { pauseRecording } from '../../store';
 
 function PauseRecordButton() {
     const dispatch = useDispatch();
-    const recordStatus = useSelector(selectRecordStatus());
     const handlePauseRecord = () => {
         dispatch(pauseRecording());
     };
     return (
-        <button className={cnButton} onClick={() => handlePauseRecord()}>
-            Pause recording
+        <button
+            className={cnRecorderButton}
+            onClick={() => handlePauseRecord()}
+        >
+            <div className="h-4 w-4 bg-red-500 rounded-full mr-4 pr-4"></div>Rec
         </button>
     );
 }
