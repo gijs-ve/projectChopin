@@ -7,7 +7,12 @@ import {
     editPreset,
 } from '../../store/hotkeys';
 import { playSound } from '../../components/sound/soundFunctions';
-import { PresetsSelection, SoundPlayer } from '../../components';
+import {
+    PresetsSelection,
+    SoundPlayer,
+    HotkeySquare,
+    HotkeySquareUnbound,
+} from '../../components';
 import { cnButton, cnButtonUnbound } from '../../components/classNames';
 
 function HotkeysSettings() {
@@ -67,17 +72,13 @@ function HotkeysSettings() {
             if (!inputKey || inputKey === '-') {
                 return (
                     <>
-                        <button type="button" className={cnButtonUnbound}>
-                            Unbound
-                        </button>
+                        <HotkeySquareUnbound inputKey={'...'} />
                     </>
                 );
             }
             return (
                 <>
-                    <button type="button" className={cnButton}>
-                        {inputKey}
-                    </button>
+                    <HotkeySquare inputKey={inputKey} />
                 </>
             );
         };

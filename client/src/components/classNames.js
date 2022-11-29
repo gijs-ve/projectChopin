@@ -8,8 +8,10 @@ export const roomText =
     'text-white group items-center px-2 py-2 text-base font-medium';
 export const cnHotkeySquare =
     'inline-flex place-content-center items-center w-12 h-12 rounded-full border border-transparent text-base font-medium shadow-sm text-white bg-gray-400';
+export const cnHotkeySquareUnbound =
+    'inline-flex place-content-center items-center w-16 h-12 rounded-full border border-transparent text-base font-medium shadow-sm text-white bg-red-400';
 export const cnInstrumentSquare =
-    'inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium shadow-sm text-white bg-gray-500 hover:bg-blue-700 rounded-full';
+    'inline-flex items-center px-6 py-2 ml-4 border border-transparent text-base font-medium shadow-sm text-white bg-gray-500 hover:bg-blue-700 rounded-full';
 export const classNames = (...classes) => {
     return classes.filter(Boolean).join(' ');
 };
