@@ -1,0 +1,6 @@
+const getUsersFromRoom = (roomId, rooms) => {
+    const room = rooms.find((i) => i.roomId === roomId);
+
+    return room.users;
+};
+module.exports = getUsersFromRoom;

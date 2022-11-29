@@ -41,6 +41,8 @@ io.on('connection', (socket) => {
     const isStringHexColor = require('./functions/getRandomImage');
     const getRandomColor = require('./functions/getRandomColor');
     const getPlayerColorFromId = require('./functions/getPlayerColorFromId');
+    const getUsersFromRoom = require('./functions/getUsersFromRoom');
+
     socket.on('createRoom', async (token) => {
         try {
             const JWTData = toData(token);
@@ -128,10 +130,18 @@ io.on('connection', (socket) => {
     });
     socket.on('sendSound', (sound, roomId) => {
         try {
+            console.log(roomId);
             const color = getPlayerColorFromId(socket.id, roomId, rooms);
+            const roomUsers = getUsersFromRoom(roomId, rooms);
+            console.log(roomUsers);
+            roomUsers.map((i) => {
+                if (i.id === socket.id) return;
+                socket.to(i.id).emit('receiveSound', sound, color);
+            });
             socket.emit('receiveSound', sound, color);
-            socket.to(roomId).emit('receiveSound', sound, color);
-        } catch (error) {}
+        } catch (error) {
+            console.log(error);
+        }
     });
     socket.on('disconnecting', () => {
         try {
@@ -168,7 +178,7 @@ io.on('connection', (socket) => {
     socket.on('leaveRoom', () => {
         try {
             const disconnectedIds = socket.rooms;
-            const newRoomList = rooms.map((i) => {
+            const unfilteredRoomList = rooms.map((i) => {
                 const newUsers = i.users.filter((j) => {
                     if (disconnectedIds.has(j.id)) {
                         return false;
@@ -180,6 +190,7 @@ io.on('connection', (socket) => {
                         if (i.hostId !== j.id) return true;
                         return false;
                     });
+                    if (!newHost) return undefined;
                     return {
                         ...i,
                         hostName: newHost.name,
@@ -189,10 +200,14 @@ io.on('connection', (socket) => {
                 }
                 return { ...i, users: newUsers };
             });
+            const newRoomList = unfilteredRoomList.filter(
+                (i) => i !== undefined,
+            );
             rooms = newRoomList;
             rooms.map((i) => {
                 socket.to(i.roomId).emit('roomUpdate', i);
             });
+
             socket.emit('roomUpdate', null);
         } catch (error) {
             console.log(error);
