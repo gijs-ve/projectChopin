@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { io } from 'socket.io-client';
-import { socketUrl } from '../config/constants';
+
 import { setRoom, selectRoom } from '../store/multiplayer';
 import { SocketContext } from '../components/MultiplayerPage/socket';
 import { RenderRoom } from '../components';
@@ -37,25 +36,7 @@ function MultiplayerPage() {
         socket.on('roomUpdate', (newRoom) => {
             dispatch(setRoom(newRoom));
         });
-        socket.on('receiveSound', (sound, color) => {
-            playSound(sound);
-            const height = convertSoundToHeight(sound);
-            dispatch(
-                addSound({
-                    output: sound,
-                    origin: undefined,
-                    color,
-                    height,
-                }),
-            );
-            if (!recordStatus) return;
-            dispatch(
-                addRecord({
-                    soundName: convertOutputToName(sound),
-                }),
-            );
-            return;
-        });
+
         if (!user || !token) return;
         const createRoom = () => {
             if (!socket || !socket.connected) return;
@@ -82,6 +63,28 @@ function MultiplayerPage() {
         };
         setMultiplayerFunctions(multiplayerFunctions);
     }, [id]);
+
+    useEffect(() => {
+        socket.on('receiveSound', (sound, color) => {
+            playSound(sound);
+            const height = convertSoundToHeight(sound);
+            dispatch(
+                addSound({
+                    output: sound,
+                    origin: undefined,
+                    color,
+                    height,
+                }),
+            );
+            if (!recordStatus) return;
+            dispatch(
+                addRecord({
+                    soundName: convertOutputToName(sound),
+                }),
+            );
+            return;
+        });
+    }, [recordStatus]);
     if (!multiplayerFunctions) return;
 
     return (

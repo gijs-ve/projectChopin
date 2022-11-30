@@ -35,6 +35,7 @@ function SoundPlayer(p) {
         };
         const handleSound = (soundToPlay) => {
             const { sendSound, roomId } = p;
+
             if (!sendSound || !roomId) {
                 playSound(soundToPlay.output);
                 dispatch(
@@ -44,6 +45,7 @@ function SoundPlayer(p) {
                         height: soundToPlay.height,
                     }),
                 );
+
                 if (!recordStatus) return;
                 dispatch(
                     addRecord({

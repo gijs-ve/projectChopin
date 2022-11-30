@@ -1,29 +1,40 @@
 import { useState, useEffect } from 'react';
 import { cnButton } from '../classNames';
 import { useDispatch, useSelector } from 'react-redux';
-import { confirmRecordName, selectProfileName } from '../../store';
+import { confirmRecordName, selectProfileName, selectName } from '../../store';
 
-function RecordNameInput() {
-    const [recordName, setRecordName] = useState('');
+function RecordNameInput(p) {
+    const { phantom } = p;
     const name = useSelector(selectProfileName);
+    const recordName = useSelector(selectName);
     const dispatch = useDispatch();
     useEffect(() => {
-        setRecordName(`${name}'s recording`);
+        if (!phantom) {
+            dispatch(confirmRecordName(`${name}'s recording`));
+            return;
+        }
+        dispatch(confirmRecordName(``));
     }, []);
     return (
         <>
             <input
                 type="text"
-                className="ml-12"
+                className={
+                    phantom
+                        ? 'ml-4 h-1/2 self-center bg-gray-400'
+                        : 'ml-4 h-1/2 self-center'
+                }
                 value={recordName}
-                onChange={(e) => setRecordName(e.target.value)}
+                onChange={(e) =>
+                    phantom ? null : dispatch(confirmRecordName(e.target.value))
+                }
             />
-            <button
+            {/* <button
                 className={cnButton}
                 onClick={() => dispatch(confirmRecordName(recordName))}
             >
                 Set name
-            </button>
+            </button> */}
         </>
     );
 }

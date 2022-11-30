@@ -18,7 +18,6 @@ export const recorderSlice = createSlice({
     initialState,
     reducers: {
         confirmRecordName: (state, action) => {
-            console.log(action.payload);
             state.name = action.payload;
         },
         startRecording: (state) => {
@@ -42,6 +41,7 @@ export const recorderSlice = createSlice({
         },
         addRecord: (state, action) => {
             const { soundName } = action.payload;
+            console.log(soundName);
             if (state.outputTable.length === 0) {
                 state.outputTable.push({
                     time: 100,

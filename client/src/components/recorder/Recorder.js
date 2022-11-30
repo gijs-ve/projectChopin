@@ -6,7 +6,6 @@ import {
     PauseRecordButton,
     SaveRecordButton,
     ResumeRecordButton,
-    NewRecordButton,
     RecordHandler,
     RecordNameInput,
 } from '.';
@@ -24,7 +23,7 @@ const RecordButtons = (p) => {
             <>
                 <PauseOrResume />
                 <SaveRecordButton phantom={true} />
-                <StopRecordButton />
+                <StopRecordButton phantom={true} />
                 <RecordHandler />
             </>
         );
@@ -45,8 +44,9 @@ function Recorder() {
         return (
             <>
                 <StartRecordButton />
+                <SaveRecordButton phantom={true} />
                 <StopRecordButton phantom={true} />
-                {/* <PhantomInputRecordButton /> */}
+                <RecordNameInput phantom={true} />{' '}
             </>
         );
     return (
