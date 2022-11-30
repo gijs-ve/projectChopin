@@ -1,17 +1,18 @@
-import { cnRecorderButton } from '../classNames';
+import { cnRecorderButton, cnRecorderButtonPhantom } from '../classNames';
 import { useDispatch } from 'react-redux';
 import { startRecording } from '../../store';
-import { StopIcon } from '@heroicons/react/24/outline';
 
-function StartRecordButton() {
+function StartRecordButton(p) {
+    const { phantom } = p;
     const dispatch = useDispatch();
     return (
         <>
             <button
-                className={cnRecorderButton}
+                className={phantom ? cnRecorderButtonPhantom : cnRecorderButton}
                 onClick={() => dispatch(startRecording())}
             >
-                Start record
+                <div className="h-4 w-4 bg-red-900 rounded-full mr-4 pr-4"></div>
+                Rec
             </button>
         </>
     );

@@ -23,7 +23,7 @@ const RecordButtons = (p) => {
         return (
             <>
                 <PauseOrResume />
-                {/* PhantonSaveButton */}
+                <SaveRecordButton phantom={true} />
                 <StopRecordButton />
                 <RecordHandler />
             </>
@@ -45,8 +45,8 @@ function Recorder() {
         return (
             <>
                 <StartRecordButton />
-                {/* <PhantomStopRecordButton />
-                <PhantomInputRecordButton /> */}
+                <StopRecordButton phantom={true} />
+                {/* <PhantomInputRecordButton /> */}
             </>
         );
     return (
