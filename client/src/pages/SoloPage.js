@@ -8,9 +8,11 @@ import {
 function SoloPage() {
     return (
         <div>
-            <SoundPlayer status={'active'} />
+            <div className="py-4 border-4 border-b-0 border-stone-800 rounded-t-xl bg-stone-700 flex flex-wrap">
+                <SoundPlayer status={'active'} />
+            </div>
             <Displayer />
-            <div className="flex flex-wrap">
+            <div className="py-4 border-4 border-t-0 border-stone-800 rounded-b-xl bg-stone-700 flex flex-wrap">
                 <Recorder />
                 <RecordListener status={'onInstrumentPage'} />
             </div>

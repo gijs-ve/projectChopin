@@ -21,18 +21,18 @@ const RecordButtons = (p) => {
     if (recordStatus) {
         return (
             <>
+                <ClearRecordButton phantom={true} />
                 <PauseOrResume />
                 <SaveRecordButton phantom={true} />
-                <ClearRecordButton phantom={true} />
                 <RecordHandler />
             </>
         );
     }
     return (
         <>
+            <ClearRecordButton />
             <PauseOrResume />
             <SaveRecordButton />
-            <ClearRecordButton />
         </>
     );
 };
@@ -43,9 +43,9 @@ function Recorder() {
     if ((!outputTable || outputTable.length === 0) && !recordStatus)
         return (
             <>
+                <ClearRecordButton phantom={true} />
                 <StartRecordButton />
                 <SaveRecordButton phantom={true} />
-                <ClearRecordButton phantom={true} />
                 <RecordNameInput phantom={true} />{' '}
             </>
         );

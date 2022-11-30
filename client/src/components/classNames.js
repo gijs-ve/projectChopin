@@ -17,7 +17,7 @@ export const classNames = (...classes) => {
 };
 
 export const cnRecorderButton =
-    'inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-2xl shadow-sm text-white bg-gray-500 hover:bg-gray-400';
+    'inline-flex items-center px-6 py-3 ml-4 border border-stone-800 border-transparent text-base font-medium rounded-2xl shadow-sm text-white bg-gray-500 hover:bg-gray-400';
 
 export const cnRecorderButtonPhantom =
-    'inline-flex items-center px-6 py-3 ml-4 border border-transparent text-base font-medium rounded-2xl shadow-sm text-white bg-gray-700';
+    'inline-flex items-center px-6 py-3 ml-4 border border-stone-800 border-transparent text-base font-medium rounded-2xl shadow-sm text-white bg-gray-700';

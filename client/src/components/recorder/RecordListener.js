@@ -1,11 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    selectRecordList,
-    toggleListening,
-    selectListenStatus,
-    setActiveRecord,
-} from '../../store';
+import { toggleListening, selectListenStatus } from '../../store';
 import { cnButton } from '../classNames';
+import { StopRecordButton, PlayRecordButton } from '.';
 import { RecordListenHandler } from './RecordListenerHandler';
 import { RecordSelection } from './RecordSelection';
 
@@ -17,14 +13,17 @@ function RecordListener(p) {
         if (status === 'onInstrumentPage' || status === 'multiplayer') {
             return (
                 <>
-                    <button
-                        className={cnButton}
-                        onClick={() => dispatch(toggleListening())}
-                    >
-                        {listenStatus ? 'Stop recording' : 'Play recording'}
-                    </button>
-
                     <RecordSelection />
+                    <div onClick={() => dispatch(toggleListening())}>
+                        {listenStatus ? (
+                            <StopRecordButton
+                                onClick={() => dispatch(toggleListening())}
+                            />
+                        ) : (
+                            <PlayRecordButton />
+                        )}
+                    </div>
+
                     <RecordListenHandler
                         sendSound={sendSound}
                         status={status}

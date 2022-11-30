@@ -16,7 +16,10 @@ function Displayer() {
         return () => clearInterval(interval);
     }, [playedSounds]);
     return (
-        <OutputCanvas className="w-full h-132 border-2" sounds={playedSounds} />
+        <OutputCanvas
+            className="w-full border-stone-800 h-132 border-2 border-l-4 border-r-4"
+            sounds={playedSounds}
+        />
     );
 }
 

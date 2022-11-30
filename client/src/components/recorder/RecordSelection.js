@@ -25,10 +25,8 @@ function RecordSelection() {
         <Listbox value={selected} onChange={setSelected}>
             {({ open }) => (
                 <>
-                    <Listbox.Label className="text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
-                        Record
-                    </Listbox.Label>
-                    <div className="relative mt-1">
+                    <Listbox.Label className=" text-white group flex items-center px-2 py-2 text-base font-medium rounded-md"></Listbox.Label>
+                    <div className="self-center relative">
                         <Listbox.Button className="text-white relative w-full cursor-default rounded-md border border-blue-300 bg-blue-600 py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
                             <span className="block truncate">
                                 {selected.name}

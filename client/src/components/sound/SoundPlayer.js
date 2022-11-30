@@ -153,16 +153,11 @@ function SoundPlayer(p) {
     };
 
     return (
-        <div>
-            <div className="flex flex-wrap ">
-                <RenderButtons />
-                <div className="ml-12 w-1/2">
-                    <PresetSelector />
-                </div>
-            </div>
-            <br />
+        <>
+            <RenderButtons />
+            <PresetSelector />
             <RenderInstrument />
-        </div>
+        </>
     );
 }
 
