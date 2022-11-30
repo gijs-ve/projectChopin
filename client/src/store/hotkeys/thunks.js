@@ -153,7 +153,6 @@ export const editSettings = (settings) => {
                 },
                 { headers: { Authorization: `Bearer ${token}` } },
             );
-            console.log(response);
             dispatch(refreshSelf());
             dispatch(appDoneLoading());
         } catch (error) {

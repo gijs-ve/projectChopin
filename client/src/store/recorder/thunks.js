@@ -213,7 +213,6 @@ export const addSharedKey = (key) => {
             );
             dispatch(refreshSelf());
             dispatch(addSharedRecord(response.data.record.recording));
-            console.log();
             dispatch(appDoneLoading());
         } catch (error) {
             if (error.response) {

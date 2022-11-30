@@ -133,7 +133,6 @@ io.on('connection', (socket) => {
             const color = getPlayerColorFromId(socket.id, roomId, rooms);
             const roomUsers = getUsersFromRoom(roomId, rooms);
             roomUsers.map((i) => {
-                console.log(sound);
                 if (i.id === socket.id) return;
                 socket.to(i.id).emit('receiveSound', sound, color);
             });

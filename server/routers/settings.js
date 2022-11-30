@@ -34,7 +34,6 @@ router.patch('/edit', authMiddleware, async (req, res) => {
             showdisplayer,
             showrecorder,
         } = userSettings;
-        console.log(hexcolor);
         await foundSettings.update({
             imageURL: imageurl,
             color: isStringHexColor(hexcolor) ? hexcolor : getRandomColor(),

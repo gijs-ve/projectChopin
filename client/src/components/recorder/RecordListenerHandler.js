@@ -9,7 +9,6 @@ function RecordListenHandler(p) {
     useEffect(() => {
         const interval = setInterval(() => {
             if (listenStatus && status !== 'multiplayer') {
-                console.log('test');
                 dispatch(checkSoundList());
             }
             if (listenStatus && status === 'multiplayer') {

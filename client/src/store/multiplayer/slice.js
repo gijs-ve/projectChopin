@@ -16,7 +16,6 @@ export const multiplayerSlice = createSlice({
             state.room = null;
         },
         setInRoom: (state, action) => {
-            console.log(action.payload);
             state.inRoom = true;
         },
     },

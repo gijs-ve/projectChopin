@@ -4,7 +4,6 @@ const { drum, piano } = defaultPreset;
 const sounds = [drum, piano];
 
 const playSound = (source) => {
-    console.log(source);
     new Howl({
         src: source,
         autoplay: true,

@@ -41,7 +41,6 @@ export const recorderSlice = createSlice({
         },
         addRecord: (state, action) => {
             const { soundName } = action.payload;
-            console.log(soundName);
             if (state.outputTable.length === 0) {
                 state.outputTable.push({
                     time: 100,
