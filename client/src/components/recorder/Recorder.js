@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
     StartRecordButton,
-    StopRecordButton,
+    ClearRecordButton,
     PauseRecordButton,
     SaveRecordButton,
     ResumeRecordButton,
@@ -23,7 +23,7 @@ const RecordButtons = (p) => {
             <>
                 <PauseOrResume />
                 <SaveRecordButton phantom={true} />
-                <StopRecordButton phantom={true} />
+                <ClearRecordButton phantom={true} />
                 <RecordHandler />
             </>
         );
@@ -32,7 +32,7 @@ const RecordButtons = (p) => {
         <>
             <PauseOrResume />
             <SaveRecordButton />
-            <StopRecordButton />
+            <ClearRecordButton />
         </>
     );
 };
@@ -45,7 +45,7 @@ function Recorder() {
             <>
                 <StartRecordButton />
                 <SaveRecordButton phantom={true} />
-                <StopRecordButton phantom={true} />
+                <ClearRecordButton phantom={true} />
                 <RecordNameInput phantom={true} />{' '}
             </>
         );

@@ -36,13 +36,11 @@ function MultiplayerPage() {
         socket.on('roomUpdate', (newRoom) => {
             dispatch(setRoom(newRoom));
         });
-
         if (!user || !token) return;
         const createRoom = () => {
             if (!socket || !socket.connected) return;
             socket.emit('createRoom', token);
         };
-
         const sendSound = (sound, roomdId) => {
             if (!socket || !socket.connected) return;
             socket.emit('sendSound', sound, roomdId);
