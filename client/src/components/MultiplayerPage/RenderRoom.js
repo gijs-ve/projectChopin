@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { roomText } from '../classNames';
 import { SoundPlayer, Displayer, Recorder, RecordListener } from '..';
-import { Routes, Route } from 'react-router-dom';
+import { UserList } from '.';
 
 const RenderRoom = (p) => {
     const { setId, id, room, socket, multiplayerFunctions } = p;
     const [inputId, setInputId] = useState('');
-    console.log(room);
     if (!room || !id || !socket || !multiplayerFunctions) {
-        console.log('TEST');
         return (
             <div className="App">
                 <header className="app-header">Rooms</header>
@@ -44,72 +42,39 @@ const RenderRoom = (p) => {
             </div>
         );
     }
-    const HostOrNot = (i) => {
-        console.log(i);
-        if (i.name === room.hostName) {
-            return (
-                <>
-                    <div className="flex flex-wrap bg-gray-300 hover:bg-gray-100">
-                        <h1
-                            className={`px-2 py-2 text-base font-medium text-sm`}
-                            style={{ color: i.color }}
-                        >
-                            {i.name}
-                        </h1>
-                    </div>
-                </>
-            );
-        }
-        return (
-            <>
-                <div className="flex flex-wrap">
-                    <h1
-                        className={`px-2 py-2 text-base font-medium text-sm`}
-                        style={{ color: i.color }}
-                    >
-                        {i.name}
-                    </h1>
-                </div>
-            </>
-        );
-    };
-    const RenderUsers = () => {
-        const Users = room.users.map((i) => {
-            return (
-                <div
-                    key={i.id}
-                    className={`flex flex-wrap border-t-2 border-b-2 h-12`}
-                >
-                    <HostOrNot name={i.name} color={i.color} />
-                </div>
-            );
-        });
-        return Users;
-    };
+
     if (!room || !room.roomId) return;
     return (
         <>
-            <SoundPlayer
-                status="active"
-                sendSound={multiplayerFunctions.sendSound}
-                roomId={room.roomId}
-            />
-            <div className="flex flex-row w-full">
-                <Displayer className="w-11/12" />{' '}
-                <div className={`w-1/12 border-t-2 border-b-2 border-r-2`}>
-                    <div className={`${roomText}`}>{room.roomId}</div>
-                    <div className="mt-4">
-                        <RenderUsers />
-                    </div>
-                </div>
-            </div>
-            <div className="flex flex-wrap">
-                <Recorder />
+            <div className="py-4 border-4 border-b-0 border-stone-800 rounded-t-xl bg-stone-700 flex flex-wrap">
+                <SoundPlayer
+                    status="active"
+                    sendSound={multiplayerFunctions.sendSound}
+                    roomId={room.roomId}
+                />
                 <RecordListener
                     status="multiplayer"
                     sendSound={multiplayerFunctions.sendSound}
                     roomId={room.roomId}
                 />
+            </div>
+
+            <div className="flex flex-row w-full relative  ">
+                <Displayer />
+                <div
+                    className={`w-full border-t-4 border-b-4 border-r-4 bg-stone-700 border-stone-800 border-r-2 absolute bottom-0 left-0 flex flex-row `}
+                >
+                    <div
+                        className={`${roomText} border-x-4 border-stone-800 bg-stone-700`}
+                    >
+                        {room.roomId}
+                    </div>
+
+                    <UserList />
+                </div>
+            </div>
+            <div className="py-4 border-4 border-t-0 border-stone-800 rounded-b-xl bg-stone-700 flex flex-wrap">
+                <Recorder />
             </div>
         </>
     );

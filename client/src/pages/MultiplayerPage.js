@@ -63,7 +63,7 @@ function MultiplayerPage() {
     }, [id]);
 
     useEffect(() => {
-        socket.on('receiveSound', (sound, color) => {
+        const receiveSound = (sound, color) => {
             playSound(sound);
             const height = convertSoundToHeight(sound);
             dispatch(
@@ -81,7 +81,11 @@ function MultiplayerPage() {
                 }),
             );
             return;
-        });
+        };
+        socket.on('receiveSound', receiveSound);
+        return () => {
+            socket.off('receiveSound', receiveSound);
+        };
     }, [recordStatus]);
     if (!multiplayerFunctions) return;
 

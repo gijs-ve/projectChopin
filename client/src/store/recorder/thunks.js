@@ -128,9 +128,6 @@ export const checkSoundList = (sendSound, roomId) => {
             return;
         }
         const recordStatus = selectRecordingStatus(getState());
-        // const sortedOutPutTable = outputTable.sort((i, j) => {
-        //     return i.id - j.id;
-        // });
         console.log(record);
         if (!record || record.length === 0) return;
         record.map((i) => {
