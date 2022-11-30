@@ -122,7 +122,7 @@ const stringState = [
 ];
 export const defaultPreset = {
     id: 0,
-    name: 'default',
+    name: 'Default C',
     drum: drumState,
     piano: pianoState,
     strings: stringState,
