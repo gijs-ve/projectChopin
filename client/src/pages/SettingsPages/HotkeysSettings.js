@@ -161,7 +161,7 @@ function HotkeysSettings() {
     const ChangePreset = (p) => {
         const { currentPresetId, currentPreset } = p;
         const [test, setTest] = useState(false);
-        if (currentPresetId === 0) return;
+        if (currentPresetId <= 0) return;
         const savePreset = () => {
             dispatch(editPreset(currentPresetId, currentPreset));
         };
