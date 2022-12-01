@@ -1,9 +1,13 @@
 require('dotenv').config();
 const corsMiddleWare = require('cors');
-
+const { Server } = require('socket.io');
 //Server setup
 const express = require('express');
 const app = express();
+// HTTP Server setup
+const http = require('http');
+const server = http.createServer(app);
+
 const { PORT } = process.env;
 const { toData } = require('./auth/jwt');
 
@@ -12,15 +16,17 @@ const Users = require('./models/').users;
 const Settings = require('./models/').settings;
 
 //Socket setup
-const io = require('socket.io')(4001, {
-    cors: {
-        origin: [
-            'http://localhost:3000',
-            'http://192.168.0.118:3000',
-            'https://project-chopin.netlify.app/',
-        ],
-    },
-});
+const io = new Server(server);
+// (4001, {
+//     cors: {
+//         origin: [
+//             'http://localhost:3000',
+//             'http://192.168.0.118:3000',
+//             'http://192.168.104.108:3000',
+//             'https://project-chopin.netlify.app/',
+//         ],
+//     },
+// });
 const { v4 } = require('uuid');
 let rooms = [];
 
@@ -214,6 +220,6 @@ io.on('connection', (socket) => {
 });
 ('');
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 });

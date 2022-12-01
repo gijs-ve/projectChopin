@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": ""
+    "server:build": "cd server && npm i",
+    "server:start": "cd server && npm start",
+    "client:build": "cd client && npm i && npm run build",
+    "client:start": "cd client && npm run start"
   },
   "keywords": [],
   "author": "",

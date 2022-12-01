@@ -1,4 +1,4 @@
-export * from './UserPages';
+export * from './userPages';
 
 export * from './MainPage';
 export * from './SoloPage';
