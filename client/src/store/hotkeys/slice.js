@@ -18,6 +18,27 @@ const initialState = {
     instrument: 'drum',
 };
 
+const createNewHotkeys = (array, stringArray) => {
+    return array.map((i, index) => {
+        return { ...i, key: stringArray[index] };
+    });
+};
+const getStringFromType = (array, type) => {
+    const typeEntry = array.find((i) => {
+        if (i.type === type) return true;
+    });
+    return typeEntry.keysString.split('');
+};
+const createPreset = (id, name, drumString, PianoString) => {
+    const newPreset = {
+        id: id,
+        name: name,
+        drum: createNewHotkeys(drum, drumString),
+        piano: createNewHotkeys(piano, PianoString),
+    };
+    return newPreset;
+};
+
 export const hotkeysSlice = createSlice({
     name: 'hotkeys',
     initialState,
@@ -50,22 +71,24 @@ export const hotkeysSlice = createSlice({
                     piano,
                     strings,
                 },
+                createPreset(
+                    -2,
+                    'Default D',
+                    'QWER',
+                    '--Z-X-CV-B-N-MA-S-DF-G-H-JK-Q-WE-R-T-',
+                ),
+                createPreset(
+                    -3,
+                    'Default G',
+                    'QWER',
+                    '-------Z-X-CV-B-N-MA-S-DF-G-H-JK-Q-WE',
+                ),
             ];
             if (!presetArray || presetArray.length === 0) {
                 state.presets = newPresetArray;
                 return;
             }
-            const createNewHotkeys = (array, stringArray) => {
-                return array.map((i, index) => {
-                    return { ...i, key: stringArray[index] };
-                });
-            };
-            const getStringFromType = (array, type) => {
-                const typeEntry = array.find((i) => {
-                    if (i.type === type) return true;
-                });
-                return typeEntry.keysString.split('');
-            };
+
             presetArray.map((i) => {
                 const pushedPreset = {
                     id: i.id,
@@ -79,6 +102,7 @@ export const hotkeysSlice = createSlice({
                         getStringFromType(i.hotkeys, 'piano'),
                     ),
                 };
+                console.log(pushedPreset);
                 newPresetArray.push(pushedPreset);
             });
             state.presets = newPresetArray;
