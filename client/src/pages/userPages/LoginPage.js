@@ -25,27 +25,31 @@ export const LoginPage = (p) => {
     };
 
     return (
-        <div>
-            <div>
-                <h1>Login</h1>
-                <form onSubmit={submitForm}>
+        <div className="flex flex-col flex-wrap content-center text-center border-2 bg-red-100 my-[10%] mx-[25%]">
+            <form onSubmit={submitForm}>
+                <div>
+                    <h1>Login</h1>
+
                     <input
                         placeholder="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
+                </div>
+                <div>
+                    <h1>Password</h1>
                     <input
                         type="password"
                         placeholder="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <br />
-                    <button type="submit">Login</button>
-                </form>
-                <div onClick={() => setSignUpActive(!signUpActive)}>
-                    <h2>Don't have an account yet? Click here to sign up</h2>
                 </div>
+                <br />
+                <button type="submit">Login</button>
+            </form>
+            <div onClick={() => setSignUpActive(!signUpActive)}>
+                <h2>Don't have an account yet? Click here to sign up</h2>
             </div>
         </div>
     );

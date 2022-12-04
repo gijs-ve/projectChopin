@@ -1,2 +1,2 @@
 export * from './OutputCanvas';
-export * from './displayer';
+export * from './Displayer';
