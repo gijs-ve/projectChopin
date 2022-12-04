@@ -25,7 +25,7 @@ export const LoginPage = (p) => {
     };
 
     return (
-        <div className="flex flex-col flex-wrap content-center text-center border-2 bg-red-100 my-[10%] mx-[25%]">
+        <div className="flex flex-col flex-wrap border-4 border-gray-300 content-center text-center border-2 bg-gray-100 my-[10%] mx-[25%]">
             <form onSubmit={submitForm}>
                 <div>
                     <h1>Login</h1>
