@@ -210,7 +210,6 @@ function MainPage() {
                                 <Router />
                             </div>
                         </div>
-                        <div className="pb-96 bg-gray-600"></div>
                     </main>
                 </div>
             </div>

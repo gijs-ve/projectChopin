@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { login, selectToken } from '../../store/user';
+import { cnButton, whiteLabel } from '../../components/classNames';
 
 export const LoginPage = (p) => {
     const [name, setName] = useState('');
@@ -25,30 +26,37 @@ export const LoginPage = (p) => {
     };
 
     return (
-        <div className="flex flex-col flex-wrap border-4 border-gray-300 content-center text-center border-2 bg-gray-100 my-[10%] mx-[25%]">
+        <div className="flex flex-col flex-wrap border-4 rounded-xl border-gray-300 content-center text-center border-2 bg-gray-400 my-[10%] mx-[25%]">
             <form onSubmit={submitForm}>
                 <div>
-                    <h1>Login</h1>
+                    <h1 className={whiteLabel + ' pl-24'}>Name</h1>
 
                     <input
-                        placeholder="name"
+                        className="h-[10%] w-[55%] py-[2%] pl-4"
+                        placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
                 <div>
-                    <h1>Password</h1>
+                    <h1 className={whiteLabel + ' pl-24'}>Password</h1>
                     <input
+                        className="h-[10%] w-[55%]"
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 <br />
-                <button type="submit">Login</button>
+                <button type="submit" className={cnButton}>
+                    Login
+                </button>
             </form>
-            <div onClick={() => setSignUpActive(!signUpActive)}>
+            <div
+                onClick={() => setSignUpActive(!signUpActive)}
+                className={whiteLabel + ' hover:cursor-pointer py-12'}
+            >
                 <h2>Don't have an account yet? Click here to sign up</h2>
             </div>
         </div>
