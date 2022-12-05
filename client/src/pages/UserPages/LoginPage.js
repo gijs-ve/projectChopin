@@ -52,13 +52,63 @@ export const LoginPage = (p) => {
                 <button type="submit" className={cnButton}>
                     Login
                 </button>
+
+                <div
+                    onClick={() => setSignUpActive(!signUpActive)}
+                    className={whiteLabel + ' hover:cursor-pointer py-12'}
+                >
+                    <h2>Don't have an account yet? Click here to sign up.</h2>
+                </div>
             </form>
-            <div
-                onClick={() => setSignUpActive(!signUpActive)}
-                className={whiteLabel + ' hover:cursor-pointer py-12'}
-            >
-                <h2>Don't have an account yet? Click here to sign up</h2>
-            </div>
         </div>
     );
 };
+
+let state = [
+    {
+        tournamentId: 0,
+        hostId: 13133113,
+        playerCount: 16,
+        games: [
+            {
+                gameId: 0,
+                ballPosition: { x: 0, y: 5 },
+                players: [
+                    { playerId: 13133113, score: 0 },
+                    { playerId: 555, score: 2 },
+                ],
+            },
+            {
+                gameId: 1,
+                ballPosition: { x: 133, y: 1333 },
+                players: [
+                    { playerId: 331, score: 3 },
+                    { playerId: 65555, score: 2 },
+                ],
+            },
+        ],
+    },
+    {
+        tournamentId: 0,
+        hostId: 13133113,
+        playerCount: 16,
+        games: [
+            {
+                gameId: 0,
+                ballPosition: { x: 0, y: 5 },
+                players: [
+                    { playerId: 13133113, score: 0 },
+                    { playerId: 555, score: 2 },
+                ],
+            },
+            {
+                gameId: 1,
+                ballPosition: { x: 133, y: 1333 },
+                players: [
+                    { playerId: 331, score: 3 },
+                    { playerId: 65555, score: 2 },
+                ],
+            },
+        ],
+    },
+];

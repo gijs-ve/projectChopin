@@ -57,7 +57,7 @@ export const SignUpPage = (p) => {
                     onClick={() => setSignUpActive(!signUpActive)}
                     className={whiteLabel + ' hover:cursor-pointer py-12'}
                 >
-                    <h2>Already have an account yet? Click here to login</h2>
+                    <h2>Already have an account? Click here to login.</h2>
                 </div>
             </form>
         </div>
