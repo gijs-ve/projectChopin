@@ -2,23 +2,17 @@ import { useState } from 'react';
 import { roomText } from '../classNames';
 import { SoundPlayer, Displayer, Recorder, RecordListener } from '..';
 import { UserList } from '.';
+import { cnButton, whiteLabel } from '../../components/classNames';
 
 const RenderRoom = (p) => {
     const { setId, id, room, socket, multiplayerFunctions } = p;
     const [inputId, setInputId] = useState('');
     if (!room || !id || !socket || !multiplayerFunctions) {
         return (
-            <div className="App">
-                <header className="app-header">Rooms</header>
+            <div className="flex flex-col flex-wrap border-4 rounded-xl border-gray-300 content-center text-center border-2 bg-gray-400 my-[10%] mx-[25%]">
                 {socket ? (
                     <>
-                        <button
-                            onClick={() => {
-                                multiplayerFunctions.createRoom();
-                            }}
-                        >
-                            Create room
-                        </button>
+                        <h1 className={whiteLabel}>Multiplayer</h1>
                         <br />
                         <form>
                             <input
@@ -27,14 +21,25 @@ const RenderRoom = (p) => {
                                 onChange={(e) => setInputId(e.target.value)}
                             />
                         </form>
-                        <button
-                            onClick={() => {
-                                setId(inputId);
-                                multiplayerFunctions.joinRoom();
-                            }}
-                        >
-                            Join room
-                        </button>
+                        <div className="flex flex-row">
+                            <button
+                                className={cnButton + ' my-4'}
+                                onClick={() => {
+                                    multiplayerFunctions.createRoom();
+                                }}
+                            >
+                                Create room
+                            </button>
+                            <button
+                                className={cnButton + ' my-4'}
+                                onClick={() => {
+                                    setId(inputId);
+                                    multiplayerFunctions.joinRoom();
+                                }}
+                            >
+                                Join room
+                            </button>
+                        </div>
                     </>
                 ) : (
                     <div>Attempting to connect...</div>
