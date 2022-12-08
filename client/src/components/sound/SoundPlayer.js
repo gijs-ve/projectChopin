@@ -12,7 +12,7 @@ import {
 } from '../../store/';
 import { useDispatch, useSelector } from 'react-redux';
 import { Piano, PresetsSelection } from '../../components';
-import { cnInstrumentSquare } from '../classNames';
+import { cnInstrumentSquare, cnInstrumentSquareChosen } from '../classNames';
 
 function SoundPlayer(p) {
     const dispatch = useDispatch();
@@ -121,13 +121,21 @@ function SoundPlayer(p) {
         return (
             <>
                 <button
-                    className={cnInstrumentSquare}
+                    className={
+                        instrument === 'drum'
+                            ? cnInstrumentSquareChosen
+                            : cnInstrumentSquare
+                    }
                     onClick={() => handleInstrument('drum')}
                 >
                     Drums
                 </button>
                 <button
-                    className={cnInstrumentSquare}
+                    className={
+                        instrument === 'piano'
+                            ? cnInstrumentSquareChosen
+                            : cnInstrumentSquare
+                    }
                     onClick={() => handleInstrument('piano')}
                 >
                     {' '}

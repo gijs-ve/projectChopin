@@ -15,7 +15,10 @@ export const cnHotkeySquare =
 export const cnHotkeySquareUnbound =
     'inline-flex place-content-center items-center w-16 h-12 rounded-2xl border border-transparent text-base font-medium shadow-sm text-white bg-red-400';
 export const cnInstrumentSquare =
-    'inline-flex items-center px-6 py-2 ml-4 border border-transparent text-base font-medium shadow-sm text-white bg-gray-500 hover:bg-blue-700 rounded-full';
+    'inline-flex items-center px-6 py-3 ml-4 border border-stone-800 border-transparent text-base font-medium rounded-2xl shadow-sm text-white bg-gray-500 hover:bg-gray-400';
+export const cnInstrumentSquareChosen =
+    'inline-flex items-center px-6 py-3 ml-4 border border-stone-800 border-transparent text-base font-medium rounded-2xl shadow-sm text-white bg-blue-700 hover:bg-blue-600';
+
 export const classNames = (...classes) => {
     return classes.filter(Boolean).join(' ');
 };

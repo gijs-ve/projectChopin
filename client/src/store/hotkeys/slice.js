@@ -72,17 +72,29 @@ export const hotkeysSlice = createSlice({
                     strings,
                 },
                 createPreset(
-                    -2,
-                    'Default D',
-                    'QWER',
-                    '--Z-X-CV-B-N-MA-S-DF-G-H-JK-Q-WE-R-T-',
-                ),
-                createPreset(
                     -3,
                     'Default G',
                     'QWER',
                     '-------Z-X-CV-B-N-MA-S-DF-G-H-JK-Q-WE',
                 ),
+                createPreset(
+                    -4,
+                    'Default Am',
+                    'QWER',
+                    '---------Z-XC-V-BN-M-A-SD-F-GH-J-K-Q-',
+                ),
+                createPreset(
+                    -5,
+                    'Default F',
+                    'QWER',
+                    '-----Z-X-CV-B-N-MA-S-DF-G-H-JK-Q-WE-R',
+                ),
+                // createPreset(
+                //     -6,
+                //     'Default D',
+                //     'QWER',
+                //     '--Z-X-CV-B-N-MA-S-DF-G-H-JK-Q-WE-R-T-',
+                // ),
             ];
             if (!presetArray || presetArray.length === 0) {
                 state.presets = newPresetArray;
