@@ -128,7 +128,6 @@ export const checkSoundList = (sendSound, roomId) => {
             return;
         }
         const recordStatus = selectRecordingStatus(getState());
-        console.log(record);
         if (!record || record.length === 0) return;
         record.map((i) => {
             playRecorderSound(i.output);
@@ -136,7 +135,7 @@ export const checkSoundList = (sendSound, roomId) => {
                 dispatch(
                     addSound({
                         output: convertNameToOutput(i.output),
-                        origin: 'self',
+                        origin: 'recorder',
                         height: convertNameToHeight(i.output),
                     }),
                 );

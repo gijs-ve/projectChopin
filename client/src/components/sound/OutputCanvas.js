@@ -14,6 +14,9 @@ const OutputCanvas = (p) => {
             if (!i.color) {
                 color = userColor;
             }
+            if (i.origin === 'recorder') {
+                color = '#FF0000';
+            }
             if (i.color) {
                 color = i.color;
             }
