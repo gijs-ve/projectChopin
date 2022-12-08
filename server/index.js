@@ -17,16 +17,6 @@ const Settings = require('./models/').settings;
 
 //Socket setup
 const io = new Server(server);
-// (4001, {
-//     cors: {
-//         origin: [
-//             'http://localhost:3000',
-//             'http://192.168.0.118:3000',
-//             'http://192.168.104.108:3000',
-//             'https://project-chopin.netlify.app/',
-//         ],
-//     },
-// });
 const { v4 } = require('uuid');
 let rooms = [];
 
