@@ -8,7 +8,7 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 
-const { PORT } = process.env;
+const PORT = process.env.REACT_APP_PORT;
 const { toData } = require('./auth/jwt');
 
 //Models

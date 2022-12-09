@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
-    return <div>HomePage</div>;
+    const navigate = useNavigate()
+    useEffect(() => {
+        navigate('/solo')
+    }, [])
+    return <div></div>;
 }
 export { HomePage };

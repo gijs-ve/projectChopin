@@ -4,7 +4,7 @@ const { toJWT } = require('../auth/jwt');
 const authMiddleware = require('../auth/middleware');
 const Users = require('../models/').users;
 const Settings = require('../models/').settings;
-const { SALT_ROUNDS } = process.env;
+const SALT_ROUNDS = process.env.REACT_APP_SALT_ROUNDS;
 const getRandomColor = require('../functions/getRandomColor');
 const getRandomImage = require('../functions/getRandomImage');
 
