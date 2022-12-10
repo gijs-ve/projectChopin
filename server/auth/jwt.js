@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
-const jwtSecret = process.env.REACT_APP_jwtSecret;
+const jwtSecret = process.env.jwtSecret;
 
 function toJWT(data) {
     return jwt.sign(data, jwtSecret, { expiresIn: '24h' });
