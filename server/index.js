@@ -5,8 +5,8 @@ const { Server } = require('socket.io');
 const express = require('express');
 const app = express();
 // HTTP Server setup
-const https = require('https');
-const server = https.createServer(app);
+const http = require('http');
+const server = http.createServer(app);
 
 const PORT = process.env.PORT;
 const { toData } = require('./auth/jwt');
