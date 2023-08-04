@@ -11,10 +11,21 @@ export const signUp = (name, password) => {
     return async (dispatch) => {
         dispatch(appLoading());
         try {
-            const response = await axios.post(`${apiUrl}/auth/signup`, {
-                name,
-                password,
-            });
+            const response = await axios.post(
+                `${apiUrl}/auth/signup`,
+                {
+                    name,
+                    password,
+                },
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Headers': 'Content-Type',
+                        'Access-Control-Allow-Methods':
+                            'GET, POST, PUT, DELETE',
+                    },
+                },
+            );
 
             dispatch(
                 loginSuccess({
