@@ -16,7 +16,13 @@ const Users = require('./models/').users;
 const Settings = require('./models/').settings;
 
 //Socket setup
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: '*',
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Access-Control-Allow-Origin'],
+    },
+});
 const { v4 } = require('uuid');
 let rooms = [];
 
