@@ -21,6 +21,7 @@ const io = new Server(server, {
         origin: '*',
         methods: ['GET', 'POST'],
         allowedHeaders: ['Access-Control-Allow-Origin'],
+        credentials: true,
     },
 });
 const { v4 } = require('uuid');

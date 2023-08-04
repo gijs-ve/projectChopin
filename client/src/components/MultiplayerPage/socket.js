@@ -7,5 +7,6 @@ export const socket = io(socketUrl, {
     extraHeaders: {
         'Access-Control-Allow-Origin': '*',
     },
+    withCredentials: true,
 });
 export const SocketContext = React.createContext(socket);
