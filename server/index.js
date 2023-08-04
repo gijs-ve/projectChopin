@@ -38,6 +38,9 @@ app.use('/auth', authRouter);
 app.use('/hotkeys', hotkeysRouter);
 app.use('/recordings', recordingsRouter);
 app.use('/settings', settingsRouter);
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
 io.on('connection', (socket) => {
     const isStringHexColor = require('./functions/getRandomImage');
