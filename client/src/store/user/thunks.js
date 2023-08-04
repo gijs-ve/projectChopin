@@ -55,10 +55,21 @@ export const login = (name, password) => {
     return async (dispatch) => {
         dispatch(appLoading());
         try {
-            const response = await axios.post(`${apiUrl}/auth/login`, {
-                name,
-                password,
-            });
+            const response = await axios.post(
+                `${apiUrl}/auth/login`,
+                {
+                    name,
+                    password,
+                },
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Headers': 'Content-Type',
+                        'Access-Control-Allow-Methods':
+                            'GET, POST, PUT, DELETE',
+                    },
+                },
+            );
 
             dispatch(
                 loginSuccess({
@@ -102,7 +113,12 @@ export const refreshSelf = () => {
         dispatch(appLoading());
         try {
             const response = await axios.get(`${apiUrl}/auth/self`, {
-                headers: { Authorization: `Bearer ${token}` },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Content-Type',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                },
             });
             dispatch(tokenStillValid({ user: response.data }));
             dispatch(setPresets(response.data.presets));
